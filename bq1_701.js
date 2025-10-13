@@ -54,6 +54,14 @@ var WHITELISTED_PROFESSIONS_HIGH_RISK_CREDIT_LIMIT = [
 	'MAHASISWA'
 ];
 
+var WHITELISTED_PROFESSIONS_COLLATERAL = [
+	'PEGAWAI BUMN', 
+	'PEGAWAI SWASTA', 
+	'PEGAWAI NEGERI',
+	'PROFESIONAL',
+	'WIRASWASTA'
+];
+
 var NOT_WORKING_PROFESSIONS = ['PELAJAR', 'TIDAK BEKERJA', 'IBU RUMAH TANGGA', 'MAHASISWA'];
 
 var PROFESSIONS_HIGH_RISK = [
@@ -306,6 +314,19 @@ var OFFLINE_HCF_GYM = [
     'f18 gym',
     'curves indonesia',
     'osbond gym'
+];
+
+var WHITELISTED_CAR_BRANDS = [
+	'TOYOTA',
+	'HONDA',
+	'SUZUKI',
+	'MITSUBISHI',
+	'DAIHATSU'
+];
+
+var WHITELISTED_MOTORCYCLE_BRANDS = [
+	'HONDA',
+	'YAMAHA'
 ];
 
 var MINIMUM_AGE = 20;
@@ -569,17 +590,21 @@ var is_company_rumah_sakit_manado = (stringUtils.contains(current_company_name.t
 var is_whitelisted_ath_via_limit_user = false;
 var is_access_btpl_cash_loan = false;
 
+if ((master_user_id == null || master_user_id == '') && (userId != null || userId != '')) {
+    master_user_id = userId
+}
+
 if (is_simulation == 1) {
     is_whitelisted_ath_via_limit_user = is_whitelisted_ath_via_limit_user_snapshot == 1 ? true : false;
 	is_access_btpl_cash_loan = is_whitelisted_ath_btpl_snapshot == 1 ? true : false;
 } else {
-    is_whitelisted_ath_via_limit_user = blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'phase-2-cash-loan-via-limit', 'whitelist', { "phoneNumber": applicant_mobile_phone_number }) ||
-											blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'phase-2-cash-loan-via-limit', 'btpl-cash-loan', { "phoneNumber": applicant_mobile_phone_number }) || 
-											blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'phase-2-cash-loan-via-limit', 'employee', { "phoneNumber": applicant_mobile_phone_number }) ;
+    is_whitelisted_ath_via_limit_user = blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'phase-2-cash-loan-via-limit', 'whitelist', { "userId": master_user_id }) ||
+											blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'phase-2-cash-loan-via-limit', 'btpl-cash-loan', { "userId": master_user_id }) || 
+											blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'phase-2-cash-loan-via-limit', 'employee', { "userId": master_user_id }) ;
    
-	is_access_btpl_cash_loan = blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'access-btpl-cash-loan', 'whitelist', {"phoneNumber": applicant_mobile_phone_number}) ||
-								blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'access-btpl-cash-loan', 'btpl-cash-loan', {"phoneNumber": applicant_mobile_phone_number}) ||
-								blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'access-btpl-cash-loan', 'employee', {"phoneNumber": applicant_mobile_phone_number});
+	is_access_btpl_cash_loan = blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'access-btpl-cash-loan', 'whitelist', {"userId": master_user_id}) ||
+								blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'access-btpl-cash-loan', 'btpl-cash-loan', {"userId": master_user_id}) ||
+								blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'access-btpl-cash-loan', 'employee', {"userId": master_user_id});
 }
 
 var number_of_related_indodana_credit_limit = number_of_related_blibli_tiket_indodana_credit_limit - number_of_related_blibli_tiket_credit_limit;
@@ -596,6 +621,23 @@ var is_repeat_order = ((is_eligible_offer_calculation) && (offerEvent != 'CLI_RE
 var is_not_cash_loan_repeat_order = !(is_repeat_order == 1 && product_type == 'CASH_LOAN');
 var is_not_cash_loan_existing = !(cash_origination == 'EXISTING' && product_type == 'CASH_LOAN');
 
+income = (income == null || income == "" || income == "-99" || income == "-999") ? 0 : income;
+other_income_per_month = (other_income_per_month == null || other_income_per_month == "" || other_income_per_month == "-99" || other_income_per_month == "-999") ? 0 : other_income_per_month;
+
+var combined_income = income + other_income_per_month;
+
+/* collateral related variables */
+/* Rapindo Result */
+var vehicleType = rapindo_result['asset']['type'] == null ? '-99' : rapindo_result['asset']['type'];
+var vehicleBrand = rapindo_result['asset']['brand'] == null ? '-99' : rapindo_result['asset']['brand'];
+var manufactureYear = rapindo_result['asset']['manufactureYear'] == null ? -99 : rapindo_result['asset']['manufactureYear'];
+var certStatus = rapindo_result['cert']['status'] == null ? '-99' : rapindo_result['cert']['status'];
+var fundingStatus = rapindo_result['funding']['status'] == null ? '-99' : rapindo_result['funding']['status'];
+/* STNK Data */
+var stnk_owner_name = vehicle_info['ownerName'] == null ? '-99' : vehicle_info['ownerName'];
+var is_collateral_under_same_name = (stringUtils.lowerCase(stnk_owner_name) == stringUtils.lowerCase(applicant_name));
+var vehicle_model = vehicle_info['model'] == null ? '-99' : vehicle_info['model'];
+var vehicle_fuel_type = vehicle_info['fuelType'] == null ? '-99' : vehicle_info['fuelType'];
 
 /* ------------------- Reject Reason -------------------*/
 var score_cut_off_reject_reason = '';
@@ -607,6 +649,7 @@ var job_reject_reason = '';
 var working_city_reject_reason = '';
 var prev_max_dpd_reject_reason = '';
 var blacklisted_location_reject_reason = '';
+var collateral_reject_reason = '';
 /* ------------------- score -------------------*/
 if ((product_type == 'CASH_LOAN' && (cash_origination == 'EXISTING') && adjusted_score < SCORE_CUT_OFF_REPEAT_ORDER_CASH_LOAN) ||
 	/* higher score cut off for non Jabodetabek Bandung Surabaya cash loan */
@@ -713,6 +756,12 @@ if (product_type == 'CREDIT_LIMIT' && partner == 'AVANTO' && !is_offline_applica
 	identity_score_cut_off_reject_reason = '';
 }
 
+// [CLI INDODANA ZALORA] LIKE OFFLINE HCF
+if (experiment_code == 'indodana_normal_set'){
+	if (product_type == 'CREDIT_LIMIT' && is_zalora_merchant_name_in_last_30_days == 'ZALORA' && !is_offline_applicant && is_whitelisted_profession_credit_limit) {
+		pass_bq_hcf = true;
+	}
+}
 
 /*[OFFLINE] Using affinity score; partner score; app_list_score*/
 if (product_type == 'CREDIT_LIMIT' && is_offline_applicant && is_whitelisted_profession_credit_limit) {
@@ -838,6 +887,64 @@ if (product_type == 'CASH_LOAN') {
 	}
 }*/
 
+/* ------------------- LOGIC - COLLATERAL LOAN -------------------*/
+if (product_type == 'COLLATERAL_LOAN') {
+	/* ------------------- salary -------------------*/
+	if (combined_income < 3000000) {
+		salary_cut_off_reject_reason = 'IA04';
+	}
+
+	/* ------------------- age -------------------*/
+	if ((applicant_age < 21 || applicant_age > 60)) {
+		age_cut_off_reject_reason = 'IA08';
+	}
+
+	/* ------------------- job -------------------*/
+	if ((!arrayUtils.contains(WHITELISTED_PROFESSIONS_COLLATERAL, stringUtils.upperCase(applicant_profession)))) {
+		job_reject_reason = 'CA07'; 
+	}
+
+	/* ------------------- working city -------------------*/
+	workInAverageArea = (mamunda_var_workInAverageArea == null) ? false : mamunda_var_workInAverageArea;
+
+	if (!workInAverageArea) {
+		working_city_reject_reason = 'IA03';
+	}
+
+	/* ------------------- score -------------------*/
+	if (score < 440) {
+		score_cut_off_reject_reason = 'JA01';
+	}
+	
+	/* ------------------- collateral related -------------------*/
+	/* -- reject manual dulu, masih not sure
+	if (certStatus == 'ACTIVE' || fundingStatus == 'ACTIVE') {  
+		collateral_reject_reason = 'CO01';
+	}*/
+
+	/* ------------------- CAR COLLATERAL -------------------*/
+	if (vehicleType == 'RODA_EMPAT') {
+		if (manufactureYear < 2015) {
+			collateral_reject_reason = 'CL01';
+		}
+		if ((!arrayUtils.contains(WHITELISTED_CAR_BRANDS, stringUtils.upperCase(vehicleBrand)))) {
+			collateral_reject_reason = 'CL02';
+		}
+	} /* ------------------- MOTORCYCLE COLLATERAL -------------------*/
+	else if (vehicleType == 'RODA_DUA') {
+		if (manufactureYear < 2018) {
+			collateral_reject_reason = 'CL01';
+		}
+		if ((!arrayUtils.contains(WHITELISTED_MOTORCYCLE_BRANDS, stringUtils.upperCase(vehicleBrand)))) {
+			collateral_reject_reason = 'CL02';
+		}
+	} else {
+		collateral_reject_reason = 'CL03';
+	}
+}
+
+
+
 /*------------------- approved blibli/tiket limit -------------------*/
 if ((product_type == 'CREDIT_LIMIT') && (!is_offline_applicant) && (is_repeat_order == 0) && (number_of_related_blibli_tiket_indodana_credit_limit > 0) && (adhoc_cashloan_score >= 380 || tiket_score_partner >= 420) && (is_not_cash_loan_repeat_order)) {
 	pass_bq = true;
@@ -962,7 +1069,7 @@ if (pass_bq == true) {
 	industry_reject_reason = '';
 	working_city_reject_reason = '';
 	prev_max_dpd_reject_reason = '';
-	blacklisted_location_reject_reason = '';
+	/* blacklisted_location_reject_reason = ''; */
 }
 
 if (pass_bq_hcf == true) {
@@ -974,7 +1081,7 @@ if (pass_bq_hcf == true) {
 	industry_reject_reason = '';
 	/* working_city_reject_reason = ''; */
 	prev_max_dpd_reject_reason = '';
-	blacklisted_location_reject_reason = '';
+	/* blacklisted_location_reject_reason = ''; */
 }
 
 /* cash new pilots or exceptions */
@@ -1057,7 +1164,7 @@ if (product_type == 'CASH_LOAN' && cash_origination == 'NEW') {
 
 	/* rejected by score or HA04 */
 	if (
-		((score_cut_off_reject_reason  == 'JA01') || (identity_score_cut_off_reject_reason == 'HA04'))
+		((score_cut_off_reject_reason  == 'JA01'))
 		&& (salary_cut_off_reject_reason == '')
 		&& (age_cut_off_reject_reason == '')
 		&& (job_reject_reason == '')
@@ -1069,14 +1176,14 @@ if (product_type == 'CASH_LOAN' && cash_origination == 'NEW') {
 		/* fdc null experiment */
 		if ((is_fdc_null == true) && (score >= 340) && (izi_max_multi_inquiries_90d <= 2) && (number_of_installed_loan_apps_within_14days <= 2)) {
 			score_cut_off_reject_reason = '';
-			identity_score_cut_off_reject_reason = '';
-			pull_getcontact_verify = true;
+			/* identity_score_cut_off_reject_reason = ''; -- stop experiment to approve low identity due to fraud attacks */
+			/* pull_getcontact_verify = true; */
 			log.info('cash_loan_fdc_null_low_izi_low_apps_score340_pefindo_never_late_good_cc_and_carloan');
 		/* fdc no disbursement last 1y and never late */
 		} else if ((discounted_sum_outstanding_late_1y == -1) && (fdc_maximum_dpd_no_filter <= 0) && (score >= 340)) {
 			score_cut_off_reject_reason = '';
-			identity_score_cut_off_reject_reason = '';
-			pull_getcontact_verify = true;
+			/* identity_score_cut_off_reject_reason = ''; -- stop experiment to approve low identity due to fraud attacks */
+			/* pull_getcontact_verify = true; */
 			log.info('cash_loan_fdc_nodisb1y_score340_fdc_pefindo_never_late_good_cc_and_carloan');
 		}
 	}
@@ -1103,7 +1210,12 @@ if (product_type == 'CASH_LOAN' && cash_origination == 'NEW') {
 
 /* ------------------ Cash webform linkaja fraud rule Feb 2025 ------------------ */
 
-if(submission_source == 'linkaja' || submission_source == 'cermati' || submission_source == 'imkas') {
+var WHITELISTED_SUBMISSION_SOURCE = [
+	'tiket_cash_loan', 
+	'blibli_cash_loan' 
+];
+
+if(!(arrayUtils.contains(WHITELISTED_SUBMISSION_SOURCE, stringUtils.lowerCase(submission_source))) && submission_source != '' && submission_source != null) {
 	blacklisted_location_reject_reason = 'BA04';
 }
 
@@ -1111,25 +1223,42 @@ if((indodana_fintech_flag == 'indodana') && (identity_score < 480) && (product_t
 	identity_score_cut_off_reject_reason = 'HA04';
 }
 
-result_string = score_cut_off_reject_reason + ';' + identity_score_cut_off_reject_reason + ';' + salary_cut_off_reject_reason + ';' + age_cut_off_reject_reason + ';' + job_reject_reason + ';' + industry_reject_reason + ';' + working_city_reject_reason + ';' + prev_max_dpd_reject_reason + ';' + blacklisted_location_reject_reason;
+if ((product_type == 'CASH_LOAN') && ((stringUtils.lowerCase(marketing_field['marketing_utmMedium']) == 'website') || (stringUtils.lowerCase(marketing_field['marketing_utmMedium']) == 'webform') || (stringUtils.upperCase(utm_medium) == 'WEBSITE') || (stringUtils.upperCase(utm_medium) == 'WEBFORM'))) {
+	identity_score_cut_off_reject_reason = 'HA04';
+}
 
+if ((product_type == 'CASH_LOAN') && (stringUtils.lowerCase(marketing_field['marketing_network']) == 'affiliate')) {
+	identity_score_cut_off_reject_reason = 'HA04';
+}
+
+if (((product_type == 'CASH_LOAN') || ((product_type == 'CREDIT_LIMIT') && (!is_offline_applicant))) && (identity_score < 440) && stringUtils.contains(applicant_mobile_phone_number, '62851')) {
+	identity_score_cut_off_reject_reason = 'HA04';
+}
+
+if (((product_type == 'CASH_LOAN') || ((product_type == 'CREDIT_LIMIT') && (!is_offline_applicant))) && (phone_model_class == '-99')) {
+	identity_score_cut_off_reject_reason = 'HA04';
+}
+
+result_string = score_cut_off_reject_reason + ';' + identity_score_cut_off_reject_reason + ';' + salary_cut_off_reject_reason + ';' + age_cut_off_reject_reason + ';' + job_reject_reason + ';' + industry_reject_reason + ';' + working_city_reject_reason + ';' + prev_max_dpd_reject_reason + ';' + blacklisted_location_reject_reason + ';' + collateral_reject_reason;
+
+/* checking if the result string is all approved */
+var result_string_trimmed = result_string;
+result_string_trimmed = result_string_trimmed.replace(';', '');
 
 /* Pull Digiscore income if passes BQ, stated income above 5mio, and DTLab salary returns empty */
-if (result_string == ';;;;;;;;' && income >= 5000000 && dtlab_salary <= 0) {
+if (result_string_trimmed == '' && income >= 5000000 && dtlab_salary <= 0) {
 	pull_digiscore = true;
 }
 
 if (((is_ibox_gan_digimap) || (nonmp_good_average) || (mp_good_average) || (is_hcf_gym)) && product_type == 'CREDIT_LIMIT' && is_offline_applicant && partner !='AVANTO'){
-	if (result_string == ';;;;;;;;' && identity_score < 480){
+	if (result_string_trimmed == '' && identity_score < 480){
 		pull_getcontact_verify = true;
 	}
 }
 
-if ((product_type == 'CASH_LOAN') && (cash_origination == 'EXISTING') && (result_string == ';;;;;;;;')) {
-    experiment_code = abTestingHelper.getVariation(orderId, 'BPS_CASH_EXISTING_MODEL', 'NORMAL');
-    if (experiment_code == 'BPS') {
-        pull_bps_score = true;
-    }
+if ((((product_type == 'CASH_LOAN') && (cash_origination == 'EXISTING')) || (product_type == 'COLLATERAL_LOAN')) 
+	&& (result_string_trimmed == '')) {
+    pull_bps_score = true;
 }
 
 if (blacklistHelper.isWhitelistedByNamespace('emails', 'demoOjk', { "email": applicant_personal_email.toLowerCase() })) {
@@ -1141,11 +1270,13 @@ if (blacklistHelper.isWhitelistedByNamespace('emails', 'demoOjk', { "email": app
         "ab_test_cash_new_approve_100": ab_test_cash_new_approve_100,
         "needScoreTeknologiCheck": false,
         "cash_origination": cash_origination,
+    	"cash_origination_user": cash_origination_user,
         "cash_city_tier": cash_city_tier,
         "needGCVerifyUser": pull_getcontact_verify,
         "needGCTagView": pull_getcontact_tagview,
 		"needBPSScore": pull_bps_score,
-	"messageTag": message_tag
+		"messageTag": message_tag,
+		"isCollateralUnderSameName": false
     }; 
 }
 
@@ -1158,11 +1289,13 @@ if (blacklistHelper.isWhitelistedByNamespace('emails', 'sqa-auto-approve-applica
         "ab_test_cash_new_approve_100": ab_test_cash_new_approve_100,
         "needScoreTeknologiCheck": false,
         "cash_origination": cash_origination,
+    	"cash_origination_user": cash_origination_user,
         "cash_city_tier": cash_city_tier,
         "needGCVerifyUser": false,
         "needGCTagView": false,
 		"needBPSScore": false,
-		"messageTag": message_tag
+		"messageTag": message_tag,
+		"isCollateralUnderSameName": false
     }; 
 }
 
@@ -1184,5 +1317,6 @@ return {
     "needGCVerifyUser": pull_getcontact_verify,
     "needGCTagView": pull_getcontact_tagview,
 	"needBPSScore": pull_bps_score,
-	"messageTag": message_tag
+	"messageTag": message_tag,
+	"isCollateralUnderSameName": is_collateral_under_same_name
 };

@@ -3,13 +3,16 @@
 var experiment_offline = 'offline_normal_set'; 
 
 var ab_code = 'indodana_normal_set';
+var ab_test_increase_cash_limit_middle_bin = '';
 var ab_test_cash_new_approve_100 = '';
 var ab_test_cash_rbp = '';
 var ab_test_cash_flexible_tenure = '';
 var ab_test_cli_va = '';
+var ab_test_remove_dbr_logic = '';
 var voucherId = '';
 var rateGroupKey = 'cash_loan';
 var autoAddWhitelistEcommerceVaPayment = false;
+var autoAddWhitelistNamespaces = [];
 
     var params = {
         'is_repeat_order': is_repeat_order,
@@ -356,8 +359,91 @@ var autoAddWhitelistEcommerceVaPayment = false;
 
     var OFFLINE_PRJ_STORE = [
         'dummy dummy prj 2025',
-        'oxxo sentral tekindo 001 - exhibition jakarta lebaran fair 2025',
-        'sunra retail indonesia 001 - exhibition jakarta lebaran fair 2025'
+        'indobuana auto raya e-motor 002 - exhibition jakarta fair kemayoran 2025',
+        'delapan lapan sejahtera 002 - tailg exhibition jakarta fair kemayoran 2025',
+        'delapan lapan sejahtera 003 - tailg motor listrik exhibition jakarta fair kemayoran 2025',
+        'lingkaran dua lestari 003 - ofero motor listrik exhibition jakarta fair kemayoran 2025',
+        'lingkaran dua lestari 004 - ofero sepeda listrik exhibition jakarta fair kemayoran 2025',
+        'sunra retail indonesia 003 - motor listrik exhibition jakarta fair kemayoran 2025',
+        'roda maju bahagia 005 - element exhibition jakarta fair kemayoran 2025',
+        'pacific indah pratama 008 - exhibition jakarta fair kemayoran 2025',
+        'polytron motor listrik 003 - sarana kencana mulya exhibition jakarta fair kemayoran 2025',
+        'oxxo sentral tekindo sepeda listrik 002 - yadea exhibition jakarta fair kemayoran 2025',
+        'xiaohei teknologi indonesia sepeda listrik 001 - saige exhibition jakarta fair kemayoran 2025',
+        'xiaohei teknologi indonesia 002 - saige motor listrik exhibition jakarta fair kemayoran 2025',
+        'sunra retail indonesia 002 - sepeda listrik exhibition jakarta fair kemayoran 2025',
+        'maka motor niaga 002 - exhibition jakarta fair kemayoran 2025',
+        'kiki motor persada 001 - volta motor listrik exhibition jakarta fair kemayoran 2025',
+        'sleep center mkp 26 - massindo karya prima comforta exhibition jakarta fair kemayoran 2025',
+        'dinamika indonusa prima 014 - airland exhibition jakarta fair kemayoran 2025',
+        'lady americana mattress 012 - cemerlang abadi mulya elite americana exhibition jakarta fair kemayoran 2025',
+        'sleep center mkp 27 - massindo karya prima therapedic exhibition jakarta fair kemayoran 2025',
+        'lady americana mattress 013 - cemerlang abadi mulya lady americana exhibition jakarta fair kemayoran 2025',
+        'gio furniture 011 - alga exhibition jakarta fair kemayoran 2025',
+        'romance grosir 018 - exhibition jakarta fair kemayoran 2025',
+        'belmont mattress 002 - belmont intertama perkasa exhibition jakarta fair kemayoran 2025',
+        'scandia 025 - exhibition jakarta fair kemayoran 2025',
+        'gio furniture 012 - m flow & gadie exhibition jakarta fair kemayoran 2025',
+        'harmoni abadi mandiri 009 - dunlopillo exhibition jakarta fair kemayoran 2025',
+        'sleep center mkp 28 - massindo karya prima spring air exhibition jakarta fair kemayoran 2025',
+        'advance 334 exhibition jakarta fair kemayoran 2025',
+        'neohaus 06 - neohaus exhibition jakarta fair kemayoran 2025',
+        'agres.id - agres.id & fone x intel exhibition jakarta fair kemayoran 2025',
+        'agres.id - agres.id gamer.id x amd exhibition jakarta fair kemayoran 2025',
+        'tokuyo 32 - exhibition jakarta fair kemayoran 2025',
+        'best price elektronik indonesia 009 - hitachi exhibition jakarta fair kemayoran 2025',
+        'rovos 06 - exhibition jakarta fair kemayoran 2025',
+        'gtn 284 - blibli exhibition jakarta fair kemayoran 2025',
+        'mii urban republic 071 - urban republic exhibition jakarta fair kemayoran 2025',
+        'master media 03 - exhibition jakarta fair kemayoran 2025',
+        'vivo store 43 - exhibition jakarta fair kemayoran 2025',
+        'nasa 177 - samsung exhibition jakarta fair kemayoran 2025',
+        'ufo 36 - ufo tcl exhibition jakarta fair kemayoran 2025',
+        'ibox 197 - ibox exhibition jakarta fair kemayoran 2025',
+        'dimarco mitra utama 20 - exhibition jakarta fair kemayoran 2025',
+        'sentral komputer 019 - sentral komputer exhibition jakarta fair kemayoran 2025',
+        'polytron elektronik 05 - sarana kencana mulya exhibition jakarta fair kemayoran 2025',
+        'usaha lancar mandiri 007 - lg exhibition jakarta fair kemayoran 2025',
+        'ufo 35 - ufo exhibition jakarta fair kemayoran 2025',
+        'usaha lancar mandiri 006 - sharp auvi exhibition jakarta fair kemayoran 2025',
+        'best price elektronik indonesia 006 - shark ninja exhibition jakarta fair kemayoran 2025',
+        'best price elektronik indonesia 007 - beko exhibition jakarta fair kemayoran 2025',
+        'usaha lancar mandiri 005 - aqua exhibition jakarta fair kemayoran 2025',
+        'ear 1201 - erafone exhibition jakarta fair kemayoran 2025',
+        'best price elektronik indonesia 008 - bosch exhibition jakarta fair kemayoran 2025',
+        'gan 25 - hello exhibition jakarta fair kemayoran 2025',
+        /* 'matahari 185 - jakarta fair kemayoran', */
+        /* 'gramedia 372 harapan indah', */
+        'kawan lama azko 261 pameran mag a962',
+        /* 'optik melawai 378 - exhibition jakarta fair kemayoran 2025', */
+        /* 'saturdays 65 - exhibition jakarta fair kemayoran 2025', */
+        /* 'league 16 - gpn 1', */
+        /* 'league 17 - gpn 3', */
+        /* 'league 18 - hall b extention', */
+        /* 'league 19 - hall c', */
+        /* 'league 20 - hall a', */
+        /* 'league 21 - pasar gambir tower barat', */
+        /* 'league 21 - pasar gambir barat patung budha', */
+        /* 'league 22 - hall b selasar', */
+        /* 'league 23 - hall d dalam', */
+        /* 'league 24 - hall open space', */
+        /* 'league 25 - prj d luar', */
+        /* 'league 26 - gpn 3 consignment', */
+        /* 'logo 011 - gambir expo', */
+        'electronic city 87 - exhibition jakarta fair kemayoran 2025',
+        /* 'oriskin 81 - exhibition jakarta fair kemayoran 2025', */
+        /* 'skin+ 68 exhibition jakarta fair kemayoran 2025', */
+        'perfect health 36 - exhibition jakarta fair kemayoran 2025',
+        /* 'intex 24 - exhibition jakarta fair kemayoran 2025', */
+        /* 'buccheri 140 - exhibition jakarta fair kemayoran 2025', */
+        /* 'gabino 80 - exhibition jakarta fair kemayoran 2025', */
+        'inlife 05 - exhibition jakarta fair kemayoran 2025',
+        /* '9to9 002 - exhibition jakarta fair kemayoran 2025', */
+        'gtn 289 - samsung blibli exhibition jakarta fair kemayoran 2025',
+        /* 'vapebay 02 - tri distrindo abadi exhibition jakarta fair kemayoran 2025', */
+        'best price elektronik indonesia 005 - bosh & beco exhibition jakarta fair kemayoran 2025',
+        'oxxo sentral tekindo motor listrik 003 - yadea exhibition jakarta fair kemayoran 2025',
+        'pimbi corp indonesia 001 - nuv sepeda listrik exhibition jakarta fair kemayoran 2025'
     ];
 
     var PRJ_DUMMY_LIST = [
@@ -468,6 +554,14 @@ var autoAddWhitelistEcommerceVaPayment = false;
         'fold'
     ];
 
+    var OFFLINE_TOP_PARETO_BRAND = [
+        /*List is here should be substring of merchants instead of brand name */
+        'kawan lama azko',
+        'kawan lama informa',
+        'kawan lama selma',
+        'atria'
+    ];
+
     var OFFLINE_PARETO_BRAND = [
         /*List is here should be substring of merchants instead of brand name */
         'kawan lama',
@@ -537,11 +631,23 @@ var autoAddWhitelistEcommerceVaPayment = false;
     }
 
     var cash_origination = (cash_category == '4. repeat cash' || cash_category == '2. cash new cli >=7d') ? 'EXISTING' : 'NEW';
-
-    /* for cash existing BPS AB */
-    if ((product_type == 'CASH_LOAN') && (cash_origination == 'EXISTING')) {
-        ab_code = abTestingHelper.getVariation(orderId, 'BPS_CASH_EXISTING_MODEL', 'NORMAL');
+    
+    /* Cash webform linkaja fraud rule Feb 2025, override KTP level definition need to clean later */
+    var cash_category_user = '';
+    
+    if (count_disbursed_cash_user > 0) {
+    	cash_category_user = '4. repeat cash';
+    } else if (count_disbursed_cash_user <= 0 && diff_day_from_first_cli_user >= 7) {
+    	cash_category_user = '2. cash new cli >=7d';
+    } else if (count_disbursed_cash_user <= 0 && diff_day_from_first_cli_user < 7 && diff_day_from_first_cli_user >= 0) {
+    	cash_category_user = '1b. cash new cli <7d';
+    } else {
+    	cash_category_user = '1a. totally first cash';
     }
+    
+    var cash_origination_user = (cash_category_user == '4. repeat cash' || cash_category_user == '2. cash new cli >=7d') ? 'EXISTING' : 'NEW';
+    
+    cash_origination = cash_origination_user;
     
     /********************************************************/
     /************************* LOGIC ************************/
@@ -626,6 +732,15 @@ var is_covered_cities_living_city = (mamunda_var_is_covered_cities_living_city =
 var is_covered_cities_tier_2_living_city = (mamunda_var_is_covered_cities_tier_2_living_city == null) ? false : mamunda_var_is_covered_cities_tier_2_living_city;
 var is_covered_cities_tier_3_living_city = (mamunda_var_is_covered_cities_tier_3_living_city == null) ? false : mamunda_var_is_covered_cities_tier_3_living_city;
 
+income = (income == null || income == "" || income == "-99" || income == "-999") ? 0 : income;
+other_income_per_month = (other_income_per_month == null || other_income_per_month == "" || other_income_per_month == "-99" || other_income_per_month == "-999") ? 0 : other_income_per_month;
+
+var combined_income = income + other_income_per_month;
+
+/* collateral related variables */
+var vehicleType = rapindo_result['asset']['type'] == null ? '-99' : rapindo_result['asset']['type'];
+var initial_collateral_value = collateral_info['price'] == null ? 0 : collateral_info['price'];
+
 var cash_city_tier = 'OTHER';
     if (product_type == 'CASH_LOAN') {
         if (is_covered_cities || is_covered_cities_living_city) {
@@ -645,8 +760,10 @@ var cash_city_tier = 'OTHER';
 
 
     var is_fdc_null = sum_amount_disbursed_total <= 0;
-    var is_offline_applicant = offline_transaction_applied_amount_without_multiplier > 0 || flag_treatment == 'hcf_treatment' || flag_treatment == 'mp_treatment';
-    var reinforced_score = (flag_treatment == 'hcf_treatment' || flag_treatment == 'mp_treatment') ? reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912 : reinforced_score;
+    var is_offline_applicant = offline_transaction_applied_amount_without_multiplier > 0 ;
+    var is_online_applicant_nearby_offline_merchant = product_type == 'CREDIT_LIMIT' && !is_offline_applicant && ( gps_nearby_offline_flag_treatment == 'hcf_treatment' || gps_nearby_offline_flag_treatment == 'mp_treatment');
+    var reinforced_score = is_online_applicant_nearby_offline_merchant ? reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912 : reinforced_score;
+
     var is_low_izi_inquiry = (izi_max_multi_inquiries_90d < 10) && (izi_max_multi_inquiries_14d < 4);
     var is_very_low_izi_inquiry = (izi_max_multi_inquiries_90d <= 2) && (izi_max_multi_inquiries_14d <= 1) && (number_of_installed_loan_apps_within_14days <= 3) 
         && (izi_reference_mobile_phone_number_multi_inquiries_total <= 3);
@@ -666,34 +783,38 @@ var cash_city_tier = 'OTHER';
     var is_whitelisted_ath_via_limit_user = false;
     var is_greylisted_ath_via_limit_user = false;
     var is_whitelisted_ath_btpl = false;
-        var is_whitelisted_ath_btpl_expansion = false;
+    var is_whitelisted_ath_btpl_expansion = false;
     var is_access_btpl_cash_loan = false;
     var is_access_blibli_btpl_cash_loan = false;
     var is_whitelisted_ath_btpl_blibli = false;
 
+    if ((master_user_id == null || master_user_id == '') && (userId != null || userId != '')) {
+        master_user_id = userId
+    }
+
     if (is_simulation == 1) {
         is_whitelisted_ath_via_limit_user = is_whitelisted_ath_via_limit_user_snapshot == 1 ? true : false;
         is_whitelisted_ath_btpl = is_whitelisted_ath_btpl_snapshot == 1 ? true : false;
-        is_whitelisted_ath_btpl_expansion = is_whitelisted_ath_btpl_snapshot == 1 ? true : false;
-        is_whitelisted_ath_btpl_blibli = is_whitelisted_ath_btpl_snapshot == 1 ? true : false;
+        is_whitelisted_ath_btpl_expansion = is_whitelisted_ath_btpl_expansion_snapshot == 1 ? true : false;
+        is_whitelisted_ath_btpl_blibli = is_whitelisted_ath_btpl_blibli_snapshot == 1 ? true : false;
         is_greylisted_ath_via_limit_user = is_greylisted_ath_via_limit_user_snapshot == 1 ? true : false;
         is_access_btpl_cash_loan = is_whitelisted_ath_btpl_snapshot == 1 ? true : false;
         is_access_blibli_btpl_cash_loan = is_whitelisted_ath_btpl_snapshot == 1 ? true : false;
     } else {
-        is_whitelisted_ath_via_limit_user = blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'phase-2-cash-loan-via-limit', 'whitelist', {"phoneNumber": applicant_mobile_phone_number}) || 
-                                            blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'phase-2-cash-loan-via-limit', 'btpl-cash-loan', {"phoneNumber": applicant_mobile_phone_number}) || 
-                                            blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'phase-2-cash-loan-via-limit', 'employee', {"phoneNumber": applicant_mobile_phone_number});
-        is_whitelisted_ath_btpl = blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'phase-2-cash-loan-via-limit', 'btpl-cash-loan', {"phoneNumber": applicant_mobile_phone_number});
-        is_whitelisted_ath_btpl_expansion = blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'access-btpl-cash-loan', 'whitelist', {"phoneNumber": applicant_mobile_phone_number});
-        is_greylisted_ath_via_limit_user = blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'phase-2-cash-loan-via-limit', 'greylist', {"phoneNumber": applicant_mobile_phone_number});
-        is_whitelisted_ath_btpl_blibli = blacklistHelper.isWhitelistedByNamespaceAndReason('phones', 'access-blibli-btpl-cash-loan', 'blibli-cash-loan', {"phoneNumber": applicant_mobile_phone_number});
+        is_whitelisted_ath_via_limit_user = blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'phase-2-cash-loan-via-limit', 'whitelist', {"userId": master_user_id}) || 
+                                            blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'phase-2-cash-loan-via-limit', 'btpl-cash-loan', {"userId": master_user_id}) || 
+                                            blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'phase-2-cash-loan-via-limit', 'employee', {"userId": master_user_id});
+        is_whitelisted_ath_btpl = blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'phase-2-cash-loan-via-limit', 'btpl-cash-loan', {"userId": master_user_id});
+        is_whitelisted_ath_btpl_expansion = blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'access-btpl-cash-loan', 'whitelist', {"userId": master_user_id});
+        is_greylisted_ath_via_limit_user = blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'phase-2-cash-loan-via-limit', 'greylist', {"userId": master_user_id});
+        is_whitelisted_ath_btpl_blibli = blacklistHelper.isWhitelistedByNamespaceAndReason('users', 'access-blibli-btpl-cash-loan', 'blibli-cash-loan', {"userId": master_user_id});
 
-        is_access_btpl_cash_loan = blacklistHelper.isWhitelistedByNamespace('phones', 'access-btpl-cash-loan', {"phoneNumber": applicant_mobile_phone_number});
-        is_access_blibli_btpl_cash_loan = blacklistHelper.isWhitelistedByNamespace('phones', 'access-blibli-btpl-cash-loan', {"phoneNumber": applicant_mobile_phone_number})
+        is_access_btpl_cash_loan = blacklistHelper.isWhitelistedByNamespace('users', 'access-btpl-cash-loan', {"userId": master_user_id});
+        is_access_blibli_btpl_cash_loan = blacklistHelper.isWhitelistedByNamespace('users', 'access-blibli-btpl-cash-loan', {"userId": master_user_id})
     }
 
     var number_of_related_indodana_credit_limit = number_of_related_blibli_tiket_indodana_credit_limit - number_of_related_blibli_tiket_credit_limit;
-    var whitelist_type = is_whitelisted_ath_btpl_blibli? 'ATH_VIA_BTPL_BLIBLI' : (is_whitelisted_ath_btpl? 'ATH_VIA_BTPL' : (is_whitelisted_ath_via_limit_user ? 'ATH_VIA_WHITELIST' : (is_greylisted_ath_via_limit_user ? 'ATH_VIA_GREYLIST' : 'NO_LIST')));
+    var whitelist_type = is_whitelisted_ath_btpl_blibli? 'ATH_VIA_BTPL_BLIBLI' : (is_whitelisted_ath_btpl? 'ATH_VIA_BTPL' : (is_whitelisted_ath_via_limit_user ? 'ATH_VIA_WHITELIST' : (is_greylisted_ath_via_limit_user ? 'ATH_VIA_GREYLIST' : (is_whitelisted_ath_btpl_expansion ? 'ATH_VIA_BTPL_EXPANSION' : 'NO_LIST'))));
     var is_cash_limit_calc_new_app = (product_type == 'CASH_LOAN' && requested_loan_amount == 0);
 
     /*Offer Calculation Logic*/
@@ -906,6 +1027,15 @@ var cash_city_tier = 'OTHER';
     } 
     */
 
+    /*Set Erafone Roadside Treatment*/
+    var is_erafone_roadside = false;
+    if (store_name.toLowerCase().split(' ')[0] == 'ear' && mall_name.toLowerCase() == 'roadside') {
+        is_erafone_roadside = true;
+    } 
+    if (['toko anugerah 02 - toko anugerah aroeppala makassar','toko anugerah 01 - toko anugerah gowa'].contains(store_name.toLowerCase())) {
+        is_erafone_roadside = true;
+    }
+
     /*Set iBox, GAN, Digimap category*/
     var is_ibox_gan_digimap = false;
     for (store_initial: OFFLINE_IBOX_GAN_DIGIMAP) {
@@ -932,6 +1062,17 @@ var cash_city_tier = 'OTHER';
         if (stringUtils.contains(store_name.toLowerCase(), store_initial)) {
             is_merchant_dekoruma = true;
         } 
+    }
+
+    /*Set Top Pareto Brand*/
+    var is_top_pareto_brand = false;
+    for (store_initial: OFFLINE_TOP_PARETO_BRAND) {
+        if (stringUtils.contains(store_name.toLowerCase(), store_initial)) {
+            is_top_pareto_brand = true;
+        } 
+    }
+    if (is_top_pareto_brand && (offline_sub_item_category.toLowerCase() == 'tv' || stringUtils.contains(store_name.toLowerCase(), 'informa elektronik'))) {
+        is_top_pareto_brand = false;
     }
 
     /*Set Pareto Brand*/
@@ -1046,6 +1187,8 @@ var cash_city_tier = 'OTHER';
     var max_amount = '';
     var max_amount_without_dbr = '';
     var max_amount_before_preapproved_telesales = '';
+    var max_amount_before_ab_test_limit_increase_wo_dbr = '';
+    var max_amount_before_ab_test_limit_increase = '';
     var bucketization = '';
     var temp_max_amount = '';
     var temp_bucketization = '';
@@ -1057,7 +1200,7 @@ var cash_city_tier = 'OTHER';
     /********************************************************/ 
     /********************* CASH LOAN - NEW ******************/
     /********************************************************/
-    if (product_type == 'CASH_LOAN' && cash_origination == 'NEW' && !is_whitelisted_ath_via_limit_user) {
+    if (product_type == 'CASH_LOAN' && cash_origination == 'NEW') {
         /* -------------- APPROVAL TAG --------------*/
         if (reinforced_score >= 410) {
             approval_tag = 'H4B';
@@ -1171,79 +1314,180 @@ var cash_city_tier = 'OTHER';
             if (((is_fdc_null) && (izi_max_multi_inquiries_90d <= 2) && (number_of_installed_loan_apps_within_14days <= 2))
                 || ((discounted_sum_outstanding_late_1y == -1) && (fdc_maximum_dpd_no_filter <= 0))
             ) {
-                if ((pefindo_max_payment_dpd == 0) && (reinforced_score >= 320) && ((max_limit_active_cc >= 5000000) || (pefindo_max_fourwheel_loan_amount >= 200000000))) {
-                    approval_tag = 'I83';
-                    max_amount = 3000000;
-                } else if ((pefindo_max_payment_dpd == 0) && (reinforced_score >= 320)) {
-                    approval_tag = 'I83';
-                    max_amount = 3000000;
-                } else if ((pefindo_max_payment_dpd >= 0) && (pefindo_max_payment_dpd < 30) && (pefindo_max_payment_dpd_last_5_month == 0) && (reinforced_score >= 320)) {
-                    approval_tag = 'I83';
-                    max_amount = 3000000;
+                if (has_cli_trx_category == 'HAS CLI & HAS NO CLI TRX'
+                    && (length_of_employment >= 120
+                        || sum_paylater_disbursed_2y >= 1250000
+                        || sum_not_late_settled >= 50000000
+                        || iphone_app_list_score_model_P >= 380
+                        || average_age_of_relationship >= 50)
+                ) {
+                    if ((pefindo_max_payment_dpd == 0) && (reinforced_score >= 320) && ((max_limit_active_cc >= 5000000) || (pefindo_max_fourwheel_loan_amount >= 200000000))) {
+                        approval_tag = 'I83';
+                        max_amount = 3000000;
+                    } else if ((pefindo_max_payment_dpd == 0) && (reinforced_score >= 320)) {
+                        approval_tag = 'I83';
+                        max_amount = 1000000;
+                    } else if ((pefindo_max_payment_dpd >= 0) && (pefindo_max_payment_dpd < 30) && (pefindo_max_payment_dpd_last_5_month == 0) && (reinforced_score >= 320)) {
+                        approval_tag = 'I83';
+                        max_amount = 1000000;
+                    }
+                } else {
+                    approval_tag = '';
+                    offline_store_category = 'fdc null';
                 }
             }
         }
 
+        /* pilot - give limit of 3 mio, spinjam criteria */
+        if ((approval_tag == '' 
+                || (reinforced_score < 420 && approval_tag == 'H4B' && arrayUtils.contains(['TIER 3', 'CLI SELECTED DISTRICT', 'OTHER'], cash_city_tier)))
+            && (count_previous_rejected_cashloan_by_userid == 0) 
+            && (fdc_spinjam_gopinjam_kredifazz_months == 'spinjam_gopinjam_kredifazz_RO_2_months' 
+                    || fdc_spinjam_gopinjam_kredifazz_months == 'spinjam_gopinjam_kredifazz_RO_3_months')
+            && (!(sum_amount_disbursed_total < 0 || discounted_sum_outstanding_late_1y == -1))
+            && (!(count_write_off_organizer_id_last_3y > 0 || distinct_count_organizer_id_late_1_year > 0 || discounted_sum_outstanding_late_1y > 0 || sum_outstanding_amount_late_15 > 0))
+            && (number_of_statistic_inquiry_id_030d <= 5)
+        ) {
+            approval_tag = 'I85';
+            max_amount = 3000000;
+        }
+
+
         max_amount_before_preapproved_telesales = max_amount;
         if (mamunda_var_telesalesPreApprovedAmount >= 1000000) {
             approval_tag = 'I84';
-            max_amount = mamunda_var_telesalesPreApprovedAmount;
+            if (mamunda_var_telesalesPreApprovedAmount >= 15000000) {
+                max_amount = mamunda_var_telesalesPreApprovedAmount;
+            }
         }
         
         var max_amount_without_dbr = max_amount;
 
-        /* -------------- DBR LIMIT --------------*/
-        var amount_min_salary = {
-            1000000: 1080000,
-            2000000: 2130000,
-            3000000: 3190000,
-            4000000: 3190000,
-            5000000: 3240000,
-            6000000: 3880000,
-            7000000: 4530000,
-            8000000: 5180000,
-            9000000: 5180000,
-            10000000: 5180000,
-            11000000: 5180000,
-            12000000: 5180000,
-            13000000: 5180000,
-            14000000: 5180000,
-            15000000: 5230000,
-            16000000: 5580000,
-            17000000: 5930000,
-            18000000: 6280000,
-            19000000: 6620000,
-            20000000: 6970000,
-            21000000: 7320000,
-            22000000: 7670000,
-            23000000: 8020000,
-            24000000: 8370000,
-            25000000: 8720000,
-            26000000: 8720000,
-            27000000: 8720000,
-            28000000: 8720000,
-            29000000: 8720000,
-            30000000: 8720000,
-            31000000: 8720000,
-            32000000: 8720000,
-            33000000: 8720000,
-            34000000: 8950000,
-            35000000: 9210000,
-            36000000: 9470000,
-            37000000: 9720000,
-            38000000: 9980000,
-            39000000: 10240000,
-            40000000: 10490000
-        };
+        if(income == null || income <= 0){
+            income = 0;
+        }
+        if(other_income_per_month == null || other_income_per_month <= 0){
+            other_income_per_month = 0;
+        }
         
-        if ((income <= 0) || (income == null)) {
-            if (max_amount > 7000000) {
-                max_amount = 7000000;
+        income = income + other_income_per_month;
+        
+        /* AB test to remove DBR logic */
+        ab_test_remove_dbr_logic = abTestingHelper.getVariation(orderId, 'CASH_REMOVE_DBR_LOGIC', 'NORMAL');
+
+        if (ab_test_remove_dbr_logic == 'NORMAL') {
+
+            /* -------------- DBR LIMIT --------------*/
+            var amount_min_salary = {
+                1000000: 1080000,
+                2000000: 2140000,
+                3000000: 3200000,
+                4000000: 3200000,
+                5000000: 3270000,
+                6000000: 3930000,
+                7000000: 4580000,
+                8000000: 5240000,
+                9000000: 5240000,
+                10000000: 5240000,
+                11000000: 5240000,
+                12000000: 5240000,
+                13000000: 5240000,
+                14000000: 5240000,
+                15000000: 5360000,
+                16000000: 5710000,
+                17000000: 6070000,
+                18000000: 6430000,
+                19000000: 6780000,
+                20000000: 7140000,
+                21000000: 7500000,
+                22000000: 7850000,
+                23000000: 8200000,
+                24000000: 8540000,
+                25000000: 8880000,
+                26000000: 8880000,
+                27000000: 8880000,
+                28000000: 8880000,
+                29000000: 8880000,
+                30000000: 8880000,
+                31000000: 8880000,
+                32000000: 8880000,
+                33000000: 8880000,
+                34000000: 9120000,
+                35000000: 9370000,
+                36000000: 9630000,
+                37000000: 9890000,
+                38000000: 10140000,
+                39000000: 10400000,
+                40000000: 10660000
+            };
+            
+            var amount_min_salary_above_420 = {
+                1000000: 1030000,
+                2000000: 2050000,
+                3000000: 3060000,
+                4000000: 3060000,
+                5000000: 3060000,
+                6000000: 3640000,
+                7000000: 4250000,
+                8000000: 4860000,
+                9000000: 4860000,
+                10000000: 4860000,
+                11000000: 4860000,
+                12000000: 4860000,
+                13000000: 4860000,
+                14000000: 5000000,
+                15000000: 5360000,
+                16000000: 5710000,
+                17000000: 6070000,
+                18000000: 6430000,
+                19000000: 6780000,
+                20000000: 7140000,
+                21000000: 7500000,
+                22000000: 7850000,
+                23000000: 8200000,
+                24000000: 8540000,
+                25000000: 8880000,
+                26000000: 8880000,
+                27000000: 8880000,
+                28000000: 8880000,
+                29000000: 8880000,
+                30000000: 8880000,
+                31000000: 8880000,
+                32000000: 8880000,
+                33000000: 8880000,
+                34000000: 9120000,
+                35000000: 9370000,
+                36000000: 9630000,
+                37000000: 9890000,
+                38000000: 10140000,
+                39000000: 10400000,
+                40000000: 10660000
+            }; 
+
+            if (reinforced_score <= 420) {
+                if ((income <= 0) || (income == null)) {
+                    if (max_amount > 7000000) {
+                        max_amount = 7000000;
+                    }
+                } else {
+                    while (income < amount_min_salary[max_amount]) {
+                        max_amount = max_amount - 1000000;
+                    }
+                }
+            } else {
+                if ((income <= 0) || (income == null)) {
+                    if (max_amount > 14000000) {
+                        max_amount = 14000000;
+                    }
+                } else {
+                    // > 420            
+                    while (income < amount_min_salary_above_420[max_amount]) {
+                        max_amount = max_amount - 1000000;
+                    }        
+                }
             }
-        } else {
-            while (income < amount_min_salary[max_amount]) {
-                max_amount = max_amount - 1000000;
-            }
+        } else if (ab_test_remove_dbr_logic == 'REMOVE_DBR_LOGIC') {
+            /* do nothing */
         }
 
         /* -------------- APPROVED LOAN AMOUNT --------------*/
@@ -1270,9 +1514,10 @@ var cash_city_tier = 'OTHER';
             tenure = 1;
         }
 
-        /* -------------- CHEAP CASH VOUCHER --------------*/
-    if (!is_whitelisted_ath_via_limit_user && max_amount >= 10000000) {
-        voucherId = '0d48bdfc-495e-4095-806d-376b023980b4';
+    /* RATES ASSIGNEMNT */
+    if ((reinforced_score >= 480) && 
+        !((submission_source != null) && ((submission_source == 'tiket_cash_loan') || (submission_source == 'blibli_cash_loan')))) {
+        ab_test_cash_rbp = abTestingHelper.getVariation(orderId, 'PILOT_RBP_RATES', 'NORMAL');
     }
 
     if (!is_whitelisted_ath_via_limit_user || is_whitelisted_ath_btpl) {
@@ -1280,6 +1525,19 @@ var cash_city_tier = 'OTHER';
             rateGroupKey = 'cash_loan_below_420';
         } else if (reinforced_score <= 450) {
             rateGroupKey = 'cash_loan_below_450';
+        } else if (reinforced_score <= 464) {
+            rateGroupKey = 'cash_loan'
+        } else if (reinforced_score >= 465) {
+            rateGroupKey = 'cash_loan_above_465'
+            if (reinforced_score >= 510) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_loan_above_510'
+                }
+            } else if (reinforced_score >= 480) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_loan_above_480'
+                }
+            }
         }
     }
 
@@ -1294,10 +1552,24 @@ var cash_city_tier = 'OTHER';
         if (ab_test_cash_flexible_tenure == 'FLEXIBLE') {
             rateGroupKey = 'cash_flexible_non_wl_below_450';
         }
-    } else if ((!is_whitelisted_ath_via_limit_user || is_whitelisted_ath_btpl) && reinforced_score > 450 && income >= 10000000) {
+    } else if ((!is_whitelisted_ath_via_limit_user || is_whitelisted_ath_btpl) && reinforced_score > 450 && reinforced_score <= 464 && income >= 10000000) {
         ab_test_cash_flexible_tenure = abTestingHelper.getVariation(applicant_mobile_phone_number, 'CASH_FLEXIBLE_TENURE', 'NORMAL');
         if (ab_test_cash_flexible_tenure == 'FLEXIBLE') {
             rateGroupKey = 'cash_flexible_2024_v2';
+        }
+    } else if ((!is_whitelisted_ath_via_limit_user || is_whitelisted_ath_btpl) && reinforced_score > 464 && income >= 10000000) {
+        ab_test_cash_flexible_tenure = abTestingHelper.getVariation(applicant_mobile_phone_number, 'CASH_FLEXIBLE_TENURE', 'NORMAL');
+        if (ab_test_cash_flexible_tenure == 'FLEXIBLE') {
+            rateGroupKey = 'cash_flexible_non_wl_above_465';
+            if (reinforced_score >= 510) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_flexible_non_wl_above_510'
+                }
+            } else if (reinforced_score >= 480) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_flexible_non_wl_above_480'
+                }
+            }
         }
     }
 
@@ -1306,15 +1578,14 @@ var cash_city_tier = 'OTHER';
         max_amount = 25000000;
         approved_loan_amount = max_amount;
         tenure = 12;
-        rateGroupKey = 'cash_loan';
+        rateGroupKey = 'cash_loan_below_420';
     }
 }
 
     /********************************************************/
     /********************* CASH LOAN - EXISTING ***************/
     /********************************************************/
-    if ((product_type == 'CASH_LOAN' && cash_origination == 'EXISTING') 
-    || (product_type == 'CASH_LOAN' && is_whitelisted_ath_via_limit_user)) {
+    if (product_type == 'CASH_LOAN' && cash_origination == 'EXISTING') {
         /* ------------------- DECISION --------------------*/
         approval_tag = 'H3A';
         if ((prev_max_days_late < 3) 
@@ -1441,63 +1712,277 @@ var cash_city_tier = 'OTHER';
         max_amount_before_preapproved_telesales = max_amount;
         if (mamunda_var_telesalesPreApprovedAmount >= 1000000) {
             approval_tag = 'I84';
-            max_amount = mamunda_var_telesalesPreApprovedAmount;
+            if (mamunda_var_telesalesPreApprovedAmount >= 15000000) {
+                max_amount = mamunda_var_telesalesPreApprovedAmount;
+            }
+        }
+
+        max_amount_before_ab_test_limit_increase = max_amount;
+        /* Pilot Cash Limit Middle Bin for non whitelisted and not applied from BTPL */
+        if (!(is_whitelisted_ath_via_limit_user && !is_whitelisted_ath_btpl) && 
+            !((submission_source != null) && ((submission_source == 'tiket_cash_loan') || (submission_source == 'blibli_cash_loan'))) && 
+            (reinforced_score > 420) && (reinforced_score < 495) &&
+            (approval_tag != 'I66') && (approval_tag != 'I77') && (approval_tag != 'I70') && (approval_tag != 'I84')) {
+            ab_test_increase_cash_limit_middle_bin = abTestingHelper.getVariation(orderId, 'PILOT_INCREASE_CASH_LIMIT_MIDDLE_BIN', 'NORMAL_LIMIT');
+
+            if (ab_test_increase_cash_limit_middle_bin == 'HIGHER_LIMIT') {
+                if (reinforced_score >= 451) {
+                    max_amount = 20000000;
+                    if (is_covered_cities_cash_loan_ro) {
+                        max_amount = 25000000;
+                    }
+                } else if (reinforced_score >= 421) {
+                    max_amount = 15000000;
+                }
+
+                /* -------------- Cap Loan Amount for People with Maxed Out Credit Limit --------------*/
+                if ((approval_tag != '') && (number_of_related_blibli_tiket_indodana_credit_limit > 0)
+                    && ((bucketizedCreditLimitAccountLimitBalance * 1.0 / bucketizedCreditLimitAccountLimit) <= 0.2)
+                    ) {
+                    adjusted_max_amount = max_amount - cli_used;
+                    if (adjusted_max_amount % 1000000 != 0) {
+                        adjusted_max_amount = ((adjusted_max_amount / 1000000) + 1) * 1000000;
+                    }
+                        
+                    if (is_good_pefindo_cc_45 || is_good_pefindo_cc || dtlab_salary >= 5000000 || digiscore_salary >= 700) {
+                        if (is_whitelisted_ath_via_limit_user && number_of_related_indodana_credit_limit > 0) {
+                            approval_tag = 'I59'
+                        } else {
+                            approval_tag = 'I35';
+                        }
+                    } else {
+                        if (is_whitelisted_ath_via_limit_user && number_of_related_indodana_credit_limit > 0) {
+                            approval_tag = 'I58'
+                            if (max_amount - cli_used > 3000000) {
+                                max_amount = adjusted_max_amount;
+                            } else {
+                                max_amount = 3000000;
+                            }
+                        } else {
+                            approval_tag = 'I34';
+                            if (max_amount - cli_used > 3000000) {
+                                max_amount = adjusted_max_amount;
+                            } else {
+                                max_amount = 3000000;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         var max_amount_without_dbr = max_amount;
+        var max_amount_before_ab_test_limit_increase_wo_dbr = max_amount_before_ab_test_limit_increase;
 
-        /* -------------- DBR LIMIT --------------*/
-        var amount_min_salary = {
-            1000000: 1080000,
-            2000000: 2130000,
-            3000000: 3190000,
-            4000000: 3190000,
-            5000000: 3240000,
-            6000000: 3880000,
-            7000000: 4530000,
-            8000000: 5180000,
-            9000000: 5180000,
-            10000000: 5180000,
-            11000000: 5180000,
-            12000000: 5180000,
-            13000000: 5180000,
-            14000000: 5180000,
-            15000000: 5230000,
-            16000000: 5580000,
-            17000000: 5930000,
-            18000000: 6280000,
-            19000000: 6620000,
-            20000000: 6970000,
-            21000000: 7320000,
-            22000000: 7670000,
-            23000000: 8020000,
-            24000000: 8370000,
-            25000000: 8720000,
-            26000000: 8720000,
-            27000000: 8720000,
-            28000000: 8720000,
-            29000000: 8720000,
-            30000000: 8720000,
-            31000000: 8720000,
-            32000000: 8720000,
-            33000000: 8720000,
-            34000000: 8950000,
-            35000000: 9210000,
-            36000000: 9470000,
-            37000000: 9720000,
-            38000000: 9980000,
-            39000000: 10240000,
-            40000000: 10490000
-        };
-        
-        if ((income <= 0) || (income == null)) {
-            if (max_amount > 7000000) {
-                max_amount = 7000000;
+        if(income == null || income <= 0){
+                income = 0;
+        }
+        if(other_income_per_month == null || other_income_per_month <= 0){
+            other_income_per_month = 0;
+        }
+
+        income = income + other_income_per_month;
+
+        /* AB test to remove DBR logic */
+        ab_test_remove_dbr_logic = abTestingHelper.getVariation(orderId, 'CASH_REMOVE_DBR_LOGIC', 'NORMAL');
+
+        if (ab_test_remove_dbr_logic == 'NORMAL') {
+
+            /* -------------- DBR LIMIT --------------*/
+            var amount_min_salary = {
+                1000000: 1080000,
+                2000000: 2140000,
+                3000000: 3200000,
+                4000000: 3200000,
+                5000000: 3270000,
+                6000000: 3930000,
+                7000000: 4580000,
+                8000000: 5240000,
+                9000000: 5240000,
+                10000000: 5240000,
+                11000000: 5240000,
+                12000000: 5240000,
+                13000000: 5240000,
+                14000000: 5240000,
+                15000000: 5360000,
+                16000000: 5710000,
+                17000000: 6070000,
+                18000000: 6430000,
+                19000000: 6780000,
+                20000000: 7140000,
+                21000000: 7500000,
+                22000000: 7850000,
+                23000000: 8200000,
+                24000000: 8540000,
+                25000000: 8880000,
+                26000000: 8880000,
+                27000000: 8880000,
+                28000000: 8880000,
+                29000000: 8880000,
+                30000000: 8880000,
+                31000000: 8880000,
+                32000000: 8880000,
+                33000000: 8880000,
+                34000000: 9120000,
+                35000000: 9370000,
+                36000000: 9630000,
+                37000000: 9890000,
+                38000000: 10140000,
+                39000000: 10400000,
+                40000000: 10660000
+            };
+
+            var amount_min_salary_above_420 = {
+                1000000: 1030000,
+                2000000: 2050000,
+                3000000: 3060000,
+                4000000: 3060000,
+                5000000: 3060000,
+                6000000: 3640000,
+                7000000: 4250000,
+                8000000: 4860000,
+                9000000: 4860000,
+                10000000: 4860000,
+                11000000: 4860000,
+                12000000: 4860000,
+                13000000: 4860000,
+                14000000: 5000000,
+                15000000: 5360000,
+                16000000: 5710000,
+                17000000: 6070000,
+                18000000: 6430000,
+                19000000: 6780000,
+                20000000: 7140000,
+                21000000: 7500000,
+                22000000: 7850000,
+                23000000: 8200000,
+                24000000: 8540000,
+                25000000: 8880000,
+                26000000: 8880000,
+                27000000: 8880000,
+                28000000: 8880000,
+                29000000: 8880000,
+                30000000: 8880000,
+                31000000: 8880000,
+                32000000: 8880000,
+                33000000: 8880000,
+                34000000: 9120000,
+                35000000: 9370000,
+                36000000: 9630000,
+                37000000: 9890000,
+                38000000: 10140000,
+                39000000: 10400000,
+                40000000: 10660000
+            };
+
+            var amount_min_salary_pilot_higher_limt = {
+                1000000: 1080000,
+                2000000: 2140000,
+                3000000: 3200000,
+                4000000: 3200000,
+                5000000: 3270000,
+                6000000: 3930000,
+                7000000: 4580000,
+                8000000: 5240000,
+                9000000: 5240000,
+                10000000: 5240000,
+                11000000: 5240000,
+                12000000: 5240000,
+                13000000: 5240000,
+                14000000: 5240000,
+                15000000: 5530000,
+                16000000: 5900000,
+                17000000: 6270000,
+                18000000: 6640000,
+                19000000: 7010000,
+                20000000: 7380000,
+                21000000: 7750000,
+                22000000: 8110000,
+                23000000: 8470000,
+                24000000: 8820000,
+                25000000: 9170000,
+                26000000: 9170000,
+                27000000: 9170000,
+                28000000: 9170000,
+                29000000: 9170000,
+                30000000: 9170000,
+                31000000: 9170000,
+                32000000: 9170000,
+                33000000: 9170000,
+                34000000: 9170000,
+                35000000: 9370000,
+                36000000: 9630000,
+                37000000: 9890000,
+                38000000: 10140000,
+                39000000: 10400000,
+                40000000: 10660000
+            };
+            
+            if (reinforced_score <= 420) {
+                if ((income <= 0) || (income == null)) {
+                    if (max_amount > 7000000) {
+                        max_amount = 7000000;
+                    }
+                } else {
+                    if (ab_test_increase_cash_limit_middle_bin == 'HIGHER_LIMIT') {
+                        while (income < amount_min_salary_pilot_higher_limt[max_amount]) {
+                            max_amount = max_amount - 1000000;
+                        }
+                    } else {
+                        while (income < amount_min_salary[max_amount]) {
+                            max_amount = max_amount - 1000000;
+                        }
+                    }   
+                }
+            } else {
+                if ((income <= 0) || (income == null)) {
+                    if (ab_test_increase_cash_limit_middle_bin == 'HIGHER_LIMIT') {
+                        if (max_amount > 7000000) {
+                            max_amount = 7000000;
+                        }
+                    } else {
+                        if (max_amount > 14000000) {
+                            max_amount = 14000000;
+                        }
+                    }
+                } else {
+                    if (ab_test_increase_cash_limit_middle_bin == 'HIGHER_LIMIT') {
+                        while (income < amount_min_salary_pilot_higher_limt[max_amount]) {
+                            max_amount = max_amount - 1000000;
+                        }
+                    } else {
+                        while (income < amount_min_salary_above_420[max_amount]) {
+                            max_amount = max_amount - 1000000;
+                        }
+                    }   
+                }
+
             }
-        } else {
-            while (income < amount_min_salary[max_amount]) {
-                max_amount = max_amount - 1000000;
+
+            /* output after dbr for pilot limit increase */
+            if (reinforced_score <= 420) {
+                if ((income <= 0) || (income == null)) {
+                    if (max_amount_before_ab_test_limit_increase > 7000000) {
+                        max_amount_before_ab_test_limit_increase = 7000000;
+                    }
+                } else {
+                    while (income < amount_min_salary[max_amount_before_ab_test_limit_increase]) {
+                        max_amount_before_ab_test_limit_increase = max_amount_before_ab_test_limit_increase - 1000000;
+                    }
+                }
+            } else { 
+                if ((income <= 0) || (income == null)) {
+                    if (max_amount_before_ab_test_limit_increase > 14000000) {
+                        max_amount_before_ab_test_limit_increase = 14000000;
+                    }
+                } else {
+                    while (income < amount_min_salary_above_420[max_amount_before_ab_test_limit_increase]) {
+                        max_amount_before_ab_test_limit_increase = max_amount_before_ab_test_limit_increase - 1000000;
+                    }
+                }
             }
+        } else if (ab_test_remove_dbr_logic == 'REMOVE_DBR_LOGIC') {
+                /* do nothing */
         }
 
         /* -------------- APPROVED LOAN AMOUNT --------------*/
@@ -1522,17 +2007,42 @@ var cash_city_tier = 'OTHER';
     } else {
         tenure = 1;
     }
-
-    /* -------------- CHEAP CASH VOUCHER --------------*/
-    if (!is_whitelisted_ath_via_limit_user && max_amount >= 10000000) {
-        voucherId = '0d48bdfc-495e-4095-806d-376b023980b4';
-    }
     
+    /* RATES ASSIGNMENT */
+
+    if ((reinforced_score >= 480) && 
+        !((submission_source != null) && ((submission_source == 'tiket_cash_loan') || (submission_source == 'blibli_cash_loan')))) {
+        ab_test_cash_rbp = abTestingHelper.getVariation(orderId, 'PILOT_RBP_RATES', 'NORMAL');
+    }
+
     if (!is_whitelisted_ath_via_limit_user || is_whitelisted_ath_btpl) {
         if(reinforced_score <= 420) {
             rateGroupKey = 'cash_loan_below_420';
         } else if (reinforced_score <= 450) {
             rateGroupKey = 'cash_loan_below_450';
+        } else if (reinforced_score <= 464) {
+            rateGroupKey = 'cash_loan'
+        } else if (reinforced_score >= 465) {
+            rateGroupKey = 'cash_loan_above_465'
+            if (reinforced_score >= 510) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_loan_above_510'
+                }
+            } else if (reinforced_score >= 480) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_loan_above_480'
+                }
+            }
+        }
+    } else {
+        if (reinforced_score >= 510) {
+            if (ab_test_cash_rbp == 'RBP') {
+                voucherId = '56c6d2b4-3b0c-40e7-ba3e-bb7a27e327b8'
+            }
+        } else if (reinforced_score >= 480) {
+            if (ab_test_cash_rbp == 'RBP') {
+                voucherId = '4e26e7b9-4f98-4557-b304-2ed21f5cf000'
+            }
         }
     }
 
@@ -1553,15 +2063,30 @@ var cash_city_tier = 'OTHER';
         if (ab_test_cash_flexible_tenure == 'FLEXIBLE') {
             rateGroupKey = 'cash_flexible_non_wl_below_450';
         }
-    } else if ((!is_whitelisted_ath_via_limit_user || is_whitelisted_ath_btpl) && reinforced_score > 450 && income >= 10000000) {
+    } else if ((!is_whitelisted_ath_via_limit_user || is_whitelisted_ath_btpl) && reinforced_score > 450 && reinforced_score <= 464 && income >= 10000000) {
         ab_test_cash_flexible_tenure = abTestingHelper.getVariation(applicant_mobile_phone_number, 'CASH_FLEXIBLE_TENURE', 'NORMAL');
         if (ab_test_cash_flexible_tenure == 'FLEXIBLE') {
             rateGroupKey = 'cash_flexible_2024_v2';
+        }
+    } else if ((!is_whitelisted_ath_via_limit_user || is_whitelisted_ath_btpl) && reinforced_score > 464 && income >= 10000000) {
+        ab_test_cash_flexible_tenure = abTestingHelper.getVariation(applicant_mobile_phone_number, 'CASH_FLEXIBLE_TENURE', 'NORMAL');
+        if (ab_test_cash_flexible_tenure == 'FLEXIBLE') {
+            rateGroupKey = 'cash_flexible_non_wl_above_465';
+            if (reinforced_score >= 510) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_flexible_non_wl_above_510'
+                }
+            } else if (reinforced_score >= 480) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_flexible_non_wl_above_480'
+                }
+            }
         }
     }
 
     if ((is_access_btpl_cash_loan && (submission_source != null) && (submission_source == 'tiket_cash_loan')) || (is_access_blibli_btpl_cash_loan && (submission_source != null) && (submission_source == 'blibli_cash_loan'))) {
         rateGroupKey = 'btpl_web_cash_loan';
+        voucherId = ''
         /* Cash Flexible Tenure (BTPL) */
         if (income >= 10000000) {
             ab_test_cash_flexible_tenure = 'FLEXIBLE';
@@ -1578,12 +2103,50 @@ var cash_city_tier = 'OTHER';
         }
     }
 
+    /* rates for ab increase cash limit for middle bin*/
+    if (ab_test_increase_cash_limit_middle_bin == 'HIGHER_LIMIT') {
+        if (reinforced_score <= 450) {
+            rateGroupKey = 'cash_higher_limit_below_450';
+            if (ab_test_cash_flexible_tenure == 'FLEXIBLE') {
+                rateGroupKey = 'cash_flexible_higher_limit_below_450';
+            }
+        } else if (reinforced_score <= 464) {
+            rateGroupKey = 'cash_higher_limit';
+            if (ab_test_cash_flexible_tenure == 'FLEXIBLE') {
+                rateGroupKey = 'cash_flexible_higher_limit';
+            }
+        } else if (reinforced_score >= 465) {
+            rateGroupKey = 'cash_loan_above_465';
+            if (reinforced_score >= 510) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_loan_above_510'
+                }
+            } else if (reinforced_score >= 480) {
+                if (ab_test_cash_rbp == 'RBP') {
+                    rateGroupKey = 'cash_loan_above_480'
+                }
+            }
+            if (ab_test_cash_flexible_tenure == 'FLEXIBLE') {
+                rateGroupKey = 'cash_flexible_non_wl_above_465';
+                if (reinforced_score >= 510) {
+                    if (ab_test_cash_rbp == 'RBP') {
+                        rateGroupKey = 'cash_flexible_non_wl_above_510'
+                    }
+                } else if (reinforced_score >= 480) {
+                    if (ab_test_cash_rbp == 'RBP') {
+                        rateGroupKey = 'cash_flexible_non_wl_above_480'
+                    }
+                }
+            }
+        }
+    }
+
     if (blacklistHelper.isWhitelistedByNamespace('emails', 'sqa-auto-approve-application', { "email": applicant_personal_email.toLowerCase() })) {
         approval_tag = 'QA01';
         max_amount = 25000000;
         approved_loan_amount = max_amount;
         tenure = 12;
-        rateGroupKey = 'cash_loan';
+        rateGroupKey = 'cash_loan_below_420';
     }
 }
 
@@ -1641,8 +2204,60 @@ var cash_city_tier = 'OTHER';
             if ((is_bpjs && is_bpjs_name_match) || is_bank_mutation || is_payslip) {
 
                 if (ab_code == 'indodana_normal_set'){
-
-                    if (reinforced_score >= 506) {
+                    if (is_zalora_merchant_name_in_last_30_days == "ZALORA" && identity_score < 480 ) {                         
+                        if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912 >= 505) {
+                            approval_tag = "I86";
+                            max_amount =  2500000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133555';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912 >= 475) {
+                            approval_tag = "I86";
+                            max_amount =  3000000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133333';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912 >= 450) {
+                            approval_tag = "I86";
+                            max_amount =  2500000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133333';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912 >= 440) {
+                            approval_tag = "I86";
+                            max_amount =  2000000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133333';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912 >= 430) {
+                            approval_tag = "I86";
+                            max_amount =  2000000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133333';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912 >= 380) {
+                            approval_tag = 'I86';
+                            bucketization = 'INDODANA_SHARED_LIMIT_133333';
+                            max_amount = 1000000;
+                        }
+                    
+                    } else if (is_zalora_merchant_name_in_last_30_days == "ZALORA" && identity_score >= 480 ){
+                        if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912>= 500) {
+                            approval_tag = "I86";
+                            max_amount =  3000000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133555';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912>= 485) {
+                            approval_tag = "I86";
+                            max_amount =  2500000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133555';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912>= 465) {
+                            approval_tag = "I86";
+                            max_amount =  3000000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133333';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912>= 435) {
+                            approval_tag = "I86";
+                            max_amount =  2500000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133333';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912>= 408) {
+                            approval_tag = "I86";
+                            max_amount =  2000000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_133333';
+                        } else if (reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912 >= 380) {
+                            approval_tag = 'I86';
+                            bucketization = 'INDODANA_SHARED_LIMIT_133333';
+                            max_amount = 1000000;
+                        }
+                    } else if (reinforced_score >= 506) {
                         approval_tag = 'H3A';
                         bucketization = 'INDODANA_SHARED_LIMIT_1333';
                         max_amount = 4000000;
@@ -1715,7 +2330,10 @@ var cash_city_tier = 'OTHER';
         }
 
         /* CLI Indodana BQ1 Reject JA01 & Cash BQ2 Reject JA01*/
-        if (score < 360) {
+        if (ab_code == 'indodana_normal_set' && is_zalora_merchant_name_in_last_30_days == 'ZALORA') {
+            /*Do nothing */
+        }
+        else if (score < 360) {
             /* Cash Rule Reject JA01 BQ2 */
             /* ------------------- LOGIC - CASH LOAN WHITELIST -------------------*/
             if (is_whitelisted_ath_via_limit_user && !is_offer_calculation) {
@@ -1859,6 +2477,11 @@ var cash_city_tier = 'OTHER';
                 }
             }
         }
+        /* FRAUD rule*/
+        if (identity_score < 440 && getcontact_verify_status != 'OK') {
+            approval_tag = '';
+            offline_store_category = 'low identity score';
+        }
     }
 
     /*************************************************************/
@@ -1936,8 +2559,8 @@ var cash_city_tier = 'OTHER';
     var is_motor_listrik = (offline_sub_item_category == 'motor listrik');
 
 
-    if (experiment_offline == 'offline_normal_set' || flag_treatment == 'hcf_treatment' || flag_treatment == 'mp_treatment' ) {
-        if (product_type == 'CREDIT_LIMIT' && partner != 'AVANTO' && is_offline_applicant) {
+    if (experiment_offline == 'offline_normal_set' ||is_online_applicant_nearby_offline_merchant ) {
+        if (product_type == 'CREDIT_LIMIT' && partner != 'AVANTO' && (is_offline_applicant || is_online_applicant_nearby_offline_merchant)) {
             
             if (((is_ibox_gan_digimap) || (nonmp_good_average) || (mp_good_average)  || (is_hcf_gym)) && (getcontact_pefindo_validation)){
                 if ((identity_score < 440) && (reinforced_score >= 460)) {
@@ -1968,7 +2591,7 @@ var cash_city_tier = 'OTHER';
                     500++: 15.0Mio
                     */
         
-                    if ((offline_item_category == 'non-smartphone' && offline_store_category=='hcf') || (flag_treatment == 'hcf_treatment') ) {
+                    if ((offline_item_category == 'non-smartphone' && offline_store_category=='hcf') || (is_online_applicant_nearby_offline_merchant && gps_nearby_offline_flag_treatment == 'hcf_treatment') ) {
                         if (reinforced_score >= 500) {
                             approval_tag = "H3A";
                             max_amount =  3000000;
@@ -2033,7 +2656,7 @@ var cash_city_tier = 'OTHER';
                     472++: 15.0Mio (good store only)
                     502++: 15.0Mio
                     */
-                    if (offline_item_category == 'smartphone' || flag_treatment == 'mp_treatment' ) {
+                    if (offline_item_category == 'smartphone' || (is_online_applicant_nearby_offline_merchant && gps_nearby_offline_flag_treatment == 'mp_treatment')) {
                         if (reinforced_score >= 502) {
                             approval_tag = "H3A";
                             max_amount =  3000000;
@@ -2058,7 +2681,7 @@ var cash_city_tier = 'OTHER';
                     }
         
                     /* Exposure calculation based on bucket category */
-                    if (bucketization == 'INDODANA_SHARED_LIMIT_133333') {
+                    if (['INDODANA_SHARED_LIMIT_133333','INDODANA_SHARED_LIMIT_1333'].contains(bucketization)) {
                         exposure = max_amount * 3;
                     } else if (bucketization == 'INDODANA_SHARED_LIMIT_133555') {
                         exposure = max_amount * 5;
@@ -2071,8 +2694,9 @@ var cash_city_tier = 'OTHER';
                     }
         
                     /*--------------------------------- FOR WHITELIST PRODUCT ---------------------------------
-                    477++:  24.0Mio
-                    497++:  30.0Mio             
+                    457++:  if top pareto brand (kawanlama/atria and not TV 24.0Mio & high request we gave 36mio)    
+                    477++:  24.0Mio -> if top pareto brand (kawanlama/atria and not TV & high request we gave 36mio)    
+                    497++:  36.0Mio -> if top pareto brand (kawanlama/atria and not TV & high income & high request we gave 50mio)             
                     */
                     if ((is_offline_whitelisted_item) || (nonmp_good_high_request)) {
                         if (reinforced_score>=497) { 
@@ -2080,12 +2704,33 @@ var cash_city_tier = 'OTHER';
                             temp_max_amount = 6000000;
                             temp_exposure = 6000000 * 6;
                             temp_bucketization = 'INDODANA_SHARED_LIMIT_145666';
+                            if (is_top_pareto_brand && income >= 8000000 && offline_transaction_applied_amount_without_multiplier > 36000000) {
+                                temp_max_amount = 10000000;
+                                temp_exposure = 10000000 * 5;
+                                temp_bucketization = 'INDODANA_SHARED_LIMIT_145555';
+                            }
                         } else if (reinforced_score>=477) {
                             approval_tag = 'H3';
                             temp_max_amount = 4000000;
                             temp_exposure = 4000000 * 6;
                             temp_bucketization = 'INDODANA_SHARED_LIMIT_145666';
+                            if (is_top_pareto_brand && offline_transaction_applied_amount_without_multiplier > 24000000) {
+                                temp_max_amount = 6000000;
+                                temp_exposure = 6000000 * 6;
+                                temp_bucketization = 'INDODANA_SHARED_LIMIT_145666';
+                            }
+                        } else if (reinforced_score>=457 && is_top_pareto_brand) {
+                            approval_tag = 'H3';
+                            temp_max_amount = 4000000;
+                            temp_exposure = 4000000 * 6;
+                            temp_bucketization = 'INDODANA_SHARED_LIMIT_145666';
+                            if (offline_transaction_applied_amount_without_multiplier > 24000000) {
+                                temp_max_amount = 6000000;
+                                temp_exposure = 6000000 * 6;
+                                temp_bucketization = 'INDODANA_SHARED_LIMIT_145666';
+                            }
                         }
+
                         /*Ensure when "previous limit assignment" is higher than "whitelist limit assigment" then it will not overwrite to lower limit */
                         /*Eg: when prev limit assignemnt is 20Mio, yet in whitelist limit assigment is 18Mio, the limit will not overwrite to 18Mio but remain with 20Mio (due to 20Mio > 18Mio) */
                         if (temp_exposure >= exposure) {
@@ -2203,6 +2848,27 @@ var cash_city_tier = 'OTHER';
                         }
                     }
 
+                    /*--------------------------------- FOR PRJ ELIGIBLE 50 MIO ---------------------------------
+                    Context: DELETE SOON IF PRJ EVENT IS OVER
+                    520++:  50.0Mio
+                    */
+                    if (is_prj_merchants) {
+                        if (reinforced_score>=520) { 
+                            approval_tag = 'H3';
+                            temp_max_amount = 10000000;
+                            temp_exposure = 10000000 * 5;
+                            temp_bucketization = 'INDODANA_SHARED_LIMIT_145555';
+                        }
+
+                        /*Ensure when "previous limit assignment" is higher than "whitelist limit assigment" then it will not overwrite to lower limit */
+                        /*Eg: when prev limit assignemnt is 20Mio, yet in whitelist limit assigment is 18Mio, the limit will not overwrite to 18Mio but remain with 20Mio (due to 20Mio > 18Mio) */
+                        if (temp_exposure >= exposure) {
+                            max_amount = temp_max_amount;
+                            bucketization = temp_bucketization;
+                            exposure = temp_exposure;
+                        }
+                    } 
+
                     /*--------------------------------- FOR MOTOR LISTRIK --------------------------------- 
                         420++: 15.0Mio 
                         437++: 18.0Mio
@@ -2241,7 +2907,7 @@ var cash_city_tier = 'OTHER';
                     505++: 12.5Mio
                     */
         
-                    if ((offline_item_category == 'non-smartphone' && offline_store_category=='hcf') || flag_treatment == 'hcf_treatment' ) {
+                    if ((offline_item_category == 'non-smartphone' && offline_store_category=='hcf') || (is_online_applicant_nearby_offline_merchant && gps_nearby_offline_flag_treatment == 'hcf_treatment') ) {
                         if (reinforced_score >= 505) {
                             approval_tag = "H3A";
                             max_amount =  2500000;
@@ -2313,11 +2979,27 @@ var cash_city_tier = 'OTHER';
                     530++:  7.5Mio
                     */
                     /*------------------------------ AVG FOR SMARTPHONE PRODUCT ------------------------------
+                    -----------------------Risk grade C experiment-----------------------
+					(identity 400 - 440)
+						457++:  3.0Mio 
+					(identity 440 - 480)
+						457++:  4.5Mio 
+					-----------------------Risk grade D experiment-----------------------
+					(identity 400 - 440)
+						431++:  NaN
+					(identity 440 - 480)
+						431++:  3Mio
+                    -----------------------Risk grade E experiment-----------------------
+					(identity 400 - 440)
+						407++:  NaN
+					(identity 440 - 480)
+						407++:  3Mio 
+					---------------------------------------------------------------------
                     480++:  3.0Mio
                     510++:  4.5Mio
                     515++:  6.0Mio
                     */
-                    if (offline_item_category == 'smartphone' || flag_treatment == 'mp_treatment') {
+                    if (offline_item_category == 'smartphone' || (is_online_applicant_nearby_offline_merchant && gps_nearby_offline_flag_treatment == 'mp_treatment')) {
                         if (reinforced_score >= 530 && offline_store_category == 'good') {
                             approval_tag = "H3A";
                             max_amount =  2500000;
@@ -2335,10 +3017,27 @@ var cash_city_tier = 'OTHER';
                             max_amount =  offline_store_category == 'good' ? 1500000 : 1000000;
                             bucketization = 'INDODANA_SHARED_LIMIT_133333';
                         } 
+                        /*Pilot extra approval on Erafone Roadside*/
+                         else if (reinforced_score >= 457 && identity_score >= 400 && is_erafone_roadside) {
+                            approval_tag = "H3A";
+                            max_amount =  identity_score >= 440 ? 2000000 : 1500000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_1333';
+                            autoAddWhitelistNamespaces = ['offline-mp-higher-rate-cde'];
+                        } else if (reinforced_score >= 431 && identity_score >= 440 && is_erafone_roadside) {
+                            approval_tag = "H3A";
+                            max_amount =  1500000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_1333';
+                            autoAddWhitelistNamespaces = ['offline-mp-higher-rate-cde'];
+                        } else if (reinforced_score >= 407 && identity_score >= 440 && is_erafone_roadside) {
+                            approval_tag = "H3A";
+                            max_amount =  1500000;
+                            bucketization = 'INDODANA_SHARED_LIMIT_1333';
+                            autoAddWhitelistNamespaces = ['offline-mp-higher-rate-cde'];
+                        } 
                     }
                     
                     /* Exposure calculation based on bucket category */
-                    if (bucketization == 'INDODANA_SHARED_LIMIT_133333') {
+                    if (['INDODANA_SHARED_LIMIT_133333','INDODANA_SHARED_LIMIT_1333'].contains(bucketization)) {
                         exposure = max_amount * 3;
                     } else if (bucketization == 'INDODANA_SHARED_LIMIT_133555') {
                         exposure = max_amount * 5;
@@ -2404,7 +3103,7 @@ var cash_city_tier = 'OTHER';
                 
             }
             /* Exposure calculation based on bucket category */
-            if (bucketization == 'INDODANA_SHARED_LIMIT_133333') {
+            if (['INDODANA_SHARED_LIMIT_133333','INDODANA_SHARED_LIMIT_1333'].contains(bucketization)) {
                 exposure = max_amount * 3;
             } else if (bucketization == 'INDODANA_SHARED_LIMIT_133555') {
                 exposure = max_amount * 5;
@@ -2418,7 +3117,7 @@ var cash_city_tier = 'OTHER';
 
             approved_loan_amount = max_amount;
         
-            /*if badstore, cap limit 7.5Mio */
+            /*if badstore, cap limit 6Mio */
             if (['bad','very_bad'].contains(offline_store_category) && exposure>6000000) {
                 max_amount = 2000000;
                 approved_loan_amount = 2000000;
@@ -2426,8 +3125,8 @@ var cash_city_tier = 'OTHER';
                 exposure = 6000000;
             }
         
-            /*if badstore, cap limit 12.5Mio */
-            if ( (['hcf'].contains(offline_store_category)  || flag_treatment =='hcf_treatment') && exposure>15000000) {
+            /*if hcf or online application that given hcf/mp treatment, cap limit 15Mio */
+            if ( (['hcf'].contains(offline_store_category)  || is_online_applicant_nearby_offline_merchant) && exposure>15000000) {
                 max_amount = 3000000;
                 approved_loan_amount = 3000000;
                 bucketization = 'INDODANA_SHARED_LIMIT_133555';
@@ -2435,7 +3134,7 @@ var cash_city_tier = 'OTHER';
             }
         
             /* [I61] additional exposure for hcf with minimum limit */
-            if (approval_tag == '' && (['hcf'].contains(offline_store_category) || flag_treatment =='hcf_treatment') ) {
+            if (approval_tag == '' && (['hcf'].contains(offline_store_category) ||(is_online_applicant_nearby_offline_merchant && gps_nearby_offline_flag_treatment =='hcf_treatment')) ) {
                 approval_tag = "I61";
         
                 if (offline_transaction_applied_amount_without_multiplier >= 3000000) {
@@ -2451,7 +3150,7 @@ var cash_city_tier = 'OTHER';
                 approved_loan_amount = max_amount;
             }
             
-            if (bucketization == 'INDODANA_SHARED_LIMIT_133333') {
+            if (['INDODANA_SHARED_LIMIT_133333','INDODANA_SHARED_LIMIT_1333'].contains(bucketization)) {
                 exposure = max_amount * 3;
             } else if (bucketization == 'INDODANA_SHARED_LIMIT_133555') {
                 exposure = max_amount * 5;
@@ -2548,11 +3247,115 @@ var cash_city_tier = 'OTHER';
             if (is_blacklist_store) {
                 approval_tag = '';
             }
+
+            /* VA for new CLI Offline users logic */
+            if (approval_tag != '') {
+                if ((reinforced_score >= 457) && !is_whitelisted_ath_via_limit_user) {
+                    ab_test_cli_va = abTestingHelper.getVariation(orderId, 'INDODANA_NEW_USER_VA', 'NO_VA');
+                    if (ab_test_cli_va == 'ENABLE_VA') {
+                        autoAddWhitelistEcommerceVaPayment = true;
+                    }
+                }
+            }
         }
     } 
 
     else if (experiment_offline != 'offline_normal_set') {
         /* do nothing */
+    }
+
+    /********************************************************/ 
+    /********************* COLLATERAL LOAN ******************/
+    /********************************************************/
+    if (product_type == 'COLLATERAL_LOAN') {
+        /* -------------- APPROVAL TAG --------------*/
+        if (reinforced_score >= 440) {
+            approval_tag = 'H4B';
+        }
+        var max_dbr_instalment = 0;
+        var max_amount_ltv = 0;
+        /* -------------- MAX AMOUNT --------------*/
+        if (approval_tag != '') {
+            if (vehicleType == 'RODA_EMPAT') {
+                if (reinforced_score >= 520) {
+                    max_dbr_instalment = 0.4 * combined_income;
+                    max_amount_ltv = 0.8 * initial_collateral_value;
+                    max_amount = 300000000;     
+                } else if (reinforced_score >= 500) {
+                    max_dbr_instalment = 0.4 * combined_income;
+                    max_amount_ltv = 0.8 * initial_collateral_value; 
+                    max_amount = 250000000;     
+                } else if (reinforced_score >= 480) {
+                    max_dbr_instalment = 0.3 * combined_income;
+                    max_amount_ltv = 0.7 * initial_collateral_value; 
+                    max_amount = 250000000;     
+                } else if (reinforced_score >= 460) {
+                    max_dbr_instalment = 0.3 * combined_income;
+                    max_amount_ltv = 0.6 * initial_collateral_value; 
+                    max_amount = 150000000;     
+                } else if (reinforced_score >= 440) {
+                    max_dbr_instalment = 0.3 * combined_income;
+                    max_amount_ltv = 0.6 * initial_collateral_value; 
+                    max_amount = 100000000;     
+                }
+            } else if (vehicleType == 'RODA_DUA') {
+                if (reinforced_score >= 520) {
+                    max_dbr_instalment = 0.4 * combined_income;
+                    max_amount_ltv = 0.8 * initial_collateral_value; 
+                    max_amount = 40000000;     
+                } else if (reinforced_score >= 500) {
+                    max_dbr_instalment = 0.4 * combined_income;
+                    max_amount_ltv = 0.8 * initial_collateral_value; 
+                    max_amount = 25000000;     
+                } else if (reinforced_score >= 480) {
+                    max_dbr_instalment = 0.3 * combined_income;
+                    max_amount_ltv = 0.7 * initial_collateral_value; 
+                    max_amount = 25000000;     
+                } else if (reinforced_score >= 460) {
+                    max_dbr_instalment = 0.3 * combined_income;
+                    max_amount_ltv = 0.6 * initial_collateral_value; 
+                    max_amount = 15000000;     
+                } else if (reinforced_score >= 440) {
+                    max_dbr_instalment = 0.3 * combined_income;
+                    max_amount_ltv = 0.6 * initial_collateral_value; 
+                    max_amount = 8000000;     
+                }
+            }
+        }
+
+        var flat_rate_car = 0.02; // flat rate for car collateral loan
+        var minimum_tenure_car = 24; // minimum tenure for car collateral loan
+        var flat_rate_motorcycle = 0.035; // flat rate for motorcycle collateral loan
+        var minimum_tenure_motorcycle = 12; // minimum tenure for motorcycle collateral loan
+
+        /* -------------- MAX AMOUNT DBR --------------*/
+        var max_amount_dbr = 0;
+        if (vehicleType == 'RODA_EMPAT') {
+            max_amount_dbr = max_dbr_instalment * minimum_tenure_car / (1 + (flat_rate_car * minimum_tenure_car));
+        } else if (vehicleType == 'RODA_DUA') {
+            max_amount_dbr = max_dbr_instalment * minimum_tenure_motorcycle / (1 + (flat_rate_motorcycle * minimum_tenure_motorcycle));
+        }
+
+        /* -------------- MAX AMOUNT FINAL --------------*/
+        var max_amount_final = max_amount;
+        
+        if (max_amount_ltv < max_amount_final) {
+            max_amount_final = max_amount_ltv; /* cap by collateral value */
+        }
+        if (max_amount_dbr < max_amount_final) {
+            max_amount_final = max_amount_dbr; /* cap by dbr */
+        }
+        
+       
+        /* -------------- APPROVED LOAN AMOUNT --------------*/
+        approved_loan_amount = max_amount_final;
+
+        if (blacklistHelper.isWhitelistedByNamespace('emails', 'sqa-auto-approve-application', { "email": applicant_personal_email.toLowerCase()})) {
+            approval_tag = 'QA01';
+            max_amount = 500000;
+            approved_loan_amount = max_amount;
+            tenure = 3;
+        }
     }
 
     /* ------------------ Pekalongan NEC reject rule temp due to frauds ------------------ */
@@ -2635,7 +3438,44 @@ var cash_city_tier = 'OTHER';
             "abTestCashFlexibleTenure": ab_test_cash_flexible_tenure,
             "autoAddWhitelistEcommerceVaPayment": autoAddWhitelistEcommerceVaPayment,
             "abTestCliVA": ab_test_cli_va,
-            "maxAmountBeforePreapprovedTelesales": max_amount_before_preapproved_telesales
+            "maxAmountBeforePreapprovedTelesales": max_amount_before_preapproved_telesales,
+            "abTestIncreaseCashLimitMiddleBin": ab_test_increase_cash_limit_middle_bin,
+            "maxAmountBeforeAbTestLimitIncrease": max_amount_before_ab_test_limit_increase,
+            "maxAmountBeforeAbTestLimitIncreaseWoDbr": max_amount_before_ab_test_limit_increase_wo_dbr,
+            "abTestRemoveDbrLogic": ab_test_remove_dbr_logic,
+            "autoAddWhitelistNamespaces": autoAddWhitelistNamespaces
+        };
+    }
+
+    if (approval_tag == '') {
+        return {
+            "approvalTag": approval_tag,
+            "maxAmount": max_amount,
+            "approvedLoanAmount": approved_loan_amount,
+            "tenure": tenure,
+            "experimentCode": experiment_code,
+            "experimentValue": experiment_value,
+            "bucketization": bucketization,
+            "rulePefindo": rule_pefindo,
+            "storeCategory": offline_store_category,
+            "voucherId": voucherId,
+            "highLimitDisbursedCategory": high_limit_disbursed_category,
+            "whitelistType": whitelist_type,
+            "abCode": ab_code,
+            "maxAmountWithoutDbr": max_amount_without_dbr,
+            "experimentOffline": experiment_offline,
+            "cashCityTier": cash_city_tier,
+            "rateGroupKey": rateGroupKey,
+            "abTestCashRbp": ab_test_cash_rbp,
+            "abTestCashFlexibleTenure": ab_test_cash_flexible_tenure,
+            "autoAddWhitelistEcommerceVaPayment": autoAddWhitelistEcommerceVaPayment,
+            "abTestCliVA": ab_test_cli_va,
+            "maxAmountBeforePreapprovedTelesales": max_amount_before_preapproved_telesales,
+            "abTestIncreaseCashLimitMiddleBin": ab_test_increase_cash_limit_middle_bin,
+            "maxAmountBeforeAbTestLimitIncrease": max_amount_before_ab_test_limit_increase,
+            "maxAmountBeforeAbTestLimitIncreaseWoDbr": max_amount_before_ab_test_limit_increase_wo_dbr,
+            "abTestRemoveDbrLogic": ab_test_remove_dbr_logic,
+            "autoAddWhitelistNamespaces": autoAddWhitelistNamespaces
         };
     }
 
