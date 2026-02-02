@@ -2,22 +2,11 @@
   "limits": {
     "rule_pefindo": [
       {
-        "in": [
-          "1",
-          "1A-2",
-          "2",
-          "1A-2CC",
-          "1A-2CCB",
-          "2CC",
-          "2CCB"
-        ],
+        "in": ["1", "1A-2", "2", "1A-2CC", "1A-2CCB", "2CC", "2CCB"],
         "score": -6
       },
       {
-        "in": [
-          "-9999",
-          " -999"
-        ],
+        "in": ["-9999", " -999"],
         "score": -51
       },
       {
@@ -41,45 +30,31 @@
     ],
     "blibli_badges": [
       {
-        "in": [
-          "-9999"
-        ],
+        "in": ["-9999"],
         "score": 0
       },
       {
-        "in": [
-          "-999"
-        ],
+        "in": ["-999"],
         "score": 0
       },
       {
-        "in": [
-          "Diamond"
-        ],
+        "in": ["Diamond"],
         "score": 2
       },
       {
-        "in": [
-          "Gold"
-        ],
+        "in": ["Gold"],
         "score": 0
       },
       {
-        "in": [
-          "Silver"
-        ],
+        "in": ["Silver"],
         "score": -4
       },
       {
-        "in": [
-          "Bronze"
-        ],
+        "in": ["Bronze"],
         "score": -10
       },
       {
-        "in": [
-          "UNBINNED"
-        ],
+        "in": ["UNBINNED"],
         "score": 0,
         "default": true
       }
@@ -150,45 +125,31 @@
     ],
     "flight_route_match": [
       {
-        "in": [
-          "-9999"
-        ],
+        "in": ["-9999"],
         "score": 1
       },
       {
-        "in": [
-          "-999"
-        ],
+        "in": ["-999"],
         "score": -2
       },
       {
-        "in": [
-          "single trip not match"
-        ],
+        "in": ["single trip not match"],
         "score": -9
       },
       {
-        "in": [
-          "single trip match"
-        ],
+        "in": ["single trip match"],
         "score": 5
       },
       {
-        "in": [
-          "round trip"
-        ],
+        "in": ["round trip"],
         "score": 23
       },
       {
-        "in": [
-          "multiple trip"
-        ],
+        "in": ["multiple trip"],
         "score": 19
       },
       {
-        "in": [
-          "UNBINNED"
-        ],
+        "in": ["UNBINNED"],
         "score": 0,
         "default": true
       }
@@ -249,21 +210,15 @@
     ],
     "uses_merchant_side_discount": [
       {
-        "in": [
-          "False"
-        ],
+        "in": ["False"],
         "score": -3
       },
       {
-        "in": [
-          "True"
-        ],
+        "in": ["True"],
         "score": 3
       },
       {
-        "in": [
-          "UNBINNED"
-        ],
+        "in": ["UNBINNED"],
         "score": 0,
         "default": true
       }
@@ -568,21 +523,15 @@
     ],
     "is_applicant_phonenum_match_billing_or_shipping": [
       {
-        "in": [
-          0
-        ],
+        "in": [0],
         "score": -21
       },
       {
-        "in": [
-          1
-        ],
+        "in": [1],
         "score": 1
       },
       {
-        "in": [
-          "UNBINNED"
-        ],
+        "in": ["UNBINNED"],
         "score": 0,
         "default": true
       }
