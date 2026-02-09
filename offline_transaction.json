@@ -83,9 +83,9 @@
         { "score": 4.0, "in": ["suspicious hour", "outside office hour"] },
         { "score": 0, "in": ["UNBINNED"], "default": true }
       ],
-      "flag_under_review": [
-        { "score": -19.0, "in": ["trx with agent under review"] },
-        { "score": 0.0, "in": ["agent not under review"] },
+      "agentUnderReview": [
+        { "score": -19.0, "in": ["True"] },
+        { "score": 0.0, "in": ["False"] },
         { "score": 0, "in": ["UNBINNED"], "default": true }
       ],
       "city_br15_1_last_3months_matured": [
@@ -153,11 +153,11 @@
         { "min": 50000000.0, "max": "inf", "score": -6.0 }
       ],
       "offline_store_category": [
-        { "score": 13.0, "in": ["0.hcf"] },
-        { "score": 3.0, "in": ["1.good"] },
-        { "score": -5.0, "in": ["2.average"] },
-        { "score": -20.0, "in": ["3.bad"] },
-        { "score": -35.0, "in": ["4.very_bad"] },
+        { "score": 13.0, "in": ["hcf"] },
+        { "score": 3.0, "in": ["good"] },
+        { "score": -5.0, "in": ["average"] },
+        { "score": -20.0, "in": ["bad"] },
+        { "score": -35.0, "in": ["very_bad"] },
         { "score": 0, "in": ["UNBINNED"], "default": true }
       ],
       "days_since_last_offline_trx": [
@@ -171,6 +171,7 @@
         { "min": 360.0, "max": "inf", "score": 23.0 }
       ],
       "scoringFeature_reinforced_pefindo_scoring_cli_offline_contact_call_20250728": [
+        { "min": -99, "max": 0, "score": 0.0 },
         { "min": 0.0, "max": 350.0, "score": -58.0 },
         { "min": 350.0, "max": 370.0, "score": -41.0 },
         { "min": 370.0, "max": 380.0, "score": -34.0 },
@@ -309,5 +310,12 @@
         { "min": "-inf", "max": 1.0, "score": 1.0 },
         { "min": 1.0, "max": "inf", "score": -15.0 }
       ]
+  },
+  "defaults": {
+    "ratio_merchant_different_name_last_month": -99,
+    "ratio_agent_different_name_last_month": -99,
+    "count_agent_duplicate_imei_last_month": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_daySinceLastLogin": -99,
+    "adjusted_limit_utilization_smartphone_big_limit": -99  
   }
 }
