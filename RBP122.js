@@ -713,7 +713,7 @@ if (is_offline_transaction) {
                 else if (selectedReinforcedScore >= 527) {userPromoRiskGrade = 'B1'}
                 else if (selectedReinforcedScore >= 514) {userPromoRiskGrade = 'B2'}
                 else if (selectedReinforcedScore >= 503) {userPromoRiskGrade = 'B3'}
-                else if (selectedReinforcedScore >= 492) {userPromoRiskGrade = 'B4'}
+                else if (selectedReinforcedScore1 >= 492) {userPromoRiskGrade = 'B4'}
                 else if (selectedReinforcedScore >= 483) {userPromoRiskGrade = 'B5'}
                 else if (selectedReinforcedScore >= 475) {userPromoRiskGrade = 'C1'}
                 else if (selectedReinforcedScore >= 466) {userPromoRiskGrade = 'C2'}
