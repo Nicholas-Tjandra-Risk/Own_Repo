@@ -575,15 +575,12 @@ var is_existing_user = riskGradeOfflineScore > 0;
 
 /* userPromoRiskGrade assignment */
 if (is_offline_transaction) {
-    userPromoRiskGrade = 'C1';
-    
     /* Score Reduction on Selected Offline Merchant (risk downgrade) */
     if (is_offline_merchant_downgrade) {
         riskGradeOfflineScore = riskGradeOfflineScore == null ? null : (riskGradeOfflineScore - 50);
         selectedReinforcedScore = selectedReinforcedScore == null ? null : ( selectedReinforcedScore - 50);
     }
-
-      if (is_existing_user) {
+    if (is_existing_user) {
         if (offline_item_category == 'smartphone' || offline_item_category == 'high-end phone') {
             /* MUST UPDATE Inconsistencies for offline score between risk query and prod due to scheduling https://reports.indodana.com/queries/24097/source 10% difference in every risk grade refresh date */
             if (hasNonLimitActiveCashLoanContract == true) {
@@ -600,7 +597,7 @@ if (is_offline_transaction) {
                 else if (riskGradeOfflineScore >= 480) {userPromoRiskGrade = 'B5'}
                 else if (riskGradeOfflineScore >= 469) {userPromoRiskGrade = 'C1'}
                 else if (riskGradeOfflineScore >= 463) {userPromoRiskGrade = 'C2'}
-                else if (riskGradeOfflineScore >= 453) {userPromoRiskGrade = 'D'}
+                else if (riskGradeOfflineScore >= 454) {userPromoRiskGrade = 'D'}
                 else {userPromoRiskGrade = 'E'}
             } else {
                 if (riskGradeOfflineScore >= 566) {userPromoRiskGrade = 'A1'}
@@ -632,7 +629,7 @@ if (is_offline_transaction) {
             else if (riskGradeOfflineScore >= 433) {userPromoRiskGrade = 'D'}
             else {userPromoRiskGrade = 'E'}
         }
-    } else {
+    } else if (selectedReinforcedScore > 0) {
         // NON EXISTING USER (NEW USER)
         if (offline_item_category == 'smartphone' || offline_item_category == 'high-end phone') {
             /* MUST UPDATE Reinforced score is not based on cached result from BQ2, but current selector rule version */
@@ -661,7 +658,7 @@ if (is_offline_transaction) {
                     else if (selectedReinforcedScore >= 518) {userPromoRiskGrade = 'B5'}
                     else if (selectedReinforcedScore >= 508) {userPromoRiskGrade = 'C1'}
                     else if (selectedReinforcedScore >= 494) {userPromoRiskGrade = 'C2'}
-                    else if (selectedReinforcedScore >= 481) {userPromoRiskGrade = 'C3'}
+                    else if (selectedReinforcedScore >= 478) {userPromoRiskGrade = 'C3'}
                     else if (selectedReinforcedScore >= 442) {userPromoRiskGrade = 'D'}
                     else {userPromoRiskGrade = 'E'}
                 }
@@ -740,8 +737,9 @@ if (is_offline_transaction) {
                 else {userPromoRiskGrade = 'E'}
             }
         } 
-    }   
+    } else {userPromoRiskGrade = 'C1'}
 }
+
 
 /* Merchant Risk Based Pricing Rule */
 if (riskMerchantCategoryName == 'Bad' || riskMerchantCategoryName == 'Very Bad') {

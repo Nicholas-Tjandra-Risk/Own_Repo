@@ -1,0 +1,9 @@
+{'offline_merchant_risk_category_group': 'high risk', 'whitelistedResults': [
+    {'id': 'dd3be803-528c-4970-ab2c-72e94f40c905', 'type': 'users', 'client': 'INDODANA', 'namespace': 'ecommerce-va-payment-auto', 'referral': 'userId.b9786b3a-4d91-462c-9607-6a1280178e49', 'reason': 'auto add from main rule result', 'reasonDetail': None, 'active': True, 'searchField': {'userId': 'b9786b3a-4d91-462c-9607-6a1280178e49'
+      }, 'additionalData': None, 'expiryDate': None, 'createdAt': '2026-02-09T09: 55: 35.403Z', 'updatedAt': '2026-02-09T09: 55: 35.403Z', 'entryType': 'WHITELISTS'
+    },
+    {'id': 'b7163538-b2e2-43cf-9aa4-9ab38e0ca36d', 'type': 'users', 'client': 'INDODANA', 'namespace': 'phase-2-cash-loan-via-limit', 'referral': 'userId.b9786b3a-4d91-462c-9607-6a1280178e49', 'reason': 'auto add from main rule result', 'reasonDetail': None, 'active': True, 'searchField': {'userId': 'b9786b3a-4d91-462c-9607-6a1280178e49'
+      }, 'additionalData': None, 'expiryDate': None, 'createdAt': '2026-02-09T09: 55: 35.406Z', 'updatedAt': '2026-02-09T09: 55: 35.406Z', 'entryType': 'WHITELISTS'
+    }
+  ], 'rate_group_key': 'default', 'selectedReinforcedScore': 597, 'mandatory_dp_rate': 0, 'offline_merchant_tag': 'normal', 'experimentOffline': 'offline_set_a', 'is_offline_transaction': True, 'risk_grade_offline_score': None, 'is_smartphone_transaction': False, 'user_promo_risk_grade': 'A1', 'mandatory_dp_tradi_experiment': 'set_b', 'ab_test_va_rbp': '', 'selectedReinforcedModelName': 'reinforced_pefindo_scoring_cli_offline_no_ewallet_20240912', 'offline_item_category': 'QR', 'offline_merchant_risk_category': 'not top merchant', 'is_trx_allowed_to_use_promo': True, 'is_existing_user': False
+}

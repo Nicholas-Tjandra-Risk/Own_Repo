@@ -170,8 +170,8 @@
         { "min": 180.0, "max": 360.0, "score": 11.0 },
         { "min": 360.0, "max": "inf", "score": 23.0 }
       ],
-      "scoringFeature_reinforced_pefindo_scoring_cli_offline_contact_call_20250728": [
-        { "min": -99, "max": 0, "score": 0.0 },
+      "reinforced_pefindo_scoring_cli_offline_contact_call_20250728_complete": [
+        { "min": "-inf", "max": 0, "score": 0.0 },
         { "min": 0.0, "max": 350.0, "score": -58.0 },
         { "min": 350.0, "max": 370.0, "score": -41.0 },
         { "min": 370.0, "max": 380.0, "score": -34.0 },
@@ -316,6 +316,7 @@
     "ratio_agent_different_name_last_month": -99,
     "count_agent_duplicate_imei_last_month": -99,
     "offlineFeatures_userTransactionHistoryFeatures_daySinceLastLogin": -99,
-    "adjusted_limit_utilization_smartphone_big_limit": -99  
+    "adjusted_limit_utilization_smartphone_big_limit": -99 ,
+    "reinforced_pefindo_scoring_cli_offline_contact_call_20250728_complete" : -99
   }
 }
