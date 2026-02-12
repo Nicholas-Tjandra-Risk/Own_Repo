@@ -1,0 +1,657 @@
+{
+  "limits": {
+    "rule_pefindo": [
+      {
+        "in": [
+          "1",
+          "1A-2",
+          "2",
+          "1A-2CC",
+          "1A-2CCB",
+          "2CC",
+          "2CCB"
+        ],
+        "score": -9
+      },
+      {
+        "in": [
+          "1A-3",
+          "1A-3B",
+          "1A-4",
+          "1A-4B",
+          "1A-5",
+          "1A-5B",
+          "3",
+          "3B",
+          "4",
+          "4B",
+          "5",
+          "5B",
+          "-9999",
+          "-99",
+          "-999"
+        ],
+        "score": 14,
+        "default": true
+      }
+    ],
+    "sumTotalPayment": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": -56
+      },
+      {
+        "max": 1000000,
+        "min": 0,
+        "score": -13
+      },
+      {
+        "max": 2000000,
+        "min": 1000000,
+        "score": -22
+      },
+      {
+        "max": 5000000,
+        "min": 2000000,
+        "score": -12
+      },
+      {
+        "max": "inf",
+        "min": 5000000,
+        "score": 4
+      }
+    ],
+    "total_limit_usage": [
+      {
+        "max": 1500000,
+        "min": "-inf",
+        "score": 28
+      },
+      {
+        "max": 8500000,
+        "min": 1500000,
+        "score": 7
+      },
+      {
+        "max": 20000000,
+        "min": 8500000,
+        "score": -7
+      },
+      {
+        "max": "inf",
+        "min": 20000000,
+        "score": -21
+      }
+    ],
+    "days_since_last_trx": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": -7
+      },
+      {
+        "max": 60,
+        "min": 0,
+        "score": 3
+      },
+      {
+        "max": 180,
+        "min": 60,
+        "score": 2
+      },
+      {
+        "max": "inf",
+        "min": 180,
+        "score": -2
+      }
+    ],
+    "sum_hp_transaction_1y": [
+      {
+        "max": 10000000,
+        "min": "-inf",
+        "score": 0
+      },
+      {
+        "max": "inf",
+        "min": 10000000,
+        "score": -14
+      }
+    ],
+    "count_disbursed_cash_7d": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 2
+      },
+      {
+        "max": "inf",
+        "min": 0,
+        "score": -35
+      }
+    ],
+    "is_va_same_phone_number": [
+      {
+        "in": [
+          "1"
+        ],
+        "score": 4
+      },
+      {
+        "in": [
+          "0"
+        ],
+        "score": -8
+      },
+      {
+        "in": [
+          "UNBINNED"
+        ],
+        "score": 0,
+        "default": true
+      }
+    ],
+    "adjusted_limit_utilization": [
+      {
+        "max": 0.3,
+        "min": "-inf",
+        "score": 36
+      },
+      {
+        "max": 0.5,
+        "min": 0.3,
+        "score": 13
+      },
+      {
+        "max": 0.7,
+        "min": 0.5,
+        "score": 5
+      },
+      {
+        "max": 0.9,
+        "min": 0.7,
+        "score": -9
+      },
+      {
+        "max": 0.95,
+        "min": 0.9,
+        "score": -19
+      },
+      {
+        "max": "inf",
+        "min": 0.95,
+        "score": -33
+      }
+    ],
+    "count_pulsa_transaction_8d": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 2
+      },
+      {
+        "max": "inf",
+        "min": 0,
+        "score": -22
+      }
+    ],
+    "count_reject_abusedet_last_30d": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 1
+      },
+      {
+        "max": 7,
+        "min": 0,
+        "score": -23
+      },
+      {
+        "max": "inf",
+        "min": 7,
+        "score": -32
+      }
+    ],
+    "scoringFeature_phone_model_class": [
+      {
+        "in": [
+          "-99",
+          "-9999"
+        ],
+        "score": 24
+      },
+      {
+        "in": [
+          "Iphone",
+          "Expensive"
+        ],
+        "score": 7
+      },
+      {
+        "in": [
+          "Cheap"
+        ],
+        "score": -11
+      },
+      {
+        "in": [
+          "Other"
+        ],
+        "score": -6,
+        "default": true
+      }
+    ],
+    "average_age_of_relationship_rescore": [
+      {
+        "max": -1,
+        "min": "-inf",
+        "score": -3
+      },
+      {
+        "max": 90,
+        "min": -1,
+        "score": -4
+      },
+      {
+        "max": "inf",
+        "min": 90,
+        "score": 0
+      }
+    ],
+    "discounted_sum_outstanding_late_1y_latest": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 1
+      },
+      {
+        "max": 100000,
+        "min": 0,
+        "score": -32
+      },
+      {
+        "max": 1000000,
+        "min": 100000,
+        "score": -24
+      },
+      {
+        "max": "inf",
+        "min": 1000000,
+        "score": -42
+      }
+    ],
+    "count_submit_cash_loan_application_30_days": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 2
+      },
+      {
+        "max": "inf",
+        "min": 0,
+        "score": -4
+      }
+    ],
+    "scoringFeature_offline_transaction_applied_amount": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 7
+      },
+      {
+        "max": "inf",
+        "min": 0,
+        "score": -17
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_cliMaxDpdLast30d": [
+      {
+        "max": 1,
+        "min": "-inf",
+        "score": 1
+      },
+      {
+        "max": 3,
+        "min": 1,
+        "score": -11
+      },
+      {
+        "max": 7,
+        "min": 3,
+        "score": -33
+      },
+      {
+        "max": "inf",
+        "min": 7,
+        "score": -157
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_cliMaxDpdLast90d": [
+      {
+        "max": 3,
+        "min": "-inf",
+        "score": 0
+      },
+      {
+        "max": 7,
+        "min": 3,
+        "score": -4
+      },
+      {
+        "max": "inf",
+        "min": 7,
+        "score": -31
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_cashMaxDpdLast30d": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 1
+      },
+      {
+        "max": "inf",
+        "min": 0,
+        "score": -24
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_cashMaxDpdLast90d": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 1
+      },
+      {
+        "max": "inf",
+        "min": 0,
+        "score": -13
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_totalPaidTrxBefore": [
+      {
+        "max": 2,
+        "min": "-inf",
+        "score": -17
+      },
+      {
+        "max": 7,
+        "min": 2,
+        "score": -15
+      },
+      {
+        "max": 15,
+        "min": 7,
+        "score": -3
+      },
+      {
+        "max": 40,
+        "min": 15,
+        "score": 1
+      },
+      {
+        "max": "inf",
+        "min": 40,
+        "score": 14
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_latestItemRejected1y": [
+      {
+        "in": [
+          "Handphone",
+          "Smartphone"
+        ],
+        "score": -22
+      },
+      {
+        "in": [
+          "Pulsa"
+        ],
+        "score": -15
+      },
+      {
+        "in": [
+          "BPJS"
+        ],
+        "score": -3
+      },
+      {
+        "in": [
+          "PLN/Tagihan Listrik"
+        ],
+        "score": -6
+      },
+      {
+        "in": [
+          "-99",
+          "-999",
+          "-9999"
+        ],
+        "score": 3
+      },
+      {
+        "in": [
+          "Other"
+        ],
+        "score": -2,
+        "default": true
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_countDistinctKtpDevice": [
+      {
+        "max": 1,
+        "min": "-inf",
+        "score": 1
+      },
+      {
+        "max": "inf",
+        "min": 1,
+        "score": -12
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_vaOutstandingPercentage": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": -5
+      },
+      {
+        "max": 0.7,
+        "min": 0,
+        "score": 42
+      },
+      {
+        "max": 0.9,
+        "min": 0.7,
+        "score": 5
+      },
+      {
+        "max": "inf",
+        "min": 0.9,
+        "score": -18
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_countCashLoan1mFdcLatest": [
+      {
+        "max": -1,
+        "min": "-inf",
+        "score": -1
+      },
+      {
+        "max": 0,
+        "min": -1,
+        "score": 2
+      },
+      {
+        "max": 3,
+        "min": 0,
+        "score": -1
+      },
+      {
+        "max": "inf",
+        "min": 3,
+        "score": -8
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_haveTokpedAppLatestDevice": [
+      {
+        "in": [
+          "TRUE",
+          "True",
+          "true"
+        ],
+        "score": 0
+      },
+      {
+        "in": [
+          "FALSE",
+          "False",
+          "false"
+        ],
+        "score": -12
+      },
+      {
+        "in": [
+          "-9999",
+          "-99"
+        ],
+        "score": 5
+      },
+      {
+        "in": [
+          "UNBINNED"
+        ],
+        "score": 0,
+        "default": true
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_activeCashOutstandingPercentage": [
+      {
+        "max": -1,
+        "min": "-inf",
+        "score": 13
+      },
+      {
+        "max": 0.3,
+        "min": 0,
+        "score": 4
+      },
+      {
+        "max": 0.7,
+        "min": 0.3,
+        "score": -7
+      },
+      {
+        "max": "inf",
+        "min": 0.7,
+        "score": -26
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_fdcStatisticNumberOfInquiryId30d": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 7
+      },
+      {
+        "max": 4,
+        "min": 0,
+        "score": 5
+      },
+      {
+        "max": 7,
+        "min": 4,
+        "score": -5
+      },
+      {
+        "max": "inf",
+        "min": 7,
+        "score": -22
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_countInstalledLoanApps14dBeforeTrx": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 4
+      },
+      {
+        "max": 1,
+        "min": 0,
+        "score": -18
+      },
+      {
+        "max": 3,
+        "min": 1,
+        "score": -30
+      },
+      {
+        "max": "inf",
+        "min": 3,
+        "score": -42
+      }
+    ],
+    "offlineFeatures_userTransactionHistoryFeatures_totalOrganizerWithOutstanding1yExcludeIndodana": [
+      {
+        "max": 0,
+        "min": "-inf",
+        "score": 13
+      },
+      {
+        "max": 3,
+        "min": 0,
+        "score": 7
+      },
+      {
+        "max": 5,
+        "min": 3,
+        "score": -9
+      },
+      {
+        "max": 9,
+        "min": 5,
+        "score": -21
+      },
+      {
+        "max": 15,
+        "min": 9,
+        "score": -32
+      },
+      {
+        "max": "inf",
+        "min": 15,
+        "score": -56
+      }
+    ]
+  },
+  "default_values": {
+    "rule_pefindo": "-99",
+    "sumTotalPayment": 0,
+    "total_limit_usage": 0,
+    "days_since_last_trx": -9999,
+    "sum_hp_transaction_1y": -99,
+    "count_disbursed_cash_7d": -99,
+    "is_va_same_phone_number": "-99",
+    "adjusted_limit_utilization": 0,
+    "count_pulsa_transaction_8d": -99,
+    "count_reject_abusedet_last_30d": -9999,
+    "scoringFeature_phone_model_class": "-99",
+    "average_age_of_relationship_rescore": -99,
+    "discounted_sum_outstanding_late_1y_latest": -9999,
+    "count_submit_cash_loan_application_30_days": -99,
+    "scoringFeature_offline_transaction_applied_amount": -9999,
+    "offlineFeatures_userTransactionHistoryFeatures_cliMaxDpdLast30d": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_cliMaxDpdLast90d": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_cashMaxDpdLast30d": -9999,
+    "offlineFeatures_userTransactionHistoryFeatures_cashMaxDpdLast90d": -9999,
+    "offlineFeatures_userTransactionHistoryFeatures_totalPaidTrxBefore": -9999,
+    "offlineFeatures_userTransactionHistoryFeatures_latestItemRejected1y": "-9999",
+    "offlineFeatures_userTransactionHistoryFeatures_countDistinctKtpDevice": -9999,
+    "offlineFeatures_userTransactionHistoryFeatures_vaOutstandingPercentage": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_countCashLoan1mFdcLatest": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_haveTokpedAppLatestDevice": "-9999",
+    "offlineFeatures_userTransactionHistoryFeatures_activeCashOutstandingPercentage": -9999,
+    "offlineFeatures_userTransactionHistoryFeatures_fdcStatisticNumberOfInquiryId30d": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_countInstalledLoanApps14dBeforeTrx": -9999,
+    "offlineFeatures_userTransactionHistoryFeatures_totalOrganizerWithOutstanding1yExcludeIndodana": -99
+  }
+}

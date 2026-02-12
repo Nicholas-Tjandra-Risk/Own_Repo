@@ -1,33 +1,17 @@
 {
   "limits": {
-      "ratio_merchant_different_name_last_month": [
-        { "min": "-inf", "max": 0.0, "score": -0.0 },
-        { "min": 0.0, "max": 0.25, "score": 1.0 },
-        { "min": 0.25, "max": 0.5, "score": -2.0 },
-        { "min": 0.5, "max": 1.0, "score": -9.0 }
+      "flag_trx_hour": [
+        { "score": -5.0, "in": ["inside office hour weekday"] },
+        { "score": 4.0, "in": ["suspicious hour", "outside office hour"] },
+        { "score": 0, "in": ["UNBINNED"], "default": true }
       ],
-      "ratio_agent_different_name_last_month": [
-        { "min": "-inf", "max": 0.0, "score": -0.0 },
-        { "min": 0.0, "max": 0.25, "score": 0.0 },
-        { "min": 0.25, "max": 0.5, "score": -3.0 },
-        { "min": 0.5, "max": "inf", "score": -3.0 }
-      ],
-      "count_agent_duplicate_imei_last_month": [
-        { "min": "-inf", "max": 0.0, "score": 0.0 },
-        { "min": 0.0, "max": "inf", "score": -5.0 }
-      ],
-      "offlineFeatures_userTransactionHistoryFeatures_daySinceLastLogin": [
-        { "min": "-inf", "max": -99.0, "score": -1.0 },
-        { "min": 0.0, "max": 1.0, "score": -4.0 },
-        { "min": 1.0, "max": 5.0, "score": 3.0 },
-        { "min": 5.0, "max": 20.0, "score": 8.0 },
-        { "min": 20.0, "max": 180.0, "score": 10.0 },
-        { "min": 180.0, "max": 360.0, "score": 4.0 },
-        { "min": 360.0, "max": 720.0, "score": -3.0 },
-        { "min": 720.0, "max": "inf", "score": -4.0 }
+      "agentUnderReview": [
+        { "score": -19.0, "in": ["True"] },
+        { "score": 0.0, "in": ["False"] },
+        { "score": 0, "in": ["UNBINNED"], "default": true }
       ],
       "adjusted_limit_utilization_smartphone_big_limit": [
-        { "min": "-inf", "max": -99.0, "score": -3.0 },
+        { "min": "-inf", "max": -99.0, "score": 0 },
         { "min": -99.0, "max": 0.5, "score": 44.0 },
         { "min": 0.5, "max": 0.7, "score": 12.0 },
         { "min": 0.7, "max": 0.8, "score": -2.0 },
@@ -62,97 +46,7 @@
         { "min": 0.9, "max": 0.99, "score": -27.0 },
         { "min": 0.99, "max": "inf", "score": -26.0 }
       ],
-      "agent_br15_3_last_3months_matured": [
-        { "min": "-inf", "max": -99.0, "score": -0.0 },
-        { "min": -99.0, "max": 0.0, "score": 2.0 },
-        { "min": 0.0, "max": 0.04, "score": 4.0 },
-        { "min": 0.04, "max": 0.06, "score": 1.0 },
-        { "min": 0.06, "max": 0.1, "score": -1.0 },
-        { "min": 0.1, "max": 0.15, "score": -4.0 },
-        { "min": 0.15, "max": 0.25, "score": -5.0 },
-        { "min": 0.25, "max": "inf", "score": -9.0 }
-      ],
-      "agent_amount_bad15_3_1month_only_lag2": [
-        { "min": "-inf", "max": -99.0, "score": -0.0 },
-        { "min": -99.0, "max": 0.0, "score": 1.0 },
-        { "min": 0.0, "max": 50000000.0, "score": -0.0 },
-        { "min": 50000000.0, "max": "inf", "score": -3.0 }
-      ],
-      "flag_trx_hour": [
-        { "score": -5.0, "in": ["inside office hour weekday"] },
-        { "score": 4.0, "in": ["suspicious hour", "outside office hour"] },
-        { "score": 0, "in": ["UNBINNED"], "default": true }
-      ],
-      "agentUnderReview": [
-        { "score": -19.0, "in": ["True"] },
-        { "score": 0.0, "in": ["False"] },
-        { "score": 0, "in": ["UNBINNED"], "default": true }
-      ],
-      "city_br15_1_last_3months_matured": [
-        { "min": "-inf", "max": 0.0, "score": -7.0 },
-        { "min": 0.0, "max": 0.01, "score": 4.0 },
-        { "min": 0.01, "max": 0.025, "score": 1.0 },
-        { "min": 0.025, "max": 0.05, "score": -3.0 },
-        { "min": 0.05, "max": "inf", "score": -4.0 }
-      ],
-      "city_br15_3_last_3months_matured": [
-        { "min": "-inf", "max": -99.0, "score": -5.0 },
-        { "min": -99.0, "max": 0.0, "score": -5.0 },
-        { "min": 0.0, "max": 0.03, "score": -3.0 },
-        { "min": 0.03, "max": 0.05, "score": 3.0 },
-        { "min": 0.05, "max": 0.07, "score": 0.0 },
-        { "min": 0.07, "max": 0.09, "score": -2.0 },
-        { "min": 0.09, "max": 0.13, "score": -5.0 },
-        { "min": 0.13, "max": "inf", "score": -4.0 }
-      ],
-      "mall_name_br15_1_last_3months_matured": [
-        { "min": "-inf", "max": -99.0, "score": -1.0 },
-        { "min": -99.0, "max": 0.0, "score": 2.0 },
-        { "min": 0.0, "max": 0.01, "score": 2.0 },
-        { "min": 0.01, "max": 0.025, "score": -0.0 },
-        { "min": 0.025, "max": 0.05, "score": -0.0 },
-        { "min": 0.05, "max": 0.08, "score": -1.0 },
-        { "min": 0.08, "max": "inf", "score": -3.0 }
-      ],
-      "mall_name_br15_3_last_3months_matured": [
-        { "min": "-inf", "max": -99.0, "score": -0.0 },
-        { "min": -99.0, "max": 0.0, "score": 1.0 },
-        { "min": 0.0, "max": 0.02, "score": 3.0 },
-        { "min": 0.02, "max": 0.06, "score": 2.0 },
-        { "min": 0.06, "max": 0.09, "score": -1.0 },
-        { "min": 0.09, "max": "inf", "score": -2.0 }
-      ],
-      "merchant_br15_1_last_3months_matured": [
-        { "min": "-inf", "max": -99.0, "score": -3.0 },
-        { "min": -99.0, "max": 0.0, "score": 3.0 },
-        { "min": 0.0, "max": 0.01, "score": 6.0 },
-        { "min": 0.01, "max": 0.025, "score": -0.0 },
-        { "min": 0.025, "max": 0.04, "score": -3.0 },
-        { "min": 0.04, "max": 0.05, "score": -3.0 },
-        { "min": 0.05, "max": 0.06, "score": -6.0 },
-        { "min": 0.06, "max": 0.1, "score": -10.0 },
-        { "min": 0.1, "max": 0.15, "score": -13.0 },
-        { "min": 0.15, "max": 0.25, "score": -13.0 },
-        { "min": 0.25, "max": "inf", "score": -19.0 }
-      ],
-      "merchant_br15_3_last_3months_matured": [
-        { "min": "-inf", "max": -99.0, "score": -1.0 },
-        { "min": -99.0, "max": 0.0, "score": 2.0 },
-        { "min": 0.0, "max": 0.02, "score": 4.0 },
-        { "min": 0.02, "max": 0.04, "score": 2.0 },
-        { "min": 0.04, "max": 0.07, "score": -0.0 },
-        { "min": 0.07, "max": 0.11, "score": -2.0 },
-        { "min": 0.11, "max": 0.15, "score": -3.0 },
-        { "min": 0.15, "max": "inf", "score": -5.0 }
-      ],
-      "merchant_amount_bad15_1_1month_only_lag2": [
-        { "min": "-inf", "max": -99.0, "score": -1.0 },
-        { "min": -99.0, "max": 0.0, "score": 1.0 },
-        { "min": 0.0, "max": 25000000.0, "score": -1.0 },
-        { "min": 25000000.0, "max": 50000000.0, "score": -2.0 },
-        { "min": 50000000.0, "max": "inf", "score": -6.0 }
-      ],
-      "offline_store_category": [
+      "scoringFeature_offline_store_category": [
         { "score": 13.0, "in": ["hcf"] },
         { "score": 3.0, "in": ["good"] },
         { "score": -5.0, "in": ["average"] },
@@ -160,15 +54,29 @@
         { "score": -35.0, "in": ["very_bad"] },
         { "score": 0, "in": ["UNBINNED"], "default": true }
       ],
-      "days_since_last_offline_trx": [
-        { "min": "-inf", "max": -99.0, "score": -0.0 },
-        { "min": -99.0, "max": 0.0, "score": -7.0 },
-        { "min": 0.0, "max": 30.0, "score": -4.0 },
-        { "min": 30.0, "max": 60.0, "score": -3.0 },
-        { "min": 60.0, "max": 120.0, "score": 2.0 },
-        { "min": 120.0, "max": 180.0, "score": 6.0 },
-        { "min": 180.0, "max": 360.0, "score": 11.0 },
-        { "min": 360.0, "max": "inf", "score": 23.0 }
+      "count_reject_abusedet_last_30d": [
+        { "min": "-inf", "max": -99.0, "score": -10.0 },
+        { "min": -99.0, "max": 0.0, "score": 1.0 },
+        { "min": 0.0, "max": "inf", "score": -75.0 }
+      ],
+      "discounted_sum_outstanding_late_1y_latest": [
+        { "min": "-inf", "max": -99.0, "score": -1.0 },
+        { "min": -99.0, "max": 0.0, "score": 4.0 },
+        { "min": 0.0, "max": "inf", "score": -28.0 }
+      ],
+      "identityScore": [
+        { "min": "-inf", "max": 440.0, "score": -5.0 },
+        { "min": 440.0, "max": 480.0, "score": -1.0 },
+        { "min": 480.0, "max": 520.0, "score": -0.0 },
+        { "min": 520.0, "max": "inf", "score": 5.0 }
+      ],
+      "app_list_pefindo_flag_rescore": [
+        { "min": "-inf", "max": -99.0, "score": 1.0 },
+        { "min": -99.0, "max": 0.0, "score": 2.0 },
+        { "min": 0.0, "max": 230.0, "score": 3.0 },
+        { "min": 230.0, "max": 300.0, "score": 1.0 },
+        { "min": 300.0, "max": 330.0, "score": -1.0 },
+        { "min": 330.0, "max": "inf", "score": -2.0 }
       ],
       "reinforced_pefindo_scoring_cli_offline_contact_call_20250728_complete": [
         { "min": "-inf", "max": 0, "score": 0.0 },
@@ -198,6 +106,26 @@
         { "min": 3.0, "max": 9.0, "score": 9.0 },
         { "min": 9.0, "max": "inf", "score": 15.0 }
       ],
+      "offlineFeatures_userTransactionHistoryFeatures_daySinceLastLogin": [
+        { "min": "-inf", "max": -99.0, "score": -1.0 },
+        { "min": 0.0, "max": 1.0, "score": -4.0 },
+        { "min": 1.0, "max": 5.0, "score": 3.0 },
+        { "min": 5.0, "max": 20.0, "score": 8.0 },
+        { "min": 20.0, "max": 180.0, "score": 10.0 },
+        { "min": 180.0, "max": 360.0, "score": 4.0 },
+        { "min": 360.0, "max": 720.0, "score": -3.0 },
+        { "min": 720.0, "max": "inf", "score": -4.0 }
+      ],
+      "days_since_last_offline_trx": [
+        { "min": "-inf", "max": -99.0, "score": -0.0 },
+        { "min": -99.0, "max": 0.0, "score": -7.0 },
+        { "min": 0.0, "max": 30.0, "score": -4.0 },
+        { "min": 30.0, "max": 60.0, "score": -3.0 },
+        { "min": 60.0, "max": 120.0, "score": 2.0 },
+        { "min": 120.0, "max": 180.0, "score": 6.0 },
+        { "min": 180.0, "max": 360.0, "score": 11.0 },
+        { "min": 360.0, "max": "inf", "score": 23.0 }
+      ],
       "offlineFeatures_userTransactionHistoryFeatures_totalOrganizerWithOutstanding1yExcludeIndodana": [ 
         { "min": -99.0, "max": 0.0, "score": 0.0 },
         { "min": 0.0, "max": 3.0, "score": 2.0 },
@@ -215,11 +143,6 @@
         { "min": -99.0, "max": 0.0, "score": 1.0 },
         { "min": 0.0, "max": "inf", "score": -44.0 }
       ],
-      "count_reject_abusedet_last_30d": [
-        { "min": "-inf", "max": -9999.0, "score": -10.0 },
-        { "min": -99.0, "max": 0.0, "score": 1.0 },
-        { "min": 0.0, "max": "inf", "score": -75.0 }
-      ],
       "offlineFeatures_userTransactionHistoryFeatures_countInstalledLoanApps30dBeforeTrx": [
         { "min": "-inf", "max": -99.0, "score": 3.0 },
         { "min": -1.0, "max": 0.0, "score": 4.0 },
@@ -228,11 +151,6 @@
         { "min": 2.0, "max": 3.0, "score": -7.0 },
         { "min": 3.0, "max": 5.0, "score": -10.0 },
         { "min": 5.0, "max": "inf", "score": -18.0 }
-      ],
-      "discounted_sum_outstanding_late_1y_latest": [
-        { "min": "-inf", "max": -99.0, "score": -1.0 },
-        { "min": -99.0, "max": 0.0, "score": 4.0 },
-        { "min": 0.0, "max": "inf", "score": -28.0 }
       ],
       "offlineFeatures_userTransactionHistoryFeatures_prevCliOutstandingBalance": [
         { "min": "-inf", "max": -999.0, "score": -2.0 },
@@ -262,12 +180,6 @@
         { "min": 3.0, "max": 5.0, "score": -29.0 },
         { "min": 5.0, "max": "inf", "score": -41.0 }
       ],
-      "identityScore": [
-        { "min": "-inf", "max": 440.0, "score": -5.0 },
-        { "min": 440.0, "max": 480.0, "score": -1.0 },
-        { "min": 480.0, "max": 520.0, "score": -0.0 },
-        { "min": 520.0, "max": "inf", "score": 5.0 }
-      ],
       "offlineFeatures_userTransactionHistoryFeatures_countCashLoan1mFdcLatest": [
         { "min": "-inf", "max": -99.0, "score": -1.0 },
         { "min": -1.0, "max": 0.0, "score": 3.0 },
@@ -285,14 +197,6 @@
         { "min": 1.0, "max": 2.0, "score": -13.0 },
         { "min": 2.0, "max": "inf", "score": -30.0 }
       ],
-      "app_list_pefindo_flag_rescore": [
-        { "min": "-inf", "max": -99.0, "score": 1.0 },
-        { "min": -99.0, "max": 0.0, "score": 2.0 },
-        { "min": 0.0, "max": 230.0, "score": 3.0 },
-        { "min": 230.0, "max": 300.0, "score": 1.0 },
-        { "min": 300.0, "max": 330.0, "score": -1.0 },
-        { "min": 330.0, "max": "inf", "score": -2.0 }
-      ],
       "offlineFeatures_userTransactionHistoryFeatures_cashLimitUtilization": [
         { "min": "-inf", "max": -999.0, "score": -0.0 },
         { "min": 0.0, "max": 0.3, "score": 51.0 },
@@ -309,14 +213,144 @@
       "offlineFeatures_userTransactionHistoryFeatures_countDistinctKtpDevice": [
         { "min": "-inf", "max": 1.0, "score": 1.0 },
         { "min": 1.0, "max": "inf", "score": -15.0 }
+      ],
+      "offlineFeatures_offlineAgentTransactionHistoryFeatures_agentBr153Last3MonthsMatured": [
+        { "min": "-inf", "max": -99.0, "score": -0.0 },
+        { "min": -99.0, "max": 0.0, "score": 2.0 },
+        { "min": 0.0, "max": 0.04, "score": 4.0 },
+        { "min": 0.04, "max": 0.06, "score": 1.0 },
+        { "min": 0.06, "max": 0.1, "score": -1.0 },
+        { "min": 0.1, "max": 0.15, "score": -4.0 },
+        { "min": 0.15, "max": 0.25, "score": -5.0 },
+        { "min": 0.25, "max": "inf", "score": -9.0 }
+      ],
+      "offlineFeatures_offlineAgentTransactionHistoryFeatures_agentAmountBad1531MonthOnlyLag2": [
+        { "min": "-inf", "max": -99.0, "score": -0.0 },
+        { "min": -99.0, "max": 0.0, "score": 1.0 },
+        { "min": 0.0, "max": 50000000.0, "score": -0.0 },
+        { "min": 50000000.0, "max": "inf", "score": -3.0 }
+      ],
+      "offlineFeatures_merchantTransactionHistoryFeatures_ratioMerchantDifferentNameLastMonth": [
+        { "min": "-inf", "max": 0.0, "score": -0.0 },
+        { "min": 0.0, "max": 0.25, "score": 1.0 },
+        { "min": 0.25, "max": 0.5, "score": -2.0 },
+        { "min": 0.5, "max": 1.0, "score": -9.0 }
+      ],
+      "offlineFeatures_offlineAgentTransactionHistoryFeatures_ratioAgentDifferentNameLastMonth": [
+        { "min": "-inf", "max": 0.0, "score": -0.0 },
+        { "min": 0.0, "max": 0.25, "score": 0.0 },
+        { "min": 0.25, "max": 0.5, "score": -3.0 },
+        { "min": 0.5, "max": "inf", "score": -3.0 }
+      ],
+      "offlineFeatures_offlineAgentTransactionHistoryFeatures_countAgentDuplicateImeiLastMonth": [
+        { "min": "-inf", "max": 0.0, "score": 0.0 },
+        { "min": 0.0, "max": "inf", "score": -5.0 }
+      ],
+      "offlineFeatures_merchantTransactionHistoryFeatures_cityBr151Last3MonthsMatured": [
+        { "min": "-inf", "max": 0.0, "score": -7.0 },
+        { "min": 0.0, "max": 0.01, "score": 4.0 },
+        { "min": 0.01, "max": 0.025, "score": 1.0 },
+        { "min": 0.025, "max": 0.05, "score": -3.0 },
+        { "min": 0.05, "max": "inf", "score": -4.0 }
+      ],
+      "offlineFeatures_merchantTransactionHistoryFeatures_cityBr153Last3MonthsMatured": [
+        { "min": "-inf", "max": -99.0, "score": -5.0 },
+        { "min": -99.0, "max": 0.0, "score": -5.0 },
+        { "min": 0.0, "max": 0.03, "score": -3.0 },
+        { "min": 0.03, "max": 0.05, "score": 3.0 },
+        { "min": 0.05, "max": 0.07, "score": 0.0 },
+        { "min": 0.07, "max": 0.09, "score": -2.0 },
+        { "min": 0.09, "max": 0.13, "score": -5.0 },
+        { "min": 0.13, "max": "inf", "score": -4.0 }
+      ],
+      "offlineFeatures_merchantTransactionHistoryFeatures_mallNameBr151Last3MonthsMatured": [
+        { "min": "-inf", "max": -99.0, "score": -1.0 },
+        { "min": -99.0, "max": 0.0, "score": 2.0 },
+        { "min": 0.0, "max": 0.01, "score": 2.0 },
+        { "min": 0.01, "max": 0.025, "score": -0.0 },
+        { "min": 0.025, "max": 0.05, "score": -0.0 },
+        { "min": 0.05, "max": 0.08, "score": -1.0 },
+        { "min": 0.08, "max": "inf", "score": -3.0 }
+      ],
+      "offlineFeatures_merchantTransactionHistoryFeatures_mallNameBr153Last3MonthsMatured": [
+        { "min": "-inf", "max": -99.0, "score": -0.0 },
+        { "min": -99.0, "max": 0.0, "score": 1.0 },
+        { "min": 0.0, "max": 0.02, "score": 3.0 },
+        { "min": 0.02, "max": 0.06, "score": 2.0 },
+        { "min": 0.06, "max": 0.09, "score": -1.0 },
+        { "min": 0.09, "max": "inf", "score": -2.0 }
+      ],
+      "offlineFeatures_merchantTransactionHistoryFeatures_merchantBr151Last3MonthsMatured": [
+        { "min": "-inf", "max": -99.0, "score": -3.0 },
+        { "min": -99.0, "max": 0.0, "score": 3.0 },
+        { "min": 0.0, "max": 0.01, "score": 6.0 },
+        { "min": 0.01, "max": 0.025, "score": -0.0 },
+        { "min": 0.025, "max": 0.04, "score": -3.0 },
+        { "min": 0.04, "max": 0.05, "score": -3.0 },
+        { "min": 0.05, "max": 0.06, "score": -6.0 },
+        { "min": 0.06, "max": 0.1, "score": -10.0 },
+        { "min": 0.1, "max": 0.15, "score": -13.0 },
+        { "min": 0.15, "max": 0.25, "score": -13.0 },
+        { "min": 0.25, "max": "inf", "score": -19.0 }
+      ],
+      "offlineFeatures_merchantTransactionHistoryFeatures_merchantBr153Last3MonthsMatured": [
+        { "min": "-inf", "max": -99.0, "score": -1.0 },
+        { "min": -99.0, "max": 0.0, "score": 2.0 },
+        { "min": 0.0, "max": 0.02, "score": 4.0 },
+        { "min": 0.02, "max": 0.04, "score": 2.0 },
+        { "min": 0.04, "max": 0.07, "score": -0.0 },
+        { "min": 0.07, "max": 0.11, "score": -2.0 },
+        { "min": 0.11, "max": 0.15, "score": -3.0 },
+        { "min": 0.15, "max": "inf", "score": -5.0 }
+      ],
+      "offlineFeatures_merchantTransactionHistoryFeatures_merchantAmountBad1511MonthOnlyLag2": [
+        { "min": "-inf", "max": -99.0, "score": -1.0 },
+        { "min": -99.0, "max": 0.0, "score": 1.0 },
+        { "min": 0.0, "max": 25000000.0, "score": -1.0 },
+        { "min": 25000000.0, "max": 50000000.0, "score": -2.0 },
+        { "min": 50000000.0, "max": "inf", "score": -6.0 }
       ]
   },
   "defaults": {
-    "ratio_merchant_different_name_last_month": -99,
-    "ratio_agent_different_name_last_month": -99,
-    "count_agent_duplicate_imei_last_month": -99,
-    "offlineFeatures_userTransactionHistoryFeatures_daySinceLastLogin": -99,
-    "adjusted_limit_utilization_smartphone_big_limit": -99 ,
-    "reinforced_pefindo_scoring_cli_offline_contact_call_20250728_complete" : -99
+    "flag_trx_hour" : "UNBINNED",
+    "agentUnderReview":"UNBINNED",
+    "adjusted_limit_utilization_smartphone_big_limit": -99,
+    "adjusted_limit_utilization_smartphone_small_limit": -99,
+    "adjusted_limit_utilization_non_smartphone_big_limit": -99,
+    "adjusted_limit_utilization_non_smartphone_small_limit": -99,
+    "scoringFeature_offline_store_category": "UNBINNED",
+    "count_reject_abusedet_last_30d": -99,
+    "discounted_sum_outstanding_late_1y_latest": -99,
+    "identityScore":-99,
+    "app_list_pefindo_flag_rescore":-99,
+    "reinforced_pefindo_scoring_cli_offline_contact_call_20250728_complete": -99,
+    "count_unique_month_paid_before_trx": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_daySinceLastLogin":-99,
+    "days_since_last_offline_trx": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_totalOrganizerWithOutstanding1yExcludeIndodana": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_fdcStatisticNumberOfInquiryId30d": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_countApprovedCash30d": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_countInstalledLoanApps30dBeforeTrx": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_prevCliOutstandingBalance": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_cliMaxDpdLast90d": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_cliMaxDpdLast30d": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_countCashLoan1mFdcLatest": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_countHpPurchaseAll30d": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_countHpPurchaseAll1y": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_cashLimitUtilization": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_activeCashOutstandingPercentage": -99,
+    "offlineFeatures_userTransactionHistoryFeatures_countDistinctKtpDevice": -99,
+    "offlineFeatures_offlineAgentTransactionHistoryFeatures_agentBr153Last3MonthsMatured": -99,
+    "offlineFeatures_offlineAgentTransactionHistoryFeatures_agentAmountBad1531MonthOnlyLag2": -99,
+    "offlineFeatures_merchantTransactionHistoryFeatures_ratioMerchantDifferentNameLastMonth": -99,
+    "offlineFeatures_offlineAgentTransactionHistoryFeatures_ratioAgentDifferentNameLastMonth": -99,
+    "offlineFeatures_offlineAgentTransactionHistoryFeatures_countAgentDuplicateImeiLastMonth": -99,
+    "offlineFeatures_merchantTransactionHistoryFeatures_cityBr151Last3MonthsMatured": -99,
+    "offlineFeatures_merchantTransactionHistoryFeatures_cityBr153Last3MonthsMatured": -99,
+    "offlineFeatures_merchantTransactionHistoryFeatures_mallNameBr151Last3MonthsMatured": -99,
+    "offlineFeatures_merchantTransactionHistoryFeatures_mallNameBr153Last3MonthsMatured": -99,
+    "offlineFeatures_merchantTransactionHistoryFeatures_merchantBr151Last3MonthsMatured": -99,
+    "offlineFeatures_merchantTransactionHistoryFeatures_merchantBr153Last3MonthsMatured": -99,
+    "offlineFeatures_merchantTransactionHistoryFeatures_merchantAmountBad1511MonthOnlyLag2": -99
   }
 }
