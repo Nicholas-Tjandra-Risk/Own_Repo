@@ -8,7 +8,7 @@
       "agentUnderReview": [
         { "score": -19.0, "in": ["True"] },
         { "score": 0.0, "in": ["False"] },
-        { "score": 0, "in": ["UNBINNED"], "default": true }
+        { "score": 0, "in": ["UNBINNED", null], "default": true }
       ],
       "adjusted_limit_utilization_smartphone_big_limit": [
         { "min": "-inf", "max": -99.0, "score": 0 },
@@ -311,7 +311,7 @@
         { "min": 50000000.0, "max": "inf", "score": -6.0 }
       ]
   },
-  "defaults": {
+  "default_values": {
     "flag_trx_hour" : "UNBINNED",
     "agentUnderReview":"UNBINNED",
     "adjusted_limit_utilization_smartphone_big_limit": -99,
