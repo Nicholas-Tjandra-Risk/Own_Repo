@@ -912,6 +912,7 @@ var tiket_account_age_days_max = scoringFeature['tiket_account_age_days_max'] ==
 var tiket_days_before_1st_trx = scoringFeature['tiket_days_before_1st_trx'] == null ? -99 : scoringFeature['tiket_days_before_1st_trx'];
 var tiket_sum_order_amount_paid_max = scoringFeature['tiket_sum_order_amount_paid_max'] == null ? -99 : scoringFeature['tiket_sum_order_amount_paid_max'];
 
+
 /* string */
 var current_company_name = scoringFeature['current_company_name'] == null ? '-99' : scoringFeature['current_company_name'];
 var initial_store_name = scoringFeature['store_name'] == null ? '-99' : scoringFeature['store_name'];
@@ -926,6 +927,8 @@ var offline_sub_item_category = scoringFeature['offline_sub_item_category'] == n
 var address_is_current_address = scoringFeature['address_is_current_address'] == null ? '-99' : scoringFeature['address_is_current_address'];
 var applicant_current_residence_city = scoringFeature['applicant_current_residence_city'] == null ? '-99' : scoringFeature['applicant_current_residence_city'];
 var applicant_residence_city = scoringFeature['applicant_residence_city'] == null ? '-99' : scoringFeature['applicant_residence_city'];
+var product_type = scoringFeature['product_type'] == null ? '-99' : scoringFeature['product_type'];
+var partner = scoringFeature['partner'] == null ? '-99' : scoringFeature['partner'];
 
 /* featureScoresByFeatureName */
 var count_submit_app_within_4_hours_distinct = featureScoresByFeatureName['count_submit_app_within_4_hours_distinct'] == null ? -99 : featureScoresByFeatureName['count_submit_app_within_4_hours_distinct'];
@@ -1058,6 +1061,7 @@ var blibli_badges = featureScoresByFeatureName['blibli_badges'] == null ? "-9999
 
 /* model score */
 var model_tiket_blibli_30102025 = modelScore['model_tiket_blibli_30102025'];
+var offline_transaction_scoring_202602 = modelScore['offline_transaction_scoring_202602'];
 
 /* ----------- feature calculation ---------------------*/
 var total_limit_usage = bucketizedCreditLimitAccountLimit - (bucketizedCreditLimitAccountLimitBalance - transactionAmount);
@@ -3243,6 +3247,11 @@ if (
         }
 }
 
+/* ------------ [Offline Rule] Tiket Origination Offline Transaction (<=24h)------------*/
+if ((product_type == "CREDIT_LIMIT") && (partner == "TIKET") && (is_offline_transaction == true) && (max_diff_transaction_creation_to_submit <= 24)){
+    return "REJECT;Offline Transaction <=24h After Tiket Submission;OfflineTransaction24hAfterTiketSubmission"
+}
+
 /* ------------[Offline Rule] Offline Pilot Higher Pricing Block Online Trx First 60days-------------*/
 var is_additional_approval_mp_cde = 
 whitelistedResults != null && blacklistHelper.isWhitelistedBulkCheck('users', 'offline-mp-higher-rate-cde', {"userId": masterUserId}, whitelistedResults);
@@ -3465,6 +3474,14 @@ if (creditLimitAccountScheme == 'INDODANA_GENERIC_SCHEME' && is_offline_transact
             if (trx_category == 'bad installed loan apps 14d') {
                 return "BLOCK;Bad installed loan apps 14d;InstalledApps"; 
         } 
+    }
+
+
+    /* ------------[Offline Rule] Offline transaction buying more than 2 handphone in last 30 days and having offline transaction score <= 362*/
+    if ((is_offline_transaction == true) && (is_insurance_merchant == false) ) {
+        if (offline_transaction_scoring_202602 <=362 && count_smartphone_purchased_30d >=1 && transactionAmount > 1000000 ) {
+            return 'REJECT;Offline Transaction Low Score More Than 1 Phone in 30 Days;OfflineAttemptMultipleMPLowScore';
+        }
     }
 }
 /* turn this off as there are no more cases where there are no liveness test on Tiket
