@@ -44,7 +44,7 @@
     "creditLimitOrderId": "CLI-TF5FX4VN",
     "entityId": "TRX-1AQ5X0",
     "featureCalculationTime": "2026-03-16T08:46:17+00:00",
-    "featureScoresByFeatureName": {
+    "F": {
       "activation_date": "-999",
       "adjusted_limit_utilization": 1.16688,
       "adjusted_limit_utilization_accounting_dp": 1.16688,
