@@ -6,17 +6,6 @@ if (userPhoneNumber == '+6281546009893') {
   return "REJECT;Merchant Integration Negative Case;BlacklistedUser";
 }
 
-var super_good_merchants = [
-    'kfc',
-    '- mcd'
-]
-
-for (merchants: super_good_merchants) {
-    if (stringUtils.contains(merchantName.toLowerCase(), merchants)) {
-        return "NORMAL;Safe Transaction";
-    }
-}
-
 /**
  * ==== SUSPICIOUS PACKAGE NAME CHECK ====
  **/
@@ -62,7 +51,8 @@ var whitelistedResults = blacklistHelper.getWhitelists([
     {"type": 'users', "namespace": 'mandatory-dp-offline-mp-higher-rate-cde', "searchField": {"userId": masterUserId}},
     {"type": 'users', "namespace": 'traditional-mp-eligible-promo', "searchField": {"userId": masterUserId}},
     {"type": 'users', "namespace": 'traditional-mandatory-dp-offline-mp', "searchField": {"userId": masterUserId}},
-    {"type": 'users', "namespace": 'ecommerce-va-payment', "searchField": {"userId": masterUserId}}
+    {"type": 'users', "namespace": 'ecommerce-va-payment', "searchField": {"userId": masterUserId}},
+    {"type": 'users', "namespace": 'digital-gold', "searchField": {"userId": masterUserId}}
 ]);
 
 var blacklistedResults = blacklistHelper.getBlacklists([
@@ -76,6 +66,7 @@ var blacklistedResults = blacklistHelper.getBlacklists([
 
 var is_silverlist = (blacklistHelper.isWhitelistedBulkCheck('users', 'cross-contract-cash-to-bnpl', {'userId': masterUserId}, whitelistedResults) || blacklistHelper.isWhitelistedBulkCheck('users', 'cross-contract-cash-to-bnpl-auto', {"userId": masterUserId}, whitelistedResults))
 var is_whitelist_va = blacklistHelper.isWhitelistedBulkCheck('users', 'ecommerce-va-payment', {'userId': masterUserId}, whitelistedResults);
+var is_whitelist_digital_gold = blacklistHelper.isWhitelistedBulkCheck('users', 'digital-gold', {'userId': masterUserId}, whitelistedResults);
 
 if (blacklistHelper.isWhitelistedBulkCheck('emails', 'demoOjk', { "email": userEmail.toLowerCase() }, whitelistedResults)) {
     return "NORMAL;User Email is Whitelisted on Namespace demoOjk;DemoOjk;Testing";
@@ -776,7 +767,9 @@ var XENDIT_WHITELIST_STORES = [
     'add tix',
     'habitat',
     'glooeye',
-    'plaza it'
+    'plaza it',
+    'eiger',
+    'stripe'
 ];
 
 var XENDIT_WHITELIST_STORES_2 = [
@@ -787,7 +780,8 @@ var QR_MERCHANT_ONE_MIO = [
     'artha jaya supermarket bangunan',
     'vapebay',
     'luxe ignite watch',
-    'buana lestari sentosa'
+    'buana lestari sentosa',
+    'kacamata optical'
 ];
 
 var QR_MERCHANT_TWO_MIO = [
@@ -821,11 +815,23 @@ var QR_MERCHANT_TWO_MIO = [
     'graha musika solagratia',
     'autocars audio variasi',
     'dewa motor indonesia',
-    'global elektronik mitaprana'
+    'global elektronik mitaprana',
+    'zenna',
+    'sinar alfa & sinar makro swalayan',
+    'coolpix digital',
+    'unihome furniture',
+    'bintang computer',
+    'melintu design',
+    "ary's mikro",
+    'samodra group 006 - samodra jam',
+    'makmur jaya bike'
 ];
 
 var QR_MERCHANT_FIVE_MIO = [
-    'seven stereo'
+    'seven stereo',
+    'wells lifestyle',
+    'optik zal exclusive',
+    'chandra karya pramuka'
 ];
 
 var MANDATORY_HANDOVER_MERCHANT = [
@@ -912,7 +918,6 @@ var tiket_account_age_days_max = scoringFeature['tiket_account_age_days_max'] ==
 var tiket_days_before_1st_trx = scoringFeature['tiket_days_before_1st_trx'] == null ? -99 : scoringFeature['tiket_days_before_1st_trx'];
 var tiket_sum_order_amount_paid_max = scoringFeature['tiket_sum_order_amount_paid_max'] == null ? -99 : scoringFeature['tiket_sum_order_amount_paid_max'];
 
-
 /* string */
 var current_company_name = scoringFeature['current_company_name'] == null ? '-99' : scoringFeature['current_company_name'];
 var initial_store_name = scoringFeature['store_name'] == null ? '-99' : scoringFeature['store_name'];
@@ -927,8 +932,10 @@ var offline_sub_item_category = scoringFeature['offline_sub_item_category'] == n
 var address_is_current_address = scoringFeature['address_is_current_address'] == null ? '-99' : scoringFeature['address_is_current_address'];
 var applicant_current_residence_city = scoringFeature['applicant_current_residence_city'] == null ? '-99' : scoringFeature['applicant_current_residence_city'];
 var applicant_residence_city = scoringFeature['applicant_residence_city'] == null ? '-99' : scoringFeature['applicant_residence_city'];
+var applicant_name = scoringFeature['applicant_name'] == null ? '-99' : scoringFeature['applicant_name'];
 var product_type = scoringFeature['product_type'] == null ? '-99' : scoringFeature['product_type'];
 var partner = scoringFeature['partner'] == null ? '-99' : scoringFeature['partner'];
+
 
 /* featureScoresByFeatureName */
 var count_submit_app_within_4_hours_distinct = featureScoresByFeatureName['count_submit_app_within_4_hours_distinct'] == null ? -99 : featureScoresByFeatureName['count_submit_app_within_4_hours_distinct'];
@@ -948,11 +955,19 @@ var sum_pln_trx_3h = featureScoresByFeatureName['sum_pln_trx_3h'] == null ? -99 
 var sum_pln_trx_6h = featureScoresByFeatureName['sum_pln_trx_6h'] == null ? -99 : featureScoresByFeatureName['sum_pln_trx_6h'];
 var days_since_last_trx = featureScoresByFeatureName['days_since_last_trx'] == null ? -99 : featureScoresByFeatureName['days_since_last_trx'];
 var count_installed_fraud_app_90d = featureScoresByFeatureName['count_installed_fraud_app_90d'] == null ? -99 : featureScoresByFeatureName['count_installed_fraud_app_90d'];
+
+// reject cash features
 var count_reject_cash_after_cli_submit_last_60d = featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_60d'] == null ? -99 : featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_60d'];
+
 var count_reject_cash_after_cli_submit_last_60d_excl_btpl_cash = featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_60d_excl_btpl_cash'] == null ? -99 : featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_60d_excl_btpl_cash'];
 var count_reject_cash_after_cli_submit_last_30d_excl_btpl_cash = featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_30d_excl_btpl_cash'] == null ? -99 : featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_30d_excl_btpl_cash'];
+
 var count_reject_cash_after_cli_submit_last_60d_excl_btpl_and_cash_topup = featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_60d_excl_btpl_and_cash_topup'] == null ? -99 : featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_60d_excl_btpl_and_cash_topup'];
 var count_reject_cash_after_cli_submit_last_30d_excl_btpl_and_cash_topup = featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_30d_excl_btpl_and_cash_topup'] == null ? -99 : featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_30d_excl_btpl_and_cash_topup'];
+
+var count_reject_cash_after_cli_submit_last_60d_excl_btpl_topup_ojk = featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_60d_excl_btpl_topup_ojk'] == null ? -99 : featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_60d_excl_btpl_topup_ojk'];
+var count_reject_cash_after_cli_submit_last_30d_excl_btpl_topup_ojk = featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_30d_excl_btpl_topup_ojk'] == null ? -99 : featureScoresByFeatureName['count_reject_cash_after_cli_submit_last_30d_excl_btpl_topup_ojk'];
+
 var count_handphone_purchase_blibli = featureScoresByFeatureName['count_handphone_purchase_blibli'] == null ? -99 : featureScoresByFeatureName['count_handphone_purchase_blibli'];
 var is_va_same_phone_number = featureScoresByFeatureName['is_va_same_phone_number'] == null ? -99 : featureScoresByFeatureName['is_va_same_phone_number'];
 var count_motor_listrik_purchased_30d = featureScoresByFeatureName['count_motor_listrik_purchased_30d'] == null ? -99 : featureScoresByFeatureName['count_motor_listrik_purchased_30d'];
@@ -968,7 +983,7 @@ var rule_pefindo = featureScoresByFeatureName['rule_pefindo'] == null ? '-9999' 
 var sum_pulsa_pln_trx_3h = featureScoresByFeatureName['sum_pulsa_pln_trx_3h'] == null ? -9999 : featureScoresByFeatureName['sum_pulsa_pln_trx_3h'];
 // var uses_merchant_side_discount = featureScoresByFeatureName['uses_merchant_side_discount'] == null ? '-9999' : featureScoresByFeatureName['uses_merchant_side_discount'];
 // var is_applicant_phonenum_match_billing_or_shipping = featureScoresByFeatureName['is_applicant_phonenum_match_billing_or_shipping'] == null ? -9999 : featureScoresByFeatureName['is_applicant_phonenum_match_billing_or_shipping'];
-// var sum_payment_same_merchant_tiket_blibli = featureScoresByFeatureName['sum_payment_same_merchant_tiket_blibli'] == null ? -9999 : featureScoresByFeatureName['sum_payment_same_merchant_tiket_blibli'];
+var sum_payment_same_merchant_blibli_tiket = featureScoresByFeatureName['sum_payment_same_merchant_tiket_blibli'] == null ? -9999 : featureScoresByFeatureName['sum_payment_same_merchant_tiket_blibli'];
 var count_pulsa_transaction_8d = featureScoresByFeatureName['count_pulsa_transaction_8d'] == null ? -99: featureScoresByFeatureName['count_pulsa_transaction_8d'];
 var count_disbursed_cash_7d = featureScoresByFeatureName['count_disbursed_cash_7d'] == null ? -99: featureScoresByFeatureName['count_disbursed_cash_7d'];
 var sum_hp_transaction_1y = featureScoresByFeatureName['sum_hp_transaction_1y'] == null ? -99: featureScoresByFeatureName['sum_hp_transaction_1y'];
@@ -994,6 +1009,7 @@ var count_prev_approved_trx_merchant_7d = featureScoresByFeatureName['count_prev
 var count_prev_approved_trx_merchant_30d = featureScoresByFeatureName['count_prev_approved_trx_merchant_30d'] == null ? -99 : featureScoresByFeatureName['count_prev_approved_trx_merchant_30d'];
 var match_ewallet_topup_phonenumber = featureScoresByFeatureName['match_ewallet_topup_phonenumber'] == null ? -9999 : featureScoresByFeatureName['match_ewallet_topup_phonenumber'];
 var sum_approved_va_shopee_tiktok_tokopedia_30d_before_trx = featureScoresByFeatureName['sum_approved_va_shopee_tiktok_tokopedia_30d_before_trx'] == null ? -99 : featureScoresByFeatureName['sum_approved_va_shopee_tiktok_tokopedia_30d_before_trx'];
+var count_unknown_controlling_l3h = featureScoresByFeatureName['count_unknown_controlling_l3h'] == null ? -99 : featureScoresByFeatureName['count_unknown_controlling_l3h'];
 
 /* featureScoresByFeatureName - rescoring latest features*/
 var app_list_score_cli_rescore = featureScoresByFeatureName['app_list_score_cli_rescore'] == null ? -99 : featureScoresByFeatureName['app_list_score_cli_rescore'];
@@ -1020,6 +1036,7 @@ var riskGrade = offlineFeatures['userTransactionHistoryFeatures']['riskGrade'] =
 var riskGradeOfflineScore = offlineFeatures['userTransactionHistoryFeatures']['riskGradeOfflineScore'] == null ? -99 : offlineFeatures['userTransactionHistoryFeatures']['riskGradeOfflineScore'];
 var prevCliPaidInstallmentAvg = offlineFeatures['userTransactionHistoryFeatures']['prevCliPaidInstallmentAvg'] == null ? -99 : offlineFeatures['userTransactionHistoryFeatures']['prevCliPaidInstallmentAvg'];
 var prevCliOutstandingBalance = offlineFeatures['userTransactionHistoryFeatures']['prevCliOutstandingBalance'] == null ? -99 : offlineFeatures['userTransactionHistoryFeatures']['prevCliOutstandingBalance'];
+var countApprovedOfflineBefore = offlineFeatures['userTransactionHistoryFeatures']['countApprovedOfflineBefore'] == null ? -99 : offlineFeatures['userTransactionHistoryFeatures']['countApprovedOfflineBefore'];
 var countCashLoan1mFdcLatest = offlineFeatures['userTransactionHistoryFeatures']['countCashLoan1mFdcLatest'] == null ? -99 : offlineFeatures['userTransactionHistoryFeatures']['countCashLoan1mFdcLatest'];
 var countCashLoan3mFdcLatest = offlineFeatures['userTransactionHistoryFeatures']['countCashLoan3mFdcLatest'] == null ? -99 : offlineFeatures['userTransactionHistoryFeatures']['countCashLoan3mFdcLatest'];
 var cashMaxDpdLast30d = offlineFeatures['userTransactionHistoryFeatures']['cashMaxDpdLast30d'] == null ? -9999 : offlineFeatures['userTransactionHistoryFeatures']['cashMaxDpdLast30d'];
@@ -1607,348 +1624,16 @@ if (["12month+", "10-12month"].contains(izi_mobile_phone_number_ages)) {
     identity_score = identity_score - 11;
 }
     
-var tiket_blibli_transaction_model_ab_test = abTestingHelper.getVariation(entityId, 'TIKET_BLIBLI_TRANSACTION_MODEL_NEW', 'NORMAL');  
+
 /* ------------- LOGIC - transaction score -------------*/
 var trx_score = -999
 /* ------------- BLIBLI TIKET-------------*/
 if ((creditLimitAccountScheme == "BLIBLI_WHITELABEL_SCHEME") || (creditLimitAccountScheme == "TIKET_WHITELABEL_SCHEME")) {
-    var adjusted_limit_utilization = featureScoresByFeatureName['adjusted_limit_utilization'] == null ? 0: featureScoresByFeatureName['adjusted_limit_utilization'];
-    if (tiket_blibli_transaction_model_ab_test == 'BLIBLI_TIKET_TRX_NEW_MODEL'){
-        trx_score = model_tiket_blibli_30102025;
-    } else {
-        trx_score = 483;
-        if (discounted_sum_outstanding_late_1y_latest <= -1.0) {
-            trx_score = trx_score - 10;
-        } else if (discounted_sum_outstanding_late_1y_latest <= 14000.0) {
-            trx_score = trx_score + 22;
-        } else if (discounted_sum_outstanding_late_1y_latest <= 100000.0) {
-            trx_score = trx_score - 14;
-        } else if (discounted_sum_outstanding_late_1y_latest <= 200000.0) {
-            trx_score = trx_score - 25;
-        } else if (discounted_sum_outstanding_late_1y_latest <= 300000.0) {
-            trx_score = trx_score - 37;
-        } else if (discounted_sum_outstanding_late_1y_latest <= 600000.0) {
-            trx_score = trx_score - 58;
-        } else if (discounted_sum_outstanding_late_1y_latest <= 2000000.0) {
-            trx_score = trx_score - 75;
-        } else if (discounted_sum_outstanding_late_1y_latest <= 6000000.0) {
-            trx_score = trx_score - 76;
-        } else if (discounted_sum_outstanding_late_1y_latest > 6000000.0) {
-            trx_score = trx_score - 84;
-        }
-        if (creditLimitMaxDpd <= 3.0) {
-            trx_score = trx_score + 11;
-        } else if (creditLimitMaxDpd <= 7.0) {
-            trx_score = trx_score - 1;
-        } else if (creditLimitMaxDpd <= 15.0) {
-            trx_score = trx_score - 34;
-        } else if (creditLimitMaxDpd <= 30.0) {
-            trx_score = trx_score - 61;
-        } else if (creditLimitMaxDpd > 30.0) {
-            trx_score = trx_score - 93;
-        }
-        if (cliMaxDpdLast90d <= 0.0) {
-            trx_score = trx_score + 2;
-        } else if (cliMaxDpdLast90d <= 5.0) {
-            trx_score = trx_score - 1;
-        } else if (cliMaxDpdLast90d <= 7.0) {
-            trx_score = trx_score - 11;
-        } else if (cliMaxDpdLast90d <= 15.0) {
-            trx_score = trx_score - 19;
-        } else if (cliMaxDpdLast90d <= 30.0) {
-            trx_score = trx_score - 24;
-        } else if (cliMaxDpdLast90d > 30.0) {
-            trx_score = trx_score - 32;
-        }
-        if (prevCliPaidInstallmentAvg <= -1.0) {
-            trx_score = trx_score - 10;
-        } else if (prevCliPaidInstallmentAvg <= 0.0) {
-            trx_score = trx_score + 0;
-        } else if (prevCliPaidInstallmentAvg <= 100000.0) {
-            trx_score = trx_score - 15;
-        } else if (prevCliPaidInstallmentAvg <= 125000.0) {
-            trx_score = trx_score - 8;
-        } else if (prevCliPaidInstallmentAvg <= 155000.0) {
-            trx_score = trx_score - 3;
-        } else if (prevCliPaidInstallmentAvg <= 180000.0) {
-            trx_score = trx_score - 2;
-        } else if (prevCliPaidInstallmentAvg <= 250000.0) {
-            trx_score = trx_score + 3;
-        } else if (prevCliPaidInstallmentAvg <= 360000.0) {
-            trx_score = trx_score + 10;
-        } else if (prevCliPaidInstallmentAvg <= 525000.0) {
-            trx_score = trx_score + 16;
-        } else if (prevCliPaidInstallmentAvg > 525000.0) {
-            trx_score = trx_score + 26;
-        }
-        if (adjusted_limit_utilization <= 0.3) {
-            trx_score = trx_score + 20;
-        } else if (adjusted_limit_utilization <= 0.5) {
-            trx_score = trx_score + 2;
-        } else if (adjusted_limit_utilization <= 0.7) {
-            trx_score = trx_score - 7;
-        } else if (adjusted_limit_utilization <= 0.8) {
-            trx_score = trx_score - 15;
-        } else if (adjusted_limit_utilization <= 0.9) {
-            trx_score = trx_score - 22;
-        } else if (adjusted_limit_utilization <= 0.95) {
-            trx_score = trx_score - 28;
-        } else if (adjusted_limit_utilization > 0.95) {
-            trx_score = trx_score - 37;
-        }
-        if (max_partner_score <= 0.0) {
-            trx_score = trx_score - 14;
-        } else if (max_partner_score <= 363.0) {
-            trx_score = trx_score - 6;
-        } else if (max_partner_score <= 376.0) {
-            trx_score = trx_score + 1;
-        } else if (max_partner_score <= 388.0) {
-            trx_score = trx_score + 8;
-        } else if (max_partner_score <= 407.0) {
-            trx_score = trx_score + 12;
-        } else if (max_partner_score > 407.0) {
-            trx_score = trx_score + 29;
-        }
-        if (cliMaxDpdLast30d <= 0.0) {
-            trx_score = trx_score + 3;
-        } else if (cliMaxDpdLast30d <= 3.0) {
-            trx_score = trx_score - 5;
-        } else if (cliMaxDpdLast30d <= 7.0) {
-            trx_score = trx_score - 32;
-        } else if (cliMaxDpdLast30d <= 15.0) {
-            trx_score = trx_score - 56;
-        } else if (cliMaxDpdLast30d > 15.0) {
-            trx_score = trx_score - 78;
-        }
-        if (['-9999'].contains(blibli_badges)) {
-            trx_score = trx_score + 4;
-        } else if (['-999'].contains(blibli_badges)) {
-            trx_score = trx_score - 10;
-        } else if (['Diamond'].contains(blibli_badges)) {
-            trx_score = trx_score + 8;
-        } else if (['Gold'].contains(blibli_badges)) {
-            trx_score = trx_score + 3;
-        } else if (['Silver'].contains(blibli_badges)) {
-            trx_score = trx_score - 3;
-        } else if (['Bronze'].contains(blibli_badges)) {
-            trx_score = trx_score - 8;
-        } else {
-            trx_score = trx_score + 0;
-        }
-        if (average_age_of_relationship_rescore <= -1.0) {
-            trx_score = trx_score - 1;
-        } else if (average_age_of_relationship_rescore <= 0.0) {
-            trx_score = trx_score - 8;
-        } else if (average_age_of_relationship_rescore <= 30.0) {
-            trx_score = trx_score - 22;
-        } else if (average_age_of_relationship_rescore <= 90.0) {
-            trx_score = trx_score - 19;
-        } else if (average_age_of_relationship_rescore <= 180.0) {
-            trx_score = trx_score - 18;
-        } else if (average_age_of_relationship_rescore <= 360.0) {
-            trx_score = trx_score - 8;
-        } else if (average_age_of_relationship_rescore > 360.0) {
-            trx_score = trx_score + 14;
-        }
-        if (days_since_last_trx <= -1.0) {
-            trx_score = trx_score + 8;
-        } else if (days_since_last_trx <= 1.0) {
-            trx_score = trx_score - 10;
-        } else if (days_since_last_trx <= 2.0) {
-            trx_score = trx_score - 3;
-        } else if (days_since_last_trx <= 5.0) {
-            trx_score = trx_score - 2;
-        } else if (days_since_last_trx <= 9.0) {
-            trx_score = trx_score + 3;
-        } else if (days_since_last_trx <= 15.0) {
-            trx_score = trx_score + 7;
-        } else if (days_since_last_trx > 15.0) {
-            trx_score = trx_score + 13;
-        }
-        if (ratioRoundItemPriceTrxAmt <= -9999.0) {
-            trx_score = trx_score + 2;
-        } else if (ratioRoundItemPriceTrxAmt <= -999.0) {
-            trx_score = trx_score + 2;
-        } else if (ratioRoundItemPriceTrxAmt <= 0.06) {
-            trx_score = trx_score + 0;
-        } else if (ratioRoundItemPriceTrxAmt <= 0.2) {
-            trx_score = trx_score - 3;
-        } else if (ratioRoundItemPriceTrxAmt <= 0.7) {
-            trx_score = trx_score - 6;
-        } else if (ratioRoundItemPriceTrxAmt > 0.7) {
-            trx_score = trx_score - 8;
-        }
-        if (['1', '1A-2', '2', '1A-2CC', '1A-2CCB', '2CC', '2CCB'].contains(rule_pefindo)) {
-            trx_score = trx_score - 6;
-        } else {
-            trx_score = trx_score + 19;
-        }
-        if (['-9999'].contains(isOfficialStore)) {
-            trx_score = trx_score + 1;
-        } else if (['-999'].contains(isOfficialStore)) {
-            trx_score = trx_score - 2;
-        } else if (isOfficialStore == false) {
-            trx_score = trx_score - 2;
-        } else if (isOfficialStore == true) {
-            trx_score = trx_score + 2;
-        } else {
-            trx_score = trx_score + 0;
-        }
-        if (['False[0.9, inf)'].contains(amount_1mo_to_limit_ratio_limit_equals_exposure_combined)) {
-            trx_score = trx_score + 5;
-        } else if (['False[0.5, 0.9)'].contains(amount_1mo_to_limit_ratio_limit_equals_exposure_combined)) {
-            trx_score = trx_score - 7;
-        } else if (['False[-inf, 0.3)'].contains(amount_1mo_to_limit_ratio_limit_equals_exposure_combined)) {
-            trx_score = trx_score + 10;
-        } else if (['False[0.3, 0.5)'].contains(amount_1mo_to_limit_ratio_limit_equals_exposure_combined)) {
-            trx_score = trx_score - 2;
-        } else if (['True'].contains(amount_1mo_to_limit_ratio_limit_equals_exposure_combined)) {
-            trx_score = trx_score - 17;
-        } else {
-            trx_score = trx_score + 0;
-        }
-        if (count_unique_month_paid_before_trx <= 0.0) {
-            trx_score = trx_score - 42;
-        } else if (count_unique_month_paid_before_trx <= 3.0) {
-            trx_score = trx_score - 23;
-        } else if (count_unique_month_paid_before_trx <= 9.0) {
-            trx_score = trx_score - 1;
-        } else if (count_unique_month_paid_before_trx <= 12.0) {
-            trx_score = trx_score + 4;
-        } else if (count_unique_month_paid_before_trx <= 15.0) {
-            trx_score = trx_score + 8;
-        } else if (count_unique_month_paid_before_trx <= 20.0) {
-            trx_score = trx_score + 17;
-        } else if (count_unique_month_paid_before_trx > 20.0) {
-            trx_score = trx_score + 61;
-        }
-        if (prevCliOutstandingBalance <= 0.0) {
-            trx_score = trx_score + 8;
-        } else if (prevCliOutstandingBalance > 0.0) {
-            trx_score = trx_score - 2;
-        }
-        if (countCashLoan3mFdcLatest <= -1.0) {
-            trx_score = trx_score - 9;
-        } else if (countCashLoan3mFdcLatest <= 0.0) {
-            trx_score = trx_score + 3;
-        } else if (countCashLoan3mFdcLatest <= 3.0) {
-            trx_score = trx_score + 6;
-        } else if (countCashLoan3mFdcLatest <= 4.0) {
-            trx_score = trx_score + 3;
-        } else if (countCashLoan3mFdcLatest <= 5.0) {
-            trx_score = trx_score - 6;
-        } else if (countCashLoan3mFdcLatest <= 8.0) {
-            trx_score = trx_score - 9;
-        } else if (countCashLoan3mFdcLatest <= 10.0) {
-            trx_score = trx_score - 20;
-        } else if (countCashLoan3mFdcLatest <= 20.0) {
-            trx_score = trx_score - 25;
-        } else if (countCashLoan3mFdcLatest > 20.0) {
-            trx_score = trx_score - 38;
-        }
-        if (app_list_pefindo_flag_rescore <= -1.0) {
-            trx_score = trx_score + 2;
-        } else if (app_list_pefindo_flag_rescore <= 220.0) {
-            trx_score = trx_score + 3;
-        } else if (app_list_pefindo_flag_rescore <= 280.0) {
-            trx_score = trx_score - 11;
-        } else if (app_list_pefindo_flag_rescore <= 330.0) {
-            trx_score = trx_score - 19;
-        } else if (app_list_pefindo_flag_rescore > 330.0) {
-            trx_score = trx_score - 35;
-        }
-        if (cashMaxDpdLast30d <= -99.0) {
-            trx_score = trx_score + 3;
-        } else if (cashMaxDpdLast30d <= 0.0) {
-            trx_score = trx_score - 9;
-        } else if (cashMaxDpdLast30d <= 1.0) {
-            trx_score = trx_score - 47;
-        } else if (cashMaxDpdLast30d <= 3.0) {
-            trx_score = trx_score - 66;
-        } else if (cashMaxDpdLast30d > 3.0) {
-            trx_score = trx_score - 85;
-        }
-        if (cashMaxDpdLast90d <= -99.0) {
-            trx_score = trx_score + 1;
-        } else if (cashMaxDpdLast90d <= 0.0) {
-            trx_score = trx_score - 1;
-        } else if (cashMaxDpdLast90d <= 1.0) {
-            trx_score = trx_score - 8;
-        } else if (cashMaxDpdLast90d <= 3.0) {
-            trx_score = trx_score - 11;
-        } else if (cashMaxDpdLast90d > 3.0) {
-            trx_score = trx_score - 15;
-        }
-        if (countCashLoan1mFdcLatest <= -1.0) {
-            trx_score = trx_score - 7;
-        } else if (countCashLoan1mFdcLatest <= 2.0) {
-            trx_score = trx_score + 2;
-        } else if (countCashLoan1mFdcLatest <= 3.0) {
-            trx_score = trx_score - 11;
-        } else if (countCashLoan1mFdcLatest <= 5.0) {
-            trx_score = trx_score - 20;
-        } else if (countCashLoan1mFdcLatest <= 10.0) {
-            trx_score = trx_score - 28;
-        } else if (countCashLoan1mFdcLatest > 10.0) {
-            trx_score = trx_score - 38;
-        }
-        if (sumAmountCancelledTrx30d <= 0.0) {
-            trx_score = trx_score + 1;
-        } else if (sumAmountCancelledTrx30d <= 2000000.0) {
-            trx_score = trx_score - 5;
-        } else if (sumAmountCancelledTrx30d <= 4000000.0) {
-            trx_score = trx_score - 7;
-        } else if (sumAmountCancelledTrx30d > 4000000.0) {
-            trx_score = trx_score - 9;
-        }
-        if (count_reject_abusedet_last_30d <= -1.0) {
-            trx_score = trx_score + 8;
-        } else if (count_reject_abusedet_last_30d <= 0.0) {
-            trx_score = trx_score + 3;
-        } else if (count_reject_abusedet_last_30d <= 5.0) {
-            trx_score = trx_score - 34;
-        } else if (count_reject_abusedet_last_30d <= 10.0) {
-            trx_score = trx_score - 41;
-        } else if (count_reject_abusedet_last_30d > 10.0) {
-            trx_score = trx_score - 49;
-        }
-        if (izi_max_multi_inquiries14d_rescore <= 0.0) {
-            trx_score = trx_score + 0;
-        } else if (izi_max_multi_inquiries14d_rescore <= 1.0) {
-            trx_score = trx_score - 8;
-        } else if (izi_max_multi_inquiries14d_rescore <= 3.0) {
-            trx_score = trx_score - 13;
-        } else if (izi_max_multi_inquiries14d_rescore > 3.0) {
-            trx_score = trx_score - 20;
-        }
-        if (percentage_max_dpd_15_1y <= -1.0) {
-            trx_score = trx_score + 1;
-        } else if (percentage_max_dpd_15_1y <= 0.0) {
-            trx_score = trx_score + 1;
-        } else if (percentage_max_dpd_15_1y > 0.0) {
-            trx_score = trx_score - 15;
-        }
-        if (countDistinctKtpDevice <= -1.0) {
-            trx_score = trx_score - 2;
-        } else if (countDistinctKtpDevice <= 2.0) {
-            trx_score = trx_score + 0;
-        } else if (countDistinctKtpDevice > 2.0) {
-            trx_score = trx_score - 10;
-        }
-        if (sum_pulsa_pln_trx_3h <= 0.0) {
-            trx_score = trx_score + 0;
-        } else if (sum_pulsa_pln_trx_3h <= 1000000.0) {
-            trx_score = trx_score - 10;
-        } else if (sum_pulsa_pln_trx_3h <= 2000000.0) {
-            trx_score = trx_score - 18;
-        } else if (sum_pulsa_pln_trx_3h > 2000000.0) {
-            trx_score = trx_score - 62;
-        }    
-    }
+    trx_score = model_tiket_blibli_30102025;
 }
 
 /* ------------- INDODANA -------------*/
-var va_transaction_model_ab_test = abTestingHelper.getVariation(entityId, 'VA_TRANSACTION_MODEL_NEW', 'default_value');  
+var va_transaction_model_ab_test = abTestingHelper.getVariation(entityId, 'VA_TRANSACTION_MODEL_NEW', 'NORMAL');  
 
 if (creditLimitAccountScheme == "INDODANA_GENERIC_SCHEME") {
     var adjusted_limit_utilization = featureScoresByFeatureName['adjusted_limit_utilization'] == null ? 0: featureScoresByFeatureName['adjusted_limit_utilization'];
@@ -2413,7 +2098,7 @@ if (!blacklistHelper.isWhitelistedBulkCheck('phones', 'production-tester-user', 
             if ((transactionAmount >= 1000000) || (adjusted_limit_utilization >= 0.7)){ /*relax Tiket reject 60d/1y, amount < 1mio, limit util < 0.7 */
                 if (stringUtils.contains(riskGrade.toUpperCase(), 'B') 
                     || stringUtils.contains(riskGrade.toUpperCase(), 'C')) { /*relax Tiket reject 60d/1y, RG C, last cash approved */
-                    if (count_reject_cash_after_cli_submit_last_30d_excl_btpl_and_cash_topup > 0) { /*relax Tiket reject 30d exclude btpl B & C */
+                    if (count_reject_cash_after_cli_submit_last_30d_excl_btpl_topup_ojk > 0) { /*relax Tiket reject 30d exclude btpl B & C */
                         if ((latest_cash_rejected_date_1y == '-999') || (latest_cash_approved_date_1y == '-999') || (latest_cash_approved_date_1y <= latest_cash_rejected_date_1y)) {
                             return "BLOCK;User has rejected cash after submit CLI & 1y before transaction;RejectedCash";
                         }
@@ -2448,12 +2133,12 @@ if (!blacklistHelper.isWhitelistedBulkCheck('phones', 'production-tester-user', 
     }
 
     /* 60d rule */
-    if (count_reject_cash_after_cli_submit_last_60d_excl_btpl_and_cash_topup > 0) {
+    if (count_reject_cash_after_cli_submit_last_60d_excl_btpl_topup_ojk > 0) {
         if (creditLimitAccountScheme == "TIKET_WHITELABEL_SCHEME") {
             if ((transactionAmount >= 1000000) || (adjusted_limit_utilization >= 0.7)){ /*relax Tiket reject 60d/1y, amount < 1mio, limit util < 0.7 */
                 if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) 
                     || (stringUtils.contains(riskGrade.toUpperCase(), 'B')) || (stringUtils.contains(riskGrade.toUpperCase(), 'C'))) { /*Relax Tiket reject non BTPL within 60d/1y B & C */
-                    if (count_reject_cash_after_cli_submit_last_30d_excl_btpl_and_cash_topup > 0) {
+                    if (count_reject_cash_after_cli_submit_last_30d_excl_btpl_topup_ojk > 0) {
                         if ((latest_cash_rejected_date_1y == '-999') || (latest_cash_approved_date_1y == '-999') || (latest_cash_approved_date_1y <= latest_cash_rejected_date_1y)) {
                             return "BLOCK;User has rejected cash after submit CLI & 60d before transaction;RejectedCash";
                         }
@@ -2468,7 +2153,7 @@ if (!blacklistHelper.isWhitelistedBulkCheck('phones', 'production-tester-user', 
             ){
                 if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) || (stringUtils.contains(riskGrade.toUpperCase(), 'B'))) {
                     if (stringUtils.contains(riskGrade.toUpperCase(), 'A')) {
-                        if (count_reject_cash_after_cli_submit_last_30d_excl_btpl_and_cash_topup > 0) {
+                        if (count_reject_cash_after_cli_submit_last_30d_excl_btpl_topup_ojk > 0) {
                             if ((latest_cash_rejected_date_1y == '-999') || (latest_cash_approved_date_1y == '-999') || (latest_cash_approved_date_1y <= latest_cash_rejected_date_1y)) {
                                 return "BLOCK;User has rejected cash after submit CLI & 60d before transaction;RejectedCash";
                             }
@@ -2486,7 +2171,7 @@ if (!blacklistHelper.isWhitelistedBulkCheck('phones', 'production-tester-user', 
             if (is_offline_small_merchant == false){ /*relax offline small merchant*/ 
                 if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) || (stringUtils.contains(riskGrade.toUpperCase(), 'B'))) {
                     if (stringUtils.contains(riskGrade.toUpperCase(), 'A')) {
-                        if (count_reject_cash_after_cli_submit_last_30d_excl_btpl_and_cash_topup > 0) {
+                        if (count_reject_cash_after_cli_submit_last_30d_excl_btpl_topup_ojk > 0) {
                             if ((latest_cash_rejected_date_1y == '-999') || (latest_cash_approved_date_1y == '-999') || (latest_cash_approved_date_1y <= latest_cash_rejected_date_1y)) {
                                 return "BLOCK;User has rejected cash after submit CLI & 60d before transaction;RejectedCash";
                             }
@@ -3085,7 +2770,7 @@ if (creditLimitAccountScheme == "INDODANA_GENERIC_SCHEME") {
 var experiment_code = abTestingHelper.getVariation(entityId, 'AUTO_APPROVE_RULE_ENGINE_EXPERIMENT', '-999');
 
 trx_score = trx_score.toString();
-var message = ('trx_additional_info'+';'+entityId+';'+purchaseTransactionId+';'+trx_score+';'+trx_category+';'+rule_pefindo+';'+total_limit_usage+';'+experiment_code+';'+day+';'+hour+';'+amount_1mo_to_limit_ratio+';'+amount_1mo_to_limit_ratio_limit_equals_exposure_combined+';'+count_active_cash_loan+';'+max_multiplier+';'+null_parameters+';'+is_liveness_not_match+';'+tiket_blibli_transaction_model_ab_test+';'+va_transaction_model_ab_test);
+var message = ('trx_additional_info'+';'+entityId+';'+purchaseTransactionId+';'+trx_score+';'+trx_category+';'+rule_pefindo+';'+total_limit_usage+';'+experiment_code+';'+day+';'+hour+';'+amount_1mo_to_limit_ratio+';'+amount_1mo_to_limit_ratio_limit_equals_exposure_combined+';'+count_active_cash_loan+';'+max_multiplier+';'+null_parameters+';'+is_liveness_not_match+';'+va_transaction_model_ab_test);
 log.info(message);
 
 /* ---------------------------- BLACKLIST AND FRAUD RULE ---------------------------- */
@@ -3128,6 +2813,34 @@ if (merchantName == 'Blibli Paylater' && transactionAmount > 4000000) {
       }
     }
   }
+}
+
+/* ------------ Eraspace Name Mismatch -------------*/
+var getFirstWordSanitized = function (name) {
+  if (name == null || name == '') {
+    return '';
+  }
+  return name.trim().split(' ')[0].toLowerCase();
+};
+
+var billingFirstNameSanitized = getFirstWordSanitized(billingName);
+var shippingFirstNameSanitized = getFirstWordSanitized(shippingName);
+var applicantFirstNameSanitized = getFirstWordSanitized(applicant_name);
+var isWorkingHour = hour >= 9 && hour < 17 && day != 'SATURDAY' && day != 'SUNDAY';
+
+if (merchantName == 'ERASPACE' && transactionAmount > 10000000) {
+  if (billingFirstNameSanitized != applicantFirstNameSanitized || shippingFirstNameSanitized != applicantFirstNameSanitized) {
+    if (isWorkingHour && ALLOW_SUSPICIOUS_TRANSACTION) {
+      return "SUSPICIOUS;Eraspace High-Value Trx with Name Mismatch;SuspectFraud";
+    } else {
+      return "BLOCK;Eraspace High-Value Trx with Name Mismatch;SuspectFraud";
+    }
+  }
+}
+
+/* ------------ Unknown Controlling -------------*/
+if (count_unknown_controlling_l3h > 0 && merchantCategory == 'ONLINE' && transactionAmount > 1000000) {
+  return 'BLOCK;Installed Fraud Controlling Apk within 3h;SuspectFraud';
 }
 
 /* ------------[Dekoruma Rule] Dekoruma Rule Reject Change Store Before X Period -------------*/
@@ -3246,10 +2959,9 @@ if (
             return "SUSPICIOUS;Suspect Fraud IBOX;SuspectFraud;Suspect Fraud IBOX";
         }
 }
-
 /* ------------ [Offline Rule] Tiket Origination Offline Transaction (<=24h)------------*/
-if ((product_type == "CREDIT_LIMIT") && (partner == "TIKET") && (is_offline_transaction == true) && (max_diff_transaction_creation_to_submit <= 24)){
-    return "REJECT;Offline Transaction <=24h After Tiket Submission;OfflineTransaction24hAfterTiketSubmission"
+if ((product_type == "CREDIT_LIMIT") && (partner == "TIKET") && (is_offline_transaction == true) && (transactionAmount > 1000000) && (max_diff_transaction_creation_to_submit >= 0 && max_diff_transaction_creation_to_submit <= 24)){
+    return "REJECT;Offline Transaction <=24h After Tiket Submission;OfflineTransaction24hAfterTiketSubmission";
 }
 
 /* ------------[Offline Rule] Offline Pilot Higher Pricing Block Online Trx First 60days-------------*/
@@ -3475,12 +3187,19 @@ if (creditLimitAccountScheme == 'INDODANA_GENERIC_SCHEME' && is_offline_transact
                 return "BLOCK;Bad installed loan apps 14d;InstalledApps"; 
         } 
     }
-
-
-    /* ------------[Offline Rule] Offline transaction buying more than 2 handphone in last 30 days and having offline transaction score <= 362*/
-    if ((is_offline_transaction == true) && (is_insurance_merchant == false) ) {
-        if (offline_transaction_scoring_202602 <=362 && count_smartphone_purchased_30d >=1 && transactionAmount > 1000000 ) {
+    /* ------------[Offline Rule] Offline transaction reject with score <= 362 ever buy phone in last 30 days and want to buy phone again*/
+    if ((is_offline_transaction == true) && (is_insurance_merchant == false) && (offline_item_category == 'smartphone') && offline_transaction_scoring_202602 <=362) {
+        // BR15_1 = 8%
+        // BR15_3 = 30%
+        if (count_smartphone_purchased_30d >=1 ) {
             return 'REJECT;Offline Transaction Low Score More Than 1 Phone in 30 Days;OfflineAttemptMultipleMPLowScore';
+        }
+        /* ------------[Offline Rule] Offline transaction reject active cash, low score, maxout*/
+        // BR15_1 = 10.67%
+        // BR15_3 = 30%
+        // BR15_6 = 48.7%
+        if (hasNonLimitActiveCashLoanContract == true) {
+            return 'REJECT;Offline Transaction Low Score Has Active Cash Buy MP;OfflineAttemptBuyMpScoreActiveCash';
         }
     }
 }
@@ -3514,9 +3233,9 @@ if (creditLimitAccountScheme == 'INDODANA_GENERIC_SCHEME' && is_offline_transact
             if ((!is_silverlist) /* non silverlist */
                         || ((is_silverlist) && (is_offline_transaction == false) && (trx_score <= 340)) /*swap RG with trx score*/
             ) {
-                if ((is_good_merchant_online == true) && trx_score < 460) {
+                if (((is_good_merchant_online == true) || (is_whitelist_digital_gold == true && stringUtils.contains(merchantName.toUpperCase(), 'EMAS DIGITAL BY CERMATI'))) && trx_score < 460) {
                     return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                } else if (is_good_merchant_online == false) {
+                } else {
                     return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
                 }
             }
@@ -3532,9 +3251,9 @@ if (creditLimitAccountScheme == 'INDODANA_GENERIC_SCHEME' && is_offline_transact
                             && (stringUtils.contains(lowerCaseItemNames, 'barang elektronik') || sumPaymentVaBeforeTrx <= 0 || (!stringUtils.contains(merchantName.toUpperCase(), 'BELANJA DI ')))) /*relax VA fashion & has payment*/
                         || ((is_silverlist) && (riskGradeOfflineScore < 454)) /* silverlist below A7 non offline */
             ) {
-                if ((is_good_merchant_online == true) && trx_score < 460) {
+                if (((is_good_merchant_online == true) || (is_whitelist_digital_gold == true && stringUtils.contains(merchantName.toUpperCase(), 'EMAS DIGITAL BY CERMATI'))) && trx_score < 460) {
                     return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                } else if (is_good_merchant_online == false) {
+                } else {
                     return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
                 }
             }
@@ -3724,6 +3443,14 @@ if (creditLimitAccountScheme == 'INDODANA_GENERIC_SCHEME' && is_offline_transact
                     }
                 }
             }
+
+            //Lower down VA BR Apr 2026 - Backlog Perang Iran
+            if ((stringUtils.contains(merchantName.toUpperCase(), 'BELANJA DI '))
+                && ((is_offline_origination == true && is_offline_transaction == false && is_insurance_merchant == false) || (countApprovedOfflineBefore > 0))
+                && (sumPaymentVaBeforeTrx <= 0) && (adjusted_limit_utilization > 0.8) && (sumTotalPayment < 5000000)          
+            ) {
+                return "BLOCK;VA new user from Offline, max out > 80% with overall low payment;OfflinetoVAMaxOut";
+            }
         } else {
             if ((trx_category == 'bad installed loan apps 14d') || (trx_category == 'bad installed loan apps 14d - for online trx')) {
                 return "BLOCK;Bad installed loan apps 14d;InstalledApps";
@@ -3793,6 +3520,14 @@ if (creditLimitAccountScheme == 'INDODANA_GENERIC_SCHEME' && is_offline_transact
                     }
                 }
             }
+
+            //Lower down VA BR Apr 2026 - Backlog Perang Iran
+            if ((stringUtils.contains(merchantName.toUpperCase(), 'BELANJA DI '))
+                && ((is_offline_origination == true && is_offline_transaction == false && is_insurance_merchant == false) || (countApprovedOfflineBefore > 0))
+                && (sumPaymentVaBeforeTrx <= 0) && (adjusted_limit_utilization > 0.8) && (sumTotalPayment < 5000000)          
+            ) {
+                return "BLOCK;VA new user from Offline, max out > 80% with overall low payment;OfflinetoVAMaxOut";
+            }
         }
     } else if (offline_transaction_applied_amount < 0) { /* additional rule for online origination */
         if (trx_category == 'bad installed loan apps 14d') {
@@ -3823,160 +3558,92 @@ if (creditLimitAccountScheme == 'INDODANA_GENERIC_SCHEME' && is_offline_transact
 /************************* BLIBLI ***********************/
 /********************************************************/
 if (creditLimitAccountScheme == "BLIBLI_WHITELABEL_SCHEME") {
-    if (tiket_blibli_transaction_model_ab_test == 'BLIBLI_TIKET_TRX_NEW_MODEL'){
-        if (hasNonLimitActiveCashLoanContract) {
-            if ((isMainApplication == false)) {
-                if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (is_high_risk_items==true) && (trx_score<425)) {
+    if (hasNonLimitActiveCashLoanContract) {
+        if ((isMainApplication == false)) {
+            if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (is_high_risk_items==true) && (trx_score<425)) {
+                return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
+            } else if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (is_high_risk_items==false) && (trx_score<405)) {
+                return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
+            } else if (!(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
+                return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
+            }
+        } else if ((!is_silverlist) /* non silverlist */
+                    || ((is_silverlist) && (is_offline_transaction == false) && (riskGradeOfflineScore >= 454) && (riskGradeOfflineScore <= 467)) /* silverlist A7 non offline */
+                    || ((is_silverlist) && (riskGradeOfflineScore < 454)) /* silverlist below A7 non offline */
+        ) {
+            if (is_high_risk_items==true) {
+                if (trx_score < 395) {
                     return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                } else if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (is_high_risk_items==false) && (trx_score<405)) {
-                    return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                } else if (!(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
-                    return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                }
-            } else if ((!is_silverlist) /* non silverlist */
-                        || ((is_silverlist) && (is_offline_transaction == false) && (riskGradeOfflineScore >= 454) && (riskGradeOfflineScore <= 467)) /* silverlist A7 non offline */
-                        || ((is_silverlist) && (riskGradeOfflineScore < 454)) /* silverlist below A7 non offline */
-            ) {
-                if (is_high_risk_items==true) {
-                    if (trx_score < 395) {
-                        return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                    } else if ((trx_score < 415) && !(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
-                        return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                    }
-                } else if (is_high_risk_items==false) {
-                    if (trx_score < 375) {
-                        return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                    } else if ((trx_score < 395) && !(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
-                        return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                    }
-                }
-            }
-        }
-
-        /* BLIBLI Reject Item Category */
-        /* 1 phone */
-        if (item_category_gladys == 'handphone') {
-            if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && trx_score < 340) {
-                return `BLOCK;transaction score < 340, RG A, buy phone;LowTransactionScore`;
-            } else if (!(stringUtils.contains(riskGrade.toUpperCase(), 'A')) && trx_score < 350) {
-                return `BLOCK;transaction score < 350, buy phone;LowTransactionScore`;
-            }
-        }
-        /* multiple phone */
-        if (count_handphone_purchase_blibli > 1 && trx_score < 415) {
-            return `BLOCK;transaction score < 415, buy multiple phone;LowTransactionScore`;
-        }
-        /* ------------[Offline Rule] Offline origination and not transacting in offline store-------------*/
-        if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false)) {
-            /* ------------ALDI offline->non offline, no payment, and max out within 30d (Fraud prevention)-------------*/
-            if (
-                (offline_item_names == 'Offline Transaction') /*ALDI*/
-                && (sumTotalPayment <= 0) /*No payment*/
-                && (adjusted_limit_utilization >= 0.7) /*Max out*/
-                && (max_diff_transaction_creation_to_submit >= 0) && (max_diff_transaction_creation_to_submit <= 720) /*Within 30d*/
-            ) {
-                return 'BLOCK;Offline to Online No Payment and Max Out Within 30d;OfflineAttemptMaxoutOnline';
-            }
-        }
-            /* ------------[Offline Rule] Offline origination and not transacting in offline store with no payment history (Prevent Secondary Online Max Out)-------------*/
-        if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false) ) {
-            if (adjusted_limit_utilization >=0.5 && sumTotalPayment < 500000 && total_limit_usage >= 8000000) {
-                return 'REJECT;Offline Origination Attempt to Maxout Secondary Online;OfflineAttemptMaxoutSecondaryOnline';
-            }
-        }
-
-        if (isMainApplication == true && trx_score < 330) {
-            return "BLOCK;Blibli or Tiket transaction score < 330;LowTransactionScore";
-        } else if ((riskGradeOfflineScore > 0) && (riskGradeOfflineScore < 380)) {
-            return "BLOCK;offline score < 380;LowOfflineScore";
-        } else if ((isMainApplication == true) && (max_diff_transaction_creation_to_submit >= 0) && (max_diff_transaction_creation_to_submit <= 6) && (adjusted_limit_utilization >= 0.8)) {
-            return "BLOCK;Blibli Max Out >= 80% Within 6h After Submit;NewAccountMaxOut";
-        } else if ((isMainApplication == false)) {
-            if (trx_score < 345) {
-                return "BLOCK;Secondary Blibli transaction score < 345;LowTransactionScore";
-            }
-            if ((max_diff_transaction_creation_to_submit >= 0) 
-                && (max_diff_transaction_creation_to_submit <= 24) 
-                && (adjusted_limit_utilization > 0.7)
-            ) {
-                return "BLOCK;Secondary Blibli Max Out > 70% Within 24h After Submit;NewAccountMaxOut";
-            }
-        }
-    } else {
-        if (hasNonLimitActiveCashLoanContract) {
-            if ((isMainApplication == false)) {
-                if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (trx_score<520)) {
-                    return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                } else if (!(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
+                } else if ((trx_score < 415) && !(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
                     return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
                 }
-            } else if ((!is_silverlist) /* non silverlist */
-                        || ((is_silverlist) && (is_offline_transaction == false) && (riskGradeOfflineScore >= 454) && (riskGradeOfflineScore <= 467)) /* silverlist A7 non offline */
-                        || ((is_silverlist) && (riskGradeOfflineScore < 454)) /* silverlist below A7 non offline */
-            ) {
-
-                if (trx_score < 460) {
+            } else if (is_high_risk_items==false) {
+                if (trx_score < 375) {
                     return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                } else if ((trx_score < 480) && !(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
+                } else if ((trx_score < 395) && !(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
                     return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
                 }
-                
-            }
-        }
-
-        /* BLIBLI Reject Item Category */
-        /* 1 phone */
-        if (item_category_gladys == 'handphone') {
-            if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && trx_score < 400) {
-                return `BLOCK;transaction score < 400, RG A, buy phone;LowTransactionScore`;
-            } else if (!(stringUtils.contains(riskGrade.toUpperCase(), 'A')) && trx_score < 410) {
-                return `BLOCK;transaction score < 410, buy phone;LowTransactionScore`;
-            }
-        }
-        /* multiple phone */
-        if (count_handphone_purchase_blibli > 1 && trx_score < 490) {
-            return `BLOCK;transaction score < 490, buy multiple phone;LowTransactionScore`;
-        }
-
-        /* ------------[Offline Rule] Offline origination and not transacting in offline store-------------*/
-        if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false)) {
-            /* ------------ALDI offline->non offline, no payment, and max out within 30d (Fraud prevention)-------------*/
-            if (
-                (offline_item_names == 'Offline Transaction') /*ALDI*/
-                && (sumTotalPayment <= 0) /*No payment*/
-                && (adjusted_limit_utilization >= 0.7) /*Max out*/
-                && (max_diff_transaction_creation_to_submit >= 0) && (max_diff_transaction_creation_to_submit <= 720) /*Within 30d*/
-            ) {
-                return 'BLOCK;Offline to Online No Payment and Max Out Within 30d;OfflineAttemptMaxoutOnline';
-            }
-        }
-            /* ------------[Offline Rule] Offline origination and not transacting in offline store with no payment history (Prevent Secondary Online Max Out)-------------*/
-        if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false) ) {
-            if (adjusted_limit_utilization >=0.5 && sumTotalPayment < 500000 && total_limit_usage >= 8000000) {
-                return 'REJECT;Offline Origination Attempt to Maxout Secondary Online;OfflineAttemptMaxoutSecondaryOnline';
-            }
-        }
-
-        if (isMainApplication == true && trx_score < 390) {
-            return "BLOCK;Blibli or Tiket transaction score < 390;LowTransactionScore";
-        } else if (creditLimitAccountScheme == 'BLIBLI_WHITELABEL_SCHEME' && merchantCategory == 'BLIBLI_INSTORE' && ((isOfficialStore == false) || (['-999'].contains(isOfficialStore))) && is_good_instore == false && trx_score < 440) {
-            return "BLOCK;Blibli Instore transaction score < 440;LowTransactionScore";
-        } else if ((riskGradeOfflineScore > 0) && (riskGradeOfflineScore < 380)) {
-            return "BLOCK;offline score < 380;LowOfflineScore";
-        } else if ((isMainApplication == true) && (max_diff_transaction_creation_to_submit >= 0) && (max_diff_transaction_creation_to_submit <= 6) && (adjusted_limit_utilization >= 0.8)) {
-            return "BLOCK;Blibli Max Out >= 80% Within 6h After Submit;NewAccountMaxOut";
-        } else if ((isMainApplication == false)) {
-            if (trx_score < 420) {
-                return "BLOCK;Secondary Blibli transaction score < 420;LowTransactionScore";
-            }
-            if ((max_diff_transaction_creation_to_submit >= 0) 
-                && (max_diff_transaction_creation_to_submit <= 24) 
-                && (adjusted_limit_utilization > 0.7)
-            ) {
-                return "BLOCK;Secondary Blibli Max Out > 70% Within 24h After Submit;NewAccountMaxOut";
             }
         }
     }
+
+    /* BLIBLI Reject Item Category */
+    /* 1 phone */
+    if (item_category_gladys == 'handphone') {
+        if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && trx_score < 380) {
+            return `BLOCK;transaction score < 380, RG A, buy phone;LowTransactionScore`;
+        } else if (!(stringUtils.contains(riskGrade.toUpperCase(), 'A')) && trx_score < 390) {
+            return `BLOCK;transaction score < 390, buy phone;LowTransactionScore`;
+        }
+    }
+    /* multiple phone */
+    if (count_handphone_purchase_blibli > 1 && trx_score < 415) {
+        return `BLOCK;transaction score < 415, buy multiple phone;LowTransactionScore`;
+    }
+    /* ------------[Offline Rule] Offline origination and not transacting in offline store-------------*/
+    if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false)) {
+        /* ------------ALDI offline->non offline, no payment, and max out within 30d (Fraud prevention)-------------*/
+        if (
+            (offline_item_names == 'Offline Transaction') /*ALDI*/
+            && (sumTotalPayment <= 0) /*No payment*/
+            && (adjusted_limit_utilization >= 0.7) /*Max out*/
+            && (max_diff_transaction_creation_to_submit >= 0) && (max_diff_transaction_creation_to_submit <= 720) /*Within 30d*/
+        ) {
+            return 'BLOCK;Offline to Online No Payment and Max Out Within 30d;OfflineAttemptMaxoutOnline';
+        }
+    }
+        /* ------------[Offline Rule] Offline origination and not transacting in offline store with no payment history (Prevent Secondary Online Max Out)-------------*/
+    if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false) ) {
+        if (adjusted_limit_utilization >=0.5 && sumTotalPayment < 500000 && total_limit_usage >= 8000000) {
+            return 'REJECT;Offline Origination Attempt to Maxout Secondary Online;OfflineAttemptMaxoutSecondaryOnline';
+        }
+    }
+
+    if (isMainApplication == true && trx_score < 330) {
+        return "BLOCK;Blibli or Tiket transaction score < 330;LowTransactionScore";
+    } else if ((riskGradeOfflineScore > 0) && (riskGradeOfflineScore < 380)) {
+        return "BLOCK;offline score < 380;LowOfflineScore";
+    } else if ((isMainApplication == true) && (max_diff_transaction_creation_to_submit >= 0) && (max_diff_transaction_creation_to_submit <= 6) && (adjusted_limit_utilization >= 0.8)) {
+        return "BLOCK;Blibli Max Out >= 80% Within 6h After Submit;NewAccountMaxOut";
+    } else if ((isMainApplication == false)) {
+        if (trx_score < 345) {
+            return "BLOCK;Secondary Blibli transaction score < 345;LowTransactionScore";
+        }
+        if ((max_diff_transaction_creation_to_submit >= 0) 
+            && (max_diff_transaction_creation_to_submit <= 24) 
+            && (adjusted_limit_utilization > 0.7)
+        ) {
+            return "BLOCK;Secondary Blibli Max Out > 70% Within 24h After Submit;NewAccountMaxOut";
+        }
+    }
+
+    if (count_handphone_purchase_blibli > 1 && transactionAmount > 10000000){
+        return "REJECT;Buy multiple phone, amount > 10mio;MultiplePhone";
+    }
+    else if ((sum_payment_same_merchant_blibli_tiket <=0) && (hasNonLimitActiveCashLoanContract) && (activeCashOutstandingPercentage > 0.8) && (count_handphone_purchase_blibli > 0)){
+        return "REJECT;No payment blibli, outstanding active cash > 80%, buy hp;ActiveCashHandphone";
+    }
+    
 
     if (hasNonLimitActiveCashLoanContract && BLIBLI_STORE_WHITELISTED_JEWELLERY == true && transactionAmount >= 10000000){
         return "REJECT;User with Active Cash Transact Jewellery >= 10mio;UserHasActiveCashLoan";
@@ -4026,85 +3693,44 @@ if (creditLimitAccountScheme == 'TIKET_WHITELABEL_SCHEME') {
         return "REJECT;Fraud merchant;FraudMerchant"; /*Irvin Request - Fraud gestun*/
     }
 
-    if (tiket_blibli_transaction_model_ab_test == 'BLIBLI_TIKET_TRX_NEW_MODEL'){
-        if (hasNonLimitActiveCashLoanContract) {
-            if ((!is_silverlist) /* non silverlist */
-                        || ((is_silverlist) && (is_offline_transaction == false) && (riskGradeOfflineScore >= 454) && (riskGradeOfflineScore <= 467)) /* silverlist A7 non offline */
-                        || ((is_silverlist) && (riskGradeOfflineScore < 454)) /* silverlist below A7 non offline */
-            ) {
-                if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (trx_score < 370)) {
-                    return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                } else if (!(stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (trx_score < 380)) {
-                    return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                }
+    if (hasNonLimitActiveCashLoanContract) {
+        if ((!is_silverlist) /* non silverlist */
+                    || ((is_silverlist) && (is_offline_transaction == false) && (riskGradeOfflineScore >= 454) && (riskGradeOfflineScore <= 467)) /* silverlist A7 non offline */
+                    || ((is_silverlist) && (riskGradeOfflineScore < 454)) /* silverlist below A7 non offline */
+        ) {
+            if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (trx_score < 370)) {
+                return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
+            } else if (!(stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (trx_score < 380)) {
+                return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
             }
         }
-        
-        
-        /* ------------[Offline Rule] Offline origination and not transacting in offline store-------------*/
-        if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false)) {
-            /* ------------ALDI offline->non offline, no payment, and max out within 30d (Fraud prevention)-------------*/
-            if (
-                (offline_item_names == 'Offline Transaction') /*ALDI*/
-                && (sumTotalPayment <= 0) /*No payment*/
-                && (adjusted_limit_utilization >= 0.7) /*Max out*/
-                && (max_diff_transaction_creation_to_submit >= 0) && (max_diff_transaction_creation_to_submit <= 720) /*Within 30d*/
-            ) {
-                return 'BLOCK;Offline to Online No Payment and Max Out Within 30d;OfflineAttemptMaxoutOnline';
-            }
-        }
-            /* ------------[Offline Rule] Offline origination and not transacting in offline store with no payment history (Prevent Secondary Online Max Out)-------------*/
-        if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false) ) {
-            if (adjusted_limit_utilization >=0.5 && sumTotalPayment < 500000 && total_limit_usage >= 8000000) {
-                return 'REJECT;Offline Origination Attempt to Maxout Secondary Online;OfflineAttemptMaxoutSecondaryOnline';
-            }
-        }
-
-        if (trx_score < 325 && !(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
-            return "BLOCK;Blibli or Tiket transaction score < 325;LowTransactionScore";
-        } else if ((riskGradeOfflineScore > 0) && (riskGradeOfflineScore < 380)) {
-            return "BLOCK;offline score < 380;LowOfflineScore";
-        } 
-    } else {
-        if (hasNonLimitActiveCashLoanContract) {
-            if ((!is_silverlist) /* non silverlist */
-                        || ((is_silverlist) && (is_offline_transaction == false) && (riskGradeOfflineScore >= 454) && (riskGradeOfflineScore <= 467)) /* silverlist A7 non offline */
-                        || ((is_silverlist) && (riskGradeOfflineScore < 454)) /* silverlist below A7 non offline */
-            ) {
-                if ((stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (trx_score < 450)) {
-                    return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                } else if (!(stringUtils.contains(riskGrade.toUpperCase(), 'A')) && (trx_score < 460)) {
-                    return "REJECT;User Has Non Limit Active Cash Loan Contract;UserHasActiveCashLoan";
-                }
-            }
-        }
-        
-        
-        /* ------------[Offline Rule] Offline origination and not transacting in offline store-------------*/
-        if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false)) {
-            /* ------------ALDI offline->non offline, no payment, and max out within 30d (Fraud prevention)-------------*/
-            if (
-                (offline_item_names == 'Offline Transaction') /*ALDI*/
-                && (sumTotalPayment <= 0) /*No payment*/
-                && (adjusted_limit_utilization >= 0.7) /*Max out*/
-                && (max_diff_transaction_creation_to_submit >= 0) && (max_diff_transaction_creation_to_submit <= 720) /*Within 30d*/
-            ) {
-                return 'BLOCK;Offline to Online No Payment and Max Out Within 30d;OfflineAttemptMaxoutOnline';
-            }
-        }
-            /* ------------[Offline Rule] Offline origination and not transacting in offline store with no payment history (Prevent Secondary Online Max Out)-------------*/
-        if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false) ) {
-            if (adjusted_limit_utilization >=0.5 && sumTotalPayment < 500000 && total_limit_usage >= 8000000) {
-                return 'REJECT;Offline Origination Attempt to Maxout Secondary Online;OfflineAttemptMaxoutSecondaryOnline';
-            }
-        }
-
-        if (trx_score < 390 && !(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
-            return "BLOCK;Blibli or Tiket transaction score < 390;LowTransactionScore";
-        } else if ((riskGradeOfflineScore > 0) && (riskGradeOfflineScore < 380)) {
-            return "BLOCK;offline score < 380;LowOfflineScore";
-        } 
     }
+    
+    
+    /* ------------[Offline Rule] Offline origination and not transacting in offline store-------------*/
+    if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false)) {
+        /* ------------ALDI offline->non offline, no payment, and max out within 30d (Fraud prevention)-------------*/
+        if (
+            (offline_item_names == 'Offline Transaction') /*ALDI*/
+            && (sumTotalPayment <= 0) /*No payment*/
+            && (adjusted_limit_utilization >= 0.7) /*Max out*/
+            && (max_diff_transaction_creation_to_submit >= 0) && (max_diff_transaction_creation_to_submit <= 720) /*Within 30d*/
+        ) {
+            return 'BLOCK;Offline to Online No Payment and Max Out Within 30d;OfflineAttemptMaxoutOnline';
+        }
+    }
+        /* ------------[Offline Rule] Offline origination and not transacting in offline store with no payment history (Prevent Secondary Online Max Out)-------------*/
+    if ((is_offline_origination == true) && (is_offline_transaction == false) && (is_insurance_merchant == false) ) {
+        if (adjusted_limit_utilization >=0.5 && sumTotalPayment < 500000 && total_limit_usage >= 8000000) {
+            return 'REJECT;Offline Origination Attempt to Maxout Secondary Online;OfflineAttemptMaxoutSecondaryOnline';
+        }
+    }
+
+    if (trx_score < 325 && !(stringUtils.contains(riskGrade.toUpperCase(), 'A'))) {
+        return "BLOCK;Blibli or Tiket transaction score < 325;LowTransactionScore";
+    } else if ((riskGradeOfflineScore > 0) && (riskGradeOfflineScore < 380)) {
+        return "BLOCK;offline score < 380;LowOfflineScore";
+    } 
 }
 
 if (
