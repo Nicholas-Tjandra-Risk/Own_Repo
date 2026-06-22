@@ -839,7 +839,6 @@ var TRADI_DP_MERCHANT_EXCLUDE = [
     'sms shop 33 - simongan',
     'prima elektronik banjaran 02 - prima elektronik gading soreang'
 ];
-
 var abtestUniqueId = mainApplicationCreditLimitOrderId == null ? "static-bucket-id" : mainApplicationCreditLimitOrderId;
 
 var mandatory_dp_tradi_experiment = abTestingHelper.getVariation(abtestUniqueId, 'mandatory_dp_tradi_experiment', 'default_value');
