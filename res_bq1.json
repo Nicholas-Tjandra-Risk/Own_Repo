@@ -1,0 +1,21 @@
+{
+  "needSalaryCheck": false,
+  "blibliCashType": "",
+  "needBPSScore": false,
+  "cash_origination_user": "NEW",
+  "messageTag": "",
+  "tiketCashType": "",
+  "cash_origination": "NEW",
+  "riskGradeNorescore": "E",
+  "ab_test_offline": "offline_set_b",
+  "needGCTagView": false,
+  "abcTestCashNewStandardInferenceChallenger": "",
+  "rejectCode": "JA01;;;;;;;;;;;",
+  "abTestCashIncreaseARMay": "",
+  "ab_test": "indodana_normal_set",
+  "isCollateralUnderSameName": false,
+  "needScoreTeknologiCheck": false,
+  "needGCVerifyUser": false,
+  "cash_city_tier": "COVERED OFFLINE CITIES",
+  "ab_test_cash_new_approve_100": ""
+}
