@@ -1,0 +1,57 @@
+{
+    "$event.identity.id": "ceaf0cfc-3709-4c3b-bbcd-a3ef64399ad7",
+    "$event.ip.ipv4": "10.185.84.146",
+    "$event.source.host": "merchantworkertmf-deployment-79966db4c7-vq8bq",
+    "$event.source.name": "merchantworker",
+    "$event.source.type": "service",
+    "$event.time.client_override": "2026-06-18T07:33:26Z",
+    "$event.time.client_override.utc": 1781768006000,
+    "$event.time.client_sent": "2026-06-18T07:33:26Z",
+    "$event.time.client_sent.utc": 1781768006000,
+    "$event.time.published.utc": 1781768006612,
+    "$event.time.server_accept.utc": 1781768006612,
+    "$event.time.source": "override",
+    "$event.time.utc": 1781768006000,
+    "amount": 7799000,
+    "buyer_name": "",
+    "buyer_phone": "+628176070372",
+    "email": "yantoyan856@gmail.com",
+    "installment_amount": 1378000,
+    "is_quickpay_transaction": false,
+    "merchant_id": "db89e637-92e0-11ec-b0f1-699590f594b9",
+    "merchant_name": "ELECTRONIC CITY 46 - Cibubur",
+    "order_id": "K0LT5PEK",
+    "partner_discount_amount": 0,
+    "phone_number": "+628176070372",
+    "purchased_items": [
+        {
+            "category": "offline-store",
+            "id": "79be2569-6ae7-11f1-b7e7-8dd8b22d316d",
+            "name": "Samsung GALAXY A57 5G 8/256 GB",
+            "price": 7799000,
+            "quantity": 1,
+            "store": {
+                "id": "32fba545-993d-11ec-aacf-5d81d515ff6c",
+                "name": "ELECTRONIC CITY 46 - Cibubur"
+            }
+        }
+    ],
+    "shipping_address": {
+        "address_1": "Kp. Poncol No. 23, Tlajung Udik, Gunung Putri, Bogor, Jawa Barat, Indonesia, 16962",
+        "city": "KABUPATEN BOGOR",
+        "country": "+62",
+        "name": "YANTO",
+        "phone": "+628176070372",
+        "zipcode": "16962"
+    },
+    "tenure": 6,
+    "tenure_unit": "MONTH",
+    "total_payment": 8268000,
+    "transaction_id": "79bc77b7-6ae7-11f1-b7e7-33c6f8ed963d",
+    "transaction_status": "SUCCESS",
+    "user_email": "yantoyan856@gmail.com",
+    "user_id": "7098850f-333b-449e-8c81-e5459ac9ecc4",
+    "user_name": "YANTO",
+    "user_phone": "+628176070372",
+    "usingQuickPayTransaction": false
+}
