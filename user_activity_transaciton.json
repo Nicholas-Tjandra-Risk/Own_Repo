@@ -1,57 +1,66 @@
 {
-    "$event.identity.id": "ceaf0cfc-3709-4c3b-bbcd-a3ef64399ad7",
-    "$event.ip.ipv4": "10.185.84.146",
-    "$event.source.host": "merchantworkertmf-deployment-79966db4c7-vq8bq",
-    "$event.source.name": "merchantworker",
-    "$event.source.type": "service",
-    "$event.time.client_override": "2026-06-18T07:33:26Z",
-    "$event.time.client_override.utc": 1781768006000,
-    "$event.time.client_sent": "2026-06-18T07:33:26Z",
-    "$event.time.client_sent.utc": 1781768006000,
-    "$event.time.published.utc": 1781768006612,
-    "$event.time.server_accept.utc": 1781768006612,
-    "$event.time.source": "override",
-    "$event.time.utc": 1781768006000,
-    "amount": 7799000,
-    "buyer_name": "",
-    "buyer_phone": "+628176070372",
-    "email": "yantoyan856@gmail.com",
-    "installment_amount": 1378000,
-    "is_quickpay_transaction": false,
-    "merchant_id": "db89e637-92e0-11ec-b0f1-699590f594b9",
-    "merchant_name": "ELECTRONIC CITY 46 - Cibubur",
-    "order_id": "K0LT5PEK",
-    "partner_discount_amount": 0,
-    "phone_number": "+628176070372",
-    "purchased_items": [
-        {
-            "category": "offline-store",
-            "id": "79be2569-6ae7-11f1-b7e7-8dd8b22d316d",
-            "name": "Samsung GALAXY A57 5G 8/256 GB",
-            "price": 7799000,
-            "quantity": 1,
-            "store": {
-                "id": "32fba545-993d-11ec-aacf-5d81d515ff6c",
-                "name": "ELECTRONIC CITY 46 - Cibubur"
-            }
-        }
-    ],
-    "shipping_address": {
-        "address_1": "Kp. Poncol No. 23, Tlajung Udik, Gunung Putri, Bogor, Jawa Barat, Indonesia, 16962",
-        "city": "KABUPATEN BOGOR",
-        "country": "+62",
-        "name": "YANTO",
-        "phone": "+628176070372",
-        "zipcode": "16962"
+  "$event.identity.id": "79b471ed-5bec-475b-b3a6-b75470c2aa3e",
+  "$event.ip.ipv4": "10.185.90.146",
+  "$event.source.host": "merchantworkertmf-deployment-68b79474f9-bmkqg",
+  "$event.source.name": "merchantworker",
+  "$event.source.type": "service",
+  "$event.time.client_override": "2026-06-03T11:40:39Z",
+  "$event.time.client_override.utc": 1780486839000,
+  "$event.time.client_sent": "2026-06-03T11:40:39Z",
+  "$event.time.client_sent.utc": 1780486839000,
+  "$event.time.published.utc": 1780486839205,
+  "$event.time.server_accept.utc": 1780486839205,
+  "$event.time.source": "override",
+  "$event.time.utc": 1780486839000,
+  "amount": 14248000,
+  "buyer_name": "",
+  "buyer_phone": "+6281321350595",
+  "email": "sandimaulana21mei@gmail.com",
+  "is_quickpay_transaction": false,
+  "merchant_id": "ee7f529b-62f0-11f0-84d5-2bb53ef415ac",
+  "merchant_name": "EAR 1228 - ERAFONE RUKO BANJAR",
+  "order_id": "DZFJD0S7",
+  "partner_discount_amount": 0,
+  "phone_number": "+6281321350595",
+  "purchased_items": [
+    {
+      "category": "offline-store",
+      "id": "72ab20a6-5f3c-11f1-8e89-11bcb424164c",
+      "name": "Apple IPPHONE 15 128 GB",
+      "price": 12999000,
+      "quantity": 1,
+      "store": {
+        "id": "268ccdb5-694f-11f0-8738-496568120924",
+        "name": "EAR 1228 - ERAFONE RUKO BANJAR"
+      }
     },
-    "tenure": 6,
-    "tenure_unit": "MONTH",
-    "total_payment": 8268000,
-    "transaction_id": "79bc77b7-6ae7-11f1-b7e7-33c6f8ed963d",
-    "transaction_status": "SUCCESS",
-    "user_email": "yantoyan856@gmail.com",
-    "user_id": "7098850f-333b-449e-8c81-e5459ac9ecc4",
-    "user_name": "YANTO",
-    "user_phone": "+628176070372",
-    "usingQuickPayTransaction": false
+    {
+      "category": "offline-store",
+      "id": "72abe3f7-5f3c-11f1-8e89-e7eacfbe1101",
+      "name": "Lainnya Tecprotec ",
+      "price": 1249000,
+      "quantity": 1,
+      "store": {
+        "id": "268ccdb5-694f-11f0-8738-496568120924",
+        "name": "EAR 1228 - ERAFONE RUKO BANJAR"
+      }
+    }
+  ],
+  "shipping_address": {
+    "address_1": "JL JURAGO DUSUN PALUMBUNGAN, DESA CIGUGUR, KABUPATEN PANGANDARAN, JAWA BARAT, 46392",
+    "city": "KABUPATEN PANGANDARAN",
+    "country": "+62",
+    "name": "SANDI MAULANA",
+    "phone": "+6281321350595",
+    "zipcode": "46392"
+  },
+  "tenure": 12,
+  "tenure_unit": "MONTH",
+  "transaction_id": "72a9c114-5f3c-11f1-8e89-ef3f0cd2ba28",
+  "transaction_status": "FAILURE",
+  "user_email": "sandimaulana21mei@gmail.com",
+  "user_id": "896b7931-3ba7-4354-a53c-de6853b0a5b2",
+  "user_name": "SANDI MAULANA",
+  "user_phone": "+6281321350595",
+  "usingQuickPayTransaction": false
 }
