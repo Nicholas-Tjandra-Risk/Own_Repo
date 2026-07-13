@@ -1,0 +1,18 @@
+{
+  "is_whitelisted_ath_via_limit_user": false,
+  "cashCityTier": "COVERED OFFLINE CITIES SELECTED DISTRICT",
+  "abTestCashNewApprove100": "",
+  "abTestCashExistingIncreaseAR": "",
+  "experimentPefindoScraper": "0",
+  "experimentPefindoMigrationVersion": "1",
+  "mamundaProcessName": "OFFLINE_CREDIT_LIMIT_APPLICATION_PROCESS",
+  "experimentOffline": "offline_set_b",
+  "offerExperimentCode": "pilot_set_b",
+  "abcTestCashNewStandardInferenceChallenger": "",
+  "rejectCode": ";;;;;;;;",
+  "abTestCashIncreaseARMay": "",
+  "experimentBlibli": "blibli_normal_set",
+  "is_greylisted_ath_via_limit_user": false,
+  "experimentTiket": "tiket_normal_set",
+  "experimentCode": "indodana_normal_set"
+}

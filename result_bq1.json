@@ -1,0 +1,12 @@
+{
+  "ab_test_offline": "offline_set_b",
+  "needGCTagView": false,
+  "needSalaryCheck": false,
+  "rejectCode": ";;;;;;;;",
+  "ab_test": "indodana_normal_set",
+  "needScoreTeknologiCheck": false,
+  "needGCVerifyUser": false,
+  "cash_city_tier": "TIER 2",
+  "ab_test_cash_new_approve_100": "",
+  "cash_origination": "NEW"
+}
