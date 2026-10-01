@@ -1,0 +1,57 @@
+{
+  "$event.identity.id": "d2a88704-7e8d-4ed3-ab4b-c50640950eb3",
+  "$event.ip.ipv4": "10.185.85.252",
+  "$event.source.host": "merchantworkertmf-deployment-56df6c748b-tcdtz",
+  "$event.source.name": "merchantworker",
+  "$event.source.type": "service",
+  "$event.time.client_override": "2026-09-30T09:37:54Z",
+  "$event.time.client_override.utc": 1790761074000,
+  "$event.time.client_sent": "2026-09-30T09:37:54Z",
+  "$event.time.client_sent.utc": 1790761074000,
+  "$event.time.published.utc": 1790761074085,
+  "$event.time.server_accept.utc": 1790761074085,
+  "$event.time.source": "override",
+  "$event.time.utc": 1790761074000,
+  "amount": 7799000,
+  "buyer_name": "",
+  "buyer_phone": "+6281348990101",
+  "email": "niakur358@gmail.com",
+  "installment_amount": 891000,
+  "is_quickpay_transaction": false,
+  "merchant_id": "b39ad74f-2189-11ef-91f4-037f2567d534",
+  "merchant_name": "NUANSA SUPERSTORE 02 - SUTOYO",
+  "order_id": "3P8782LX",
+  "partner_discount_amount": 0,
+  "phone_number": "+6281348990101",
+  "purchased_items": [
+    {
+      "category": "offline-store",
+      "id": "33075a3c-bc88-11f1-98a7-3b564467c3f4",
+      "name": "Samsung GALAXY A57 5G 8/256 GB",
+      "price": 7799000,
+      "quantity": 1,
+      "store": {
+        "id": "8107435e-35c9-11ef-84bd-6f8059b6ebc3",
+        "name": "NUANSA SUPERSTORE 02 - SUTOYO"
+      }
+    }
+  ],
+  "shipping_address": {
+    "address_1": "No.34 Jalan Al-Falah RT.34 - Jl. Alfalah No.34 RT.34, Kelurahan Baru Ilir, Balikpapan Barat, Kota Balikpapan, Kalimantan Timur, Indonesia, 76131",
+    "city": "KOTA BALIKPAPAN",
+    "country": "+62",
+    "name": "KURNIA",
+    "phone": "+6281348990101",
+    "zipcode": "76131"
+  },
+  "tenure": 12,
+  "tenure_unit": "MONTH",
+  "total_payment": 10692000,
+  "transaction_id": "3304e93a-bc88-11f1-98a7-01fd351613a0",
+  "transaction_status": "SUCCESS",
+  "user_email": "niakur358@gmail.com",
+  "user_id": "b463538e-5b2f-4746-95c9-1d491248599e",
+  "user_name": "KURNIA",
+  "user_phone": "+6281348990101",
+  "usingQuickPayTransaction": false
+}
